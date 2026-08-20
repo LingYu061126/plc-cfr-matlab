@@ -1,0 +1,4 @@
+# Large MATLAB raw outputs belong in an external data package.
+results/data/*.mat
+results/data/stage2_3_partial_*
+results/data/stage2_3_smoke_*
