@@ -60,6 +60,7 @@ function [distance, metrics] = topology_feature_distance(H_observed, H_reference
     metrics.D_phase_circular_rad = phase_metrics.circular_rmse_rad;
     metrics.D_phase_circular = metrics.D_phase_circular_rad / pi;
     metrics.D_complex = rms_distance(complex_obs, complex_ref);
+    metrics.D_complex_raw = rms_distance(H_observed, H_reference);
     metrics.D_amp_raw_db = rms_distance(mag_obs_db, mag_ref_db);
     metrics.D_amp_db_standardized = rms_distance(mag_obs_z, mag_ref_z);
     metrics.D_amp_standardized = rms_distance(amp_obs_z, amp_ref_z);
@@ -98,6 +99,8 @@ function [distance, metrics] = topology_feature_distance(H_observed, H_reference
             distance = metrics.D_phase_circular;
         case {'complex', 'cfr_complex'}
             distance = metrics.D_complex;
+        case {'complex_raw', 'cfr_complex_raw', 'raw_complex'}
+            distance = metrics.D_complex_raw;
         case {'cir'}
             % Compute the circular band-limited CIR only when requested.
             [cir_obs, ~] = ofdm_cfr_to_cir(H_observed, ofdm_cfg);

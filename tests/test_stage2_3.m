@@ -60,6 +60,33 @@ function test_stage2_3()
         strcmp(joint.feature,feature) && joint.predicted_index==1, ...
         'Nominal and joint matchers cannot be compared on the same feature.');
     fprintf('  PASS fair nominal/joint interface uses an identical declared feature\n');
+    raw=topology_feature_distance(2*refs{1}{1},refs{1}{1},'complex_raw',cfg.ofdm,[.5,.5]);
+    normalized=topology_feature_distance(2*refs{1}{1},refs{1}{1},'complex',cfg.ofdm,[.5,.5]);
+    assert(raw>0 && normalized<1e-12,'Raw and normalized complex CFR distances are not distinct.');
+    fields={'name','value'};empty=struct('name',{},'value',{});single=struct('name','x','value',1);
+    assert(height(stage2_3_struct_table(empty,fields))==0 && height(stage2_3_struct_table(single,fields))==1 && ...
+        height(stage2_3_struct_table([single,single],fields))==2 && height(stage2_3_struct_table([single;single],fields))==2, ...
+        'Stage-2.3 result struct conversion is not shape safe.');
+    pair_fields={'measurement_kind','topology_i','topology_j'};
+    assert(width(stage2_3_struct_table(struct([]),pair_fields))==3 && ...
+        height(stage2_3_struct_table(struct([]),pair_fields))==0, ...
+        'An empty pairwise result does not preserve its CSV header schema.');
+    total_pairs=0;kinds=cfg.stage2_3.measurement_kinds;
+    for q=1:numel(kinds),t=nominal;if ~ismember(kinds{q},{'siso_forward','dual_receiver_complete','three_view_complete'}),t.receiver_impedance_ohm=75;end;r=make_references(kinds{q},candidates,t,cfg,f);a=topology_observability_classes(r,candidates,cfg.ofdm,cfg.stage2_3.tie_tolerance);total_pairs=total_pairs+nnz(triu(ones(numel(candidates)),1));assert(numel(a.pairwise_complex_distance)==16);end
+    assert(total_pairs==42,'Seven measurement kinds must contribute 42 topology pairs.');
+    fprintf('  PASS safe result tables, raw/normalized complex distance and 42-pair audit\n');
+
+    isolated=tempname;mkdir(isolated);cleaner=onCleanup(@()rmdir(isolated,'s'));
+    fclose(fopen(fullfile(isolated,'stage2_3_formal_partial_siso_forward_b1_results.mat'),'w'));
+    fclose(fopen(fullfile(isolated,'stage2_3_smoke_partial_siso_forward_b1_results.mat'),'w'));
+    [smoke_files,smoke_expected]=stage2_3_partial_files(isolated,kinds,'smoke');
+    [formal_files,formal_expected]=stage2_3_partial_files(isolated,kinds,'formal');
+    assert(numel(smoke_files)==1 && smoke_expected==7 && numel(formal_files)==1 && formal_expected==14, ...
+        'Smoke/formal batch discovery is not mode-isolated.');
+    stage2_3_validate_partial_mode(struct('mode','smoke'),'smoke','test batch');
+    rejected=false;try,stage2_3_validate_partial_mode(struct('mode','formal'),'smoke','test batch');catch ME,rejected=strcmp(ME.identifier,'stage2_3_validate_partial_mode:ModeMismatch');end
+    assert(rejected,'A renamed formal batch was accepted by smoke-mode validation.');
+    fprintf('  PASS smoke/formal partial-file discovery is mode isolated\n');
     fprintf('ALL STAGE-2.3 TESTS PASSED\n');
 end
 

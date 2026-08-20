@@ -14,9 +14,9 @@ function run_stage2_3(run_mode)
             local_cfg.stage2_3.measurement_kinds={kind};
             local_cfg.stage2_3.formal_trials=trials_per_batch;
             local_cfg.stage2_3.trial_offset=(b-1)*trials_per_batch;
-            local_cfg.stage2_3.output_prefix=sprintf('stage2_3_partial_%s_b%d',kind,b);
+            local_cfg.stage2_3.output_prefix=sprintf('stage2_3_%s_partial_%s_b%d',run_mode,kind,b);
             exp11_stage2_3_observability(local_cfg,run_mode);
         end
     end
-    compile_stage2_3_results(cfg);
+    compile_stage2_3_results(cfg,run_mode);
 end
