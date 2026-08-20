@@ -18,7 +18,7 @@ $$D_{ij}=\sqrt{\frac1{N_v}\sum_v\operatorname{RMS}^2(\bar H_{i,v}-\bar H_{j,v})}
 
 - 汇总器按 `smoke/formal` 分离 partial 文件前缀，并校验 MAT 内的 `mode` 字段；不同模式不混读。smoke 期望 7 批，formal 期望 14 批。
 - 结构数组统一转为列向量；空数组写出预定义表头。
-- pairwise 去重键为 `measurement_kind|sorted(topology_i,topology_j)`，正式输出应为 42 行而非 7 行。
+- pairwise 去重键为 `measurement_kind|sorted(topology_i,topology_j)`，每个观测配置输出 6 个无序拓扑对，7 种配置共 42 行而非 7 行。每行同时保存归一化 `complex_distance` 和未归一化 `complex_distance_raw`。
 - 发布版不带 formal MAT；因此只能验证 smoke 汇总。保留的旧 CSV 不能代替与当前代码匹配的 formal MAT 重汇总；本次 smoke 输出以 `stage2_3_smoke_fixed_*` 另存，未覆盖历史 formal 文件。
 
 匹配器包括名义最近邻与参数网格联合匹配；公平对照固定使用相同的幅相加权特征、同一观测、噪声、候选和频点。`lambda=0.01`、0.5/0.5 权重及 243 点参数网格是预先冻结的仿真设置，不是测试集最优调参。
@@ -29,15 +29,27 @@ MATLAB R2024a 实际完成七种配置各 100 次独立 trial（分为两个 50 
 
 - 对称端点 SISO；50/75 Ω 不对称 SISO；role-fixed 与 endpoint-fixed 反向；endpoint-fixed 双向；完整网络双接收点；完整网络三视图。
 - 噪声：固定接收 SNR，30/20/10/0 dB；参数条件在 20 dB 下分别改变长度、负载、端接与联合参数（含 `kG`）。
-- 历史 formal 汇总保留为 `stage2_3_summary.csv`、`stage2_3_trials.csv`、`stage2_3_pairwise_distance.csv`、`stage2_3_confusion.csv`、`stage2_3_config.csv`。它们是修复前封存物，不作为本次 formal 重汇总结果。修复代码的实际 MATLAB smoke 汇总产物为 `stage2_3_smoke_fixed_*`，其中 pairwise CSV 为表头加 42 条记录。
+- 历史 formal 汇总保留为 `stage2_3_summary.csv`、`stage2_3_trials.csv`、`stage2_3_pairwise_distance.csv`、`stage2_3_confusion.csv`、`stage2_3_config.csv`。它们是修复前封存物，不作为本次 formal 重汇总结果。修复代码的实际 MATLAB smoke 汇总产物为 `stage2_3_smoke_fixed_*`，其中 pairwise CSV 为表头加 42 条记录，并包含 `complex_distance_raw` 列。
 
 ### 修复验证状态
 
-`results/logs/stage2_3_fixed_smoke.log` 记录了 MATLAB R2024a 对 7 个 smoke 批次的实际汇总（7420 条 trial 行、42 条 pairwise 数据）以及此前完整 1.5/2/2.1/2.2/2.3 回归通过。最后追加的“MAT 内 `mode` 一致性”保护及其测试在本次会话末尾遇到 MATLAB 启动层 `Unable to load ApplicationService for command client-v1`，未能重新启动 MATLAB；因此这一步标记为**待重跑**，不是本次声称已运行通过的测试。发布版亦没有匹配的 14 个 formal MAT，formal 修复汇总同样待原始数据包和 MATLAB 环境可用后执行。
+`results/logs/stage2_3_final_fix_tests.log` 记录了 MATLAB R2024a 的阶段 1.5、2、2.1、2.2、2.3 全部回归通过，包括 MAT 内 `mode` 隔离测试、raw/normalized 距离测试和结构体转表测试。当前代码版本的 7 个 smoke batch 随后分批实际生成并由 `results/logs/stage2_3_final_fix_compile.log` 汇总成功：7420 条 trial 行、42 条 pairwise 数据，raw 列 42/42 为有限值。一次长进程 `run_stage2_3('smoke')` 在完成前两个 batch 后被 MATLAB 进程提前终止，过程保存在 `results/logs/stage2_3_final_fix_smoke_interrupted.log`；分批运行使用相同固定配置和随机种子补齐其余 batch，最终汇总已通过完整性校验，因此不把那次长进程写成完整通过。
+
+正式汇总命令也已实际探测。由于发布版没有 14 个 formal MAT，`results/logs/stage2_3_formal_unavailable_final.log` 记录了明确的 `stage2_3_partial_files:BatchCount` 错误；没有生成或覆盖 `stage2_3_formal_fixed_*`。
 
 ### 旧 formal CSV 的可审计复算
 
 不依赖缺失 MAT 而直接从保留的 `stage2_3_trials.csv`（使用能处理 `{T3,T5}` 引号字段的 CSV 解析）过滤 `siso_forward`、`noise_only`、20 dB、`amp_phase_joint_weighted` 后，名义最近邻和 nuisance-aware joint 各有 400 条记录。名义最近邻的 `false_unique=0.0000`、`ambiguous=0.5000`；joint 的 `false_unique=0.1250`、`ambiguous=0.3750`。两者的等价类准确率均为 1，而严格准确率分别为 0.7500、0.7375。故 joint 在该旧 formal trial 中确有 12.5% 的物理等价类内“伪唯一”输出风险，不能被严格准确率掩盖，更不能解释为 T3/T5 已被唯一识别。由于正式 MAT 未随发布包提供，其他 formal 结果尚未用修复后的汇总器重新生成。
+
+归一化距离为
+
+$$D_{norm}(i,j)=\sqrt{\frac{1}{N_v}\sum_v\operatorname{RMS}(H_{i,v}/\|H_{i,v}\|_2-H_{j,v}/\|H_{j,v}\|_2)^2},$$
+
+它主要比较复数 CFR 的形状和相对响应，可能丢失绝对衰减或标定增益。raw 距离为
+
+$$D_{raw}(i,j)=\sqrt{\frac{1}{N_v}\sum_v\operatorname{RMS}(H_{i,v}-H_{j,v})^2},$$
+
+它保留绝对复数电平和相位，但也更依赖端接、耦合器增益和标定。当前等价类判定仍只使用 `D_norm`；新增 raw 列用于并行审计，不改变 T3/T5 原有等价类定义。
 
 ## 已验证结论
 

@@ -1,0 +1,4 @@
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.]
+Stream-compiled 7 sealed batches; raw rows remain in 7 batch MAT files.

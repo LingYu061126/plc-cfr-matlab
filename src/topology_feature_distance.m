@@ -6,6 +6,7 @@ function [distance, metrics] = topology_feature_distance(H_observed, H_reference
 %     D_phase_masked / D_phase_weighted / D_phase_circular amplitude-aware
 %       phase distances;
 %     D_complex   RMS distance between unit-norm complex CFR vectors;
+%     D_complex_raw RMS distance between absolute, unnormalized complex CFRs;
 %     D_cir       RMS distance between unit-norm circular CIR vectors;
 %     D_amp_raw_db retains absolute attenuation; D_amp and
 %       D_amp_db_standardized are shape-only features and discard level;

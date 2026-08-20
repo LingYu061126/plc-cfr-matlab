@@ -19,6 +19,7 @@ function audit = topology_observability_classes(reference_views, candidates, ofd
     end
     n = numel(candidates);
     pairwise = zeros(n);
+    pairwise_raw = zeros(n);
     for i = 1:n
         assert_view_bundle(reference_views{i}, 'reference_views');
         for j = i+1:n
@@ -28,12 +29,17 @@ function audit = topology_observability_classes(reference_views, candidates, ofd
                     'Every candidate must have the same view count.');
             end
             per_view = zeros(1, numel(reference_views{i}));
+            per_view_raw = zeros(1, numel(reference_views{i}));
             for v = 1:numel(per_view)
                 per_view(v) = topology_feature_distance(reference_views{i}{v}, ...
                     reference_views{j}{v}, 'complex', ofdm_cfg, [0.5,0.5]);
+                per_view_raw(v) = topology_feature_distance(reference_views{i}{v}, ...
+                    reference_views{j}{v}, 'complex_raw', ofdm_cfg, [0.5,0.5]);
             end
             pairwise(i,j) = sqrt(mean(per_view.^2));
             pairwise(j,i) = pairwise(i,j);
+            pairwise_raw(i,j) = sqrt(mean(per_view_raw.^2));
+            pairwise_raw(j,i) = pairwise_raw(i,j);
         end
     end
     adjacent = pairwise <= tie_tolerance;
@@ -50,6 +56,7 @@ function audit = topology_observability_classes(reference_views, candidates, ofd
         labels(member_index) = {label};
     end
     audit = struct('pairwise_complex_distance', pairwise, ...
+        'pairwise_complex_distance_raw', pairwise_raw, ...
         'equivalent_pair_mask', adjacent & ~eye(n), ...
         'class_index', class_index, 'class_labels', {labels}, ...
         'class_members', {members}, 'class_sizes', class_sizes, ...

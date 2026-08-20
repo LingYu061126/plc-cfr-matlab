@@ -68,20 +68,28 @@ function test_stage2_3()
         height(stage2_3_struct_table([single,single],fields))==2 && height(stage2_3_struct_table([single;single],fields))==2, ...
         'Stage-2.3 result struct conversion is not shape safe.');
     pair_fields={'measurement_kind','topology_i','topology_j'};
-    assert(width(stage2_3_struct_table(struct([]),pair_fields))==3 && ...
+    ordered=stage2_3_struct_table(single,{'value','name'});
+    assert(isequal(ordered.Properties.VariableNames,{'value','name'}) && ...
+        width(stage2_3_struct_table(struct([]),pair_fields))==3 && ...
         height(stage2_3_struct_table(struct([]),pair_fields))==0, ...
         'An empty pairwise result does not preserve its CSV header schema.');
+    missing_rejected=false;try,stage2_3_struct_table(single,{'missing_field'});catch ME,missing_rejected=strcmp(ME.identifier,'stage2_3_struct_table:MissingField');end
+    assert(missing_rejected,'Missing requested result field was not rejected.');
     total_pairs=0;kinds=cfg.stage2_3.measurement_kinds;
-    for q=1:numel(kinds),t=nominal;if ~ismember(kinds{q},{'siso_forward','dual_receiver_complete','three_view_complete'}),t.receiver_impedance_ohm=75;end;r=make_references(kinds{q},candidates,t,cfg,f);a=topology_observability_classes(r,candidates,cfg.ofdm,cfg.stage2_3.tie_tolerance);total_pairs=total_pairs+nnz(triu(ones(numel(candidates)),1));assert(numel(a.pairwise_complex_distance)==16);end
+    for q=1:numel(kinds),t=nominal;if ~ismember(kinds{q},{'siso_forward','dual_receiver_complete','three_view_complete'}),t.receiver_impedance_ohm=75;end;r=make_references(kinds{q},candidates,t,cfg,f);a=topology_observability_classes(r,candidates,cfg.ofdm,cfg.stage2_3.tie_tolerance);total_pairs=total_pairs+nnz(triu(ones(numel(candidates)),1));assert(numel(a.pairwise_complex_distance)==16 && isfield(a,'pairwise_complex_distance_raw') && all(isfinite(a.pairwise_complex_distance_raw(:))));end
     assert(total_pairs==42,'Seven measurement kinds must contribute 42 topology pairs.');
     fprintf('  PASS safe result tables, raw/normalized complex distance and 42-pair audit\n');
 
     isolated=tempname;mkdir(isolated);cleaner=onCleanup(@()rmdir(isolated,'s'));
-    fclose(fopen(fullfile(isolated,'stage2_3_formal_partial_siso_forward_b1_results.mat'),'w'));
-    fclose(fopen(fullfile(isolated,'stage2_3_smoke_partial_siso_forward_b1_results.mat'),'w'));
+    for q=1:numel(kinds)
+        kind=kinds{q};mode='smoke';sc=struct('measurement_kinds',{{kind}});config=struct('measurement_kind',kind);save(fullfile(isolated,sprintf('stage2_3_smoke_partial_%s_b1_results.mat',kind)),'mode','sc','config','-v7');
+        for b=1:2
+            mode='formal';sc=struct('measurement_kinds',{{kind}});config=struct('measurement_kind',kind);save(fullfile(isolated,sprintf('stage2_3_formal_partial_%s_b%d_results.mat',kind,b)),'mode','sc','config','-v7');
+        end
+    end
     [smoke_files,smoke_expected]=stage2_3_partial_files(isolated,kinds,'smoke');
     [formal_files,formal_expected]=stage2_3_partial_files(isolated,kinds,'formal');
-    assert(numel(smoke_files)==1 && smoke_expected==7 && numel(formal_files)==1 && formal_expected==14, ...
+    assert(numel(smoke_files)==7 && smoke_expected==7 && numel(formal_files)==14 && formal_expected==14, ...
         'Smoke/formal batch discovery is not mode-isolated.');
     stage2_3_validate_partial_mode(struct('mode','smoke'),'smoke','test batch');
     rejected=false;try,stage2_3_validate_partial_mode(struct('mode','formal'),'smoke','test batch');catch ME,rejected=strcmp(ME.identifier,'stage2_3_validate_partial_mode:ModeMismatch');end

@@ -15,12 +15,16 @@ function output=compile_stage2_3_results(cfg,run_mode)
         path=fullfile(files(k).folder,files(k).name);x=load(path,'pairwise','summary','confusion','config','elapsed','mode');
         stage2_3_validate_partial_mode(x,run_mode,path);
         % All result arrays here are small; raw records stay in sealed files.
+        if ~isfield(x,'pairwise')||~isstruct(x.pairwise)||~isfield(x.pairwise,'complex_distance_raw')
+            error('compile_stage2_3_results:PartialSchemaMismatch', ...
+                'Batch %s lacks pairwise field complex_distance_raw; regenerate it with the current Stage-2.3 code.',path);
+        end
         pairwise=[pairwise;x.pairwise(:)];config=[config;x.config(:)];confusion=[confusion;x.confusion(:)];summary=[summary;x.summary(:)]; %#ok<AGROW>
         elapsed=elapsed+x.elapsed;manifest{end+1}=path; %#ok<AGROW>
         csv_path=strrep(path,'_results.mat','_trials.csv');append_csv(fid,csv_path,wrote_header);wrote_header=true;
     end
     summary=merge_summary(summary);confusion=aggregate_confusion(confusion);[pairwise,config]=deduplicate_geometry(pairwise,config);
-    writetable(stage2_3_struct_table(pairwise,{'measurement_kind','topology_i','topology_j','complex_distance','same_equivalence_class','class_i','class_j','view_count','tie_tolerance'}),fullfile(cfg.results_data,[prefix '_pairwise_distance.csv']));writetable(stage2_3_struct_table(summary,summary_fields()),fullfile(cfg.results_data,[prefix '_summary.csv']));writetable(stage2_3_struct_table(confusion,{'measurement_kind','condition','snr_db','method','true_id','predicted_id','count'}),fullfile(cfg.results_data,[prefix '_confusion.csv']));writetable(stage2_3_struct_table(config,{'measurement_kind','source_impedance_ohm','receiver_impedance_ohm','view_count','internal_receiver_count','receiver_load_perturbs_network','structural_group_count','tie_tolerance'}),fullfile(cfg.results_data,[prefix '_config.csv']));
+    writetable(stage2_3_struct_table(pairwise,{'measurement_kind','topology_i','topology_j','complex_distance','complex_distance_raw','same_equivalence_class','class_i','class_j','view_count','tie_tolerance'}),fullfile(cfg.results_data,[prefix '_pairwise_distance.csv']));writetable(stage2_3_struct_table(summary,summary_fields()),fullfile(cfg.results_data,[prefix '_summary.csv']));writetable(stage2_3_struct_table(confusion,{'measurement_kind','condition','snr_db','method','true_id','predicted_id','count'}),fullfile(cfg.results_data,[prefix '_confusion.csv']));writetable(stage2_3_struct_table(config,{'measurement_kind','source_impedance_ohm','receiver_impedance_ohm','view_count','internal_receiver_count','receiver_load_perturbs_network','structural_group_count','tie_tolerance'}),fullfile(cfg.results_data,[prefix '_config.csv']));
     save(fullfile(cfg.results_data,[prefix '_results.mat']),'pairwise','summary','confusion','config','manifest','elapsed','run_mode','-v7');
     make_figures(cfg,pairwise,summary,config,prefix);output=struct('summary',summary,'pairwise',pairwise,'confusion',confusion,'manifest',{manifest},'elapsed_s',elapsed);
     fprintf('Stream-compiled %d sealed batches; raw rows remain in %d batch MAT files.\n',numel(files),numel(manifest));
