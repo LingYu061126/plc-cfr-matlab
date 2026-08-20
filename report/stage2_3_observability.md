@@ -37,6 +37,10 @@ MATLAB R2024a 实际完成七种配置各 100 次独立 trial（分为两个 50 
 
 正式汇总已实际完成。`results/logs/stage2_3_formal_upgrade.log` 记录 14 个旧 formal MAT 均补算 6 条 raw pairwise；`results/logs/stage2_3_formal_fixed_compile.log` 记录汇总器成功处理 14 个 sealed batches，得到 371 条 summary、42 条 pairwise、1456 条 confusion 聚合记录和 148400 条 trial 数据。formal fixed 的 trial CSV 在本机生成，但约 44 MB，按发布策略未提交；其余轻量 CSV、图和日志已提交。`stage2_3_formal_unavailable_final.log` 保留的是在适配前对公开仓库直接 formal 汇总的诚实失败记录，不代表本次 formal fixed 失败。
 
+本次最终审计又在当前代码上实际运行了 `run_stage2_3('smoke')`。第一次直接进程中止，未计为通过；随后 `results/logs/goal_stage2_3_smoke_retry.log` 记录了可轮询终端中的完整成功运行：MATLAB 退出码 0，7 个 sealed batch 全部生成并完成流式汇总。当前 smoke fixed CSV 为表头加 42/371/1456/7 条 pairwise/summary/confusion/config 数据，trial 为 7420 条。完整测试日志为 `results/logs/goal_stage2_3_tests.log`；其余检查点命令、实际输出和未解决问题见 `results/logs/goal_stage2_3_progress.md`。
+
+本次审计没有从头重跑 formal；formal fixed 的 trial、summary 和 confusion 仍来自旧 formal MAT，raw pairwise 是当前模型补算的适配字段。由于公开仓库不含旧 formal MAT，克隆者可以验证轻量 CSV 的结构和报告，但不能独立重建这组 formal fixed 统计。
+
 ### 旧 formal CSV 的可审计复算
 
 直接从保留的旧 `stage2_3_trials.csv`（使用能处理 `{T3,T5}` 引号字段的 CSV 解析）过滤 `siso_forward`、`noise_only`、20 dB、`amp_phase_joint_weighted` 后，名义最近邻和 nuisance-aware joint 各有 400 条记录。名义最近邻的 `false_unique=0.0000`、`ambiguous=0.5000`；joint 的 `false_unique=0.1250`、`ambiguous=0.3750`。两者的等价类准确率均为 1，而严格准确率分别为 0.7500、0.7375。故 joint 在该旧 formal trial 中确有 12.5% 的物理等价类内“伪唯一”输出风险，不能被严格准确率掩盖，更不能解释为 T3/T5 已被唯一识别。新的 `stage2_3_formal_fixed_*` 保留了这些 trial/summary/confusion 统计，并额外纳入了当前模型补算的 raw pairwise 列。
@@ -64,6 +68,7 @@ $$D_{raw}(i,j)=\sqrt{\frac{1}{N_v}\sum_v\operatorname{RMS}(H_{i,v}-H_{j,v})^2},$
 - 单纯改分类算法不能使完全相等的对称 SISO CFR 产生新信息；瓶颈首先是观测对称性而非导频稀疏。
 - 不对称端接是“无额外接收节点”的最小信息改变，但其是否可部署取决于真实耦合器/端接硬件；不能泛化为所有现场端接。
 - 当前没有多导体/MIMO、耦合器寄生、CP、同步/CFO、现场有色/脉冲噪声或真实负载标定。因此不建议进入 OFDM 波形优化；应优先确认可用内部节点与端接模型。
+- 模型边界再次明确为 2–30 MHz 的全导频频域等效模型 `Y=XH+N`；当前没有完整 OFDM 收发机、循环前缀和时域同步，也没有现场有色/脉冲噪声、CFO、MIMO/耦合器模型或真实市电实验。通信信道估计误差较小不等同于拓扑唯一识别能力。
 
 ## 待验证问题
 

@@ -4,6 +4,8 @@
 
 阶段 2.3 增加配置相关的拓扑等价类评价、七种完整网络观测配置和 100 次统计公平比较。详细结果见 `report/stage2_3_observability.md`。`run_stage2_3('smoke')` 只读取/生成 `stage2_3_smoke_partial_*` 批次并写出 `stage2_3_smoke_fixed_*` 结果；`run_stage2_3('formal')` 只接受 14 个 `stage2_3_formal_partial_*` 批次，绝不混用旧 smoke、formal 或未标记数据。发布版不含大型 formal MAT，因此克隆后直接重汇总仍会明确报“缺少批次”；本仓库已附带使用本机 formal MAT 生成的 `stage2_3_formal_fixed_*` CSV 和图。修复后的 pairwise 输出同时包含归一化 `complex_distance` 和绝对未归一化 `complex_distance_raw`。
 
+最终审计已在 MATLAB R2024a 实际完成：阶段 1.5、2、2.1、2.2、2.3 测试全部通过；`run_stage2_3('smoke')` 的完整重试生成 7 个 sealed batch，并汇总为 42 条 pairwise、371 条 summary、1456 条 confusion 聚合记录。formal fixed 不是本次从头重跑，而是由本机旧 formal MAT 保留 trial/summary/confusion，并用当前模型补算 raw pairwise；公开仓库不含这些大型 MAT。归一化复数距离只支持 CFR 形状/相对响应等价，`complex_distance_raw` 才是不归一化的绝对 CFR 差异。
+
 ## MATLAB 运行
 
 主环境为 MATLAB R2024a，项目代码只依赖基础 MATLAB，不需要额外工具箱。将当前目录切换到本目录后运行：
