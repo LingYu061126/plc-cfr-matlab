@@ -2,7 +2,7 @@
 
 本目录包含低压电力线载波（PLC）信道频率响应（CFR）的稳定正向模型，以及阶段 2/2.1/2.2 的 OFDM 等效导频信道估计和可解释拓扑识别基线。阶段 2.2 在不改动阶段 1.5 稳定传输线模型的前提下，新增完整树网络节点导纳求解、物理标注的多视图观测和离散拓扑/参数联合匹配。项目仍不包含完整 PLC 收发机、波形优化、机器学习或接地故障定位。
 
-阶段 2.3 增加配置相关的拓扑等价类评价、七种完整网络观测配置和 100 次统计公平比较。详细结果见 `report/stage2_3_observability.md`。`run_stage2_3('smoke')` 只读取/生成 `stage2_3_smoke_partial_*` 批次并写出 `stage2_3_smoke_fixed_*` 结果；`run_stage2_3('formal')` 只接受 14 个 `stage2_3_formal_partial_*` 批次，绝不混用旧 smoke、formal 或未标记数据。发布版不含这些大型 MAT，因此 formal 会明确报“缺少批次”，而非把旧 CSV 当作新结果。修复后的 pairwise 输出同时包含归一化 `complex_distance` 和绝对未归一化 `complex_distance_raw`。
+阶段 2.3 增加配置相关的拓扑等价类评价、七种完整网络观测配置和 100 次统计公平比较。详细结果见 `report/stage2_3_observability.md`。`run_stage2_3('smoke')` 只读取/生成 `stage2_3_smoke_partial_*` 批次并写出 `stage2_3_smoke_fixed_*` 结果；`run_stage2_3('formal')` 只接受 14 个 `stage2_3_formal_partial_*` 批次，绝不混用旧 smoke、formal 或未标记数据。发布版不含大型 formal MAT，因此克隆后直接重汇总仍会明确报“缺少批次”；本仓库已附带使用本机 formal MAT 生成的 `stage2_3_formal_fixed_*` CSV 和图。修复后的 pairwise 输出同时包含归一化 `complex_distance` 和绝对未归一化 `complex_distance_raw`。
 
 ## MATLAB 运行
 
@@ -37,7 +37,7 @@ addpath('src','config','experiments')
 compile_stage2_3_results(default_config(pwd),'formal')
 ```
 
-后一个命令需要同版本的 14 个 `stage2_3_formal_partial_*_results.mat` 和相应 trial CSV；发布包不附带它们。`topology_feature_distance(...,'complex')` 是单位范数归一化后的复数 CFR 形状距离；`'complex_raw'` 是未归一化绝对复数 CFR 距离。二者不可混称为“绝对标定 CFR 等价”。
+后一个命令需要同版本的 14 个 `stage2_3_formal_partial_*_results.mat` 和相应 trial CSV；发布包不附带它们。当前仓库的 `stage2_3_formal_fixed_*` 是基于本机旧 formal MAT、经过 `stage2_3_upgrade_legacy_pairwise` 补算 raw pairwise 后的正式汇总，不是克隆者重新加载 MAT 得到的结果。`topology_feature_distance(...,'complex')` 是单位范数归一化后的复数 CFR 形状距离；`'complex_raw'` 是未归一化绝对复数 CFR 距离。二者不可混称为“绝对标定 CFR 等价”。
 
 阶段 2 运行入口仍然是：
 

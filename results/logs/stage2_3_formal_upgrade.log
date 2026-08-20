@@ -1,0 +1,15 @@
+LEGACY_FORMAL_COUNT=14
+bidirectional_endpoint_fixed raw_pairwise=6
+bidirectional_endpoint_fixed raw_pairwise=6
+dual_receiver_complete raw_pairwise=6
+dual_receiver_complete raw_pairwise=6
+siso_forward_asymmetric raw_pairwise=6
+siso_forward_asymmetric raw_pairwise=6
+siso_forward raw_pairwise=6
+siso_forward raw_pairwise=6
+siso_reverse_endpoint_fixed raw_pairwise=6
+siso_reverse_endpoint_fixed raw_pairwise=6
+siso_reverse_role_fixed raw_pairwise=6
+siso_reverse_role_fixed raw_pairwise=6
+three_view_complete raw_pairwise=6
+three_view_complete raw_pairwise=6

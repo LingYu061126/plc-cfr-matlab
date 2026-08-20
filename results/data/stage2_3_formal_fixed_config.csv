@@ -1,0 +1,8 @@
+measurement_kind,source_impedance_ohm,receiver_impedance_ohm,view_count,internal_receiver_count,receiver_load_perturbs_network,structural_group_count,tie_tolerance
+bidirectional_endpoint_fixed,50,75,2,0,0,0,1e-10
+dual_receiver_complete,50,50,2,1,1,0,1e-10
+siso_forward_asymmetric,50,75,1,0,0,0,1e-10
+siso_forward,50,50,1,0,0,1,1e-10
+siso_reverse_endpoint_fixed,50,75,1,0,0,0,1e-10
+siso_reverse_role_fixed,50,75,1,0,0,0,1e-10
+three_view_complete,50,50,3,1,1,0,1e-10

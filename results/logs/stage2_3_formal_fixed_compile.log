@@ -1,0 +1,5 @@
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.]
+Stream-compiled 14 sealed batches; raw rows remain in 14 batch MAT files.
+FORMAL_SUMMARY_ROWS=371 FORMAL_PAIRWISE_ROWS=42 FORMAL_CONFUSION_ROWS=1456
