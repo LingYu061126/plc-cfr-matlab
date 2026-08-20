@@ -1,0 +1,15 @@
+parameter,value
+matlab_model,frequency_domain_equivalent_Y=XH+N
+nfft,4096
+Fs_hz,64000000
+subcarrier_spacing_hz,15625
+frequency_low_hz,2000000
+frequency_high_hz,30000000
+pilot_count,1793
+trials_per_snr_topology,50
+mask_threshold_db,-40
+reference_topology_index,1
+reference_signal_power,0.14390344139747618
+Zs_ohm,50
+Zr_ohm,50
+kG,1

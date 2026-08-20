@@ -1,0 +1,8 @@
+scenario,view_count,Zs_ohm,Zr_ohm,strict_accuracy,unique_strict_accuracy,group_accuracy,numeric_tie_rate,t3_t5_distance,network_truncated,result_class
+siso_forward,1,50,50,1,0.5,1,0.5,1.0331034378113802e-17,0,ideal_noiseless_model
+siso_forward_asymmetric,1,50,75,1,1,1,0,0.0010655124493026186,0,ideal_noiseless_model
+siso_reverse_role_fixed,1,50,75,1,1,1,0,0.0010655124493026186,0,ideal_noiseless_model
+siso_reverse_endpoint_fixed,1,50,75,1,1,1,0,0.0010655124493026186,0,ideal_noiseless_model
+bidirectional_endpoint_fixed,2,50,75,1,1,1,0,0.0010655124493026186,0,ideal_noiseless_model
+dual_receiver_complete,2,50,50,1,1,1,0,0.011040807804453094,0,ideal_noiseless_model
+three_view_complete,3,50,50,1,1,1,0,0.0090147818230161044,0,ideal_noiseless_model

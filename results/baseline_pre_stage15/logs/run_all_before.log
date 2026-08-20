@@ -1,0 +1,25 @@
+BASELINE_RUN_ALL_START
+PLC CFR project root: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr
+Frequency grid: 2e+06--3e+07 Hz, 2048 points
+Running MATLAB/Octave PLC CFR tests...
+  PASS RLGC values at 10 MHz
+  PASS nominal sqrt(L/C) checks
+  PASS uniform-line determinant AD-BC=1 (max 4.44e-16)
+  PASS split-line cascade equivalence
+  PASS no-branch network equals one uniform line
+  PASS open/short/finite/zero-length branch cases
+  PASS matched lossless normalization and H_port=2*H_V
+  PASS single-branch finite result
+ALL TESTS PASSED
+EXP01 参数自检 / parameter sanity
+  cable 0 sqrt(L/C)=268.32815730 ohm (nominal 270.00)
+  cable 1 sqrt(L/C)=234.21601751 ohm (nominal 234.00)
+  10 MHz, kG=5: cable 0 R=0.37947332 ohm/m, G=9.7075213e-05 S/m
+  10 MHz, kG=5: cable 1 R=0.29535673 ohm/m, G=0.00010901327 S/m
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+All tests and experiments completed.
+Figures: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr/results/figures
+Data: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr/results/data
+BASELINE_RUN_ALL_END

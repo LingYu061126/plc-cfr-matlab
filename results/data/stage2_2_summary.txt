@@ -1,0 +1,31 @@
+阶段2.2物理多视图与拓扑/参数联合反演摘要
+模型：完整树分布参数节点导纳 + 频域等效导频Y=XH+N；不是完整OFDM收发机。
+候选=T2 T3 T4 T5 
+NFFT=4096 Fs=64000000 pilots=1793 grid=243 elapsed_s=114.87672600000001
+IDEAL siso_forward views=1 apparentStrict=1 uniqueStrict=0.5 legacyGroup=1 tie=0.5 T3T5dist=1.0331034378113802e-17 truncated=0
+IDEAL siso_forward_asymmetric views=1 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.0010655124493026186 truncated=0
+IDEAL siso_reverse_role_fixed views=1 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.0010655124493026186 truncated=0
+IDEAL siso_reverse_endpoint_fixed views=1 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.0010655124493026186 truncated=0
+IDEAL bidirectional_endpoint_fixed views=2 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.0010655124493026186 truncated=0
+IDEAL dual_receiver_complete views=2 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.011040807804453094 truncated=0
+IDEAL three_view_complete views=3 apparentStrict=1 uniqueStrict=1 legacyGroup=1 tie=0 T3T5dist=0.0090147818230161044 truncated=0
+noise_only fixed_received_snr siso_forward SNR=30 joint strict=0.75 CI=[0.67051150364592638,0.82948849635407362] group=1 lengthRMSE=0 loadRelRMSE=0
+noise_only fixed_received_snr siso_forward SNR=20 joint strict=0.73750000000000004 CI=[0.65432145076624881,0.82067854923375128] group=1 lengthRMSE=0 loadRelRMSE=0.067082039324993681
+noise_only fixed_received_snr siso_forward SNR=10 joint strict=0.76249999999999996 CI=[0.67932145076624872,0.84567854923375119] group=1 lengthRMSE=0.037500000000000033 loadRelRMSE=0.10488088481701513
+noise_only fixed_received_snr siso_forward SNR=0 joint strict=0.61250000000000004 CI=[0.51530926240796293,0.70969073759203716] group=0.86250000000000004 lengthRMSE=0.31358146203711323 loadRelRMSE=0.12649110640673517
+noise_only fixed_noise_power siso_forward SNR=30 joint strict=0.78749999999999998 CI=[0.69161828833620587,0.88338171166379409] group=1 lengthRMSE=0 loadRelRMSE=0
+noise_only fixed_noise_power siso_forward SNR=20 joint strict=0.73750000000000004 CI=[0.66230035344427973,0.81269964655572036] group=1 lengthRMSE=0 loadRelRMSE=0.059160797830996148
+noise_only fixed_noise_power siso_forward SNR=10 joint strict=0.76249999999999996 CI=[0.67204362784658067,0.85295637215341924] group=1 lengthRMSE=0 loadRelRMSE=0.10954451150103321
+noise_only fixed_noise_power siso_forward SNR=0 joint strict=0.65000000000000002 CI=[0.56739313141849457,0.73260686858150548] group=0.8125 lengthRMSE=0.25607209271349113 loadRelRMSE=0.12247448713915889
+noise_only fixed_received_snr three_view_complete SNR=30 joint strict=1 CI=[1,1] group=1 lengthRMSE=0 loadRelRMSE=0.022360679774997894
+noise_only fixed_received_snr three_view_complete SNR=20 joint strict=1 CI=[1,1] group=1 lengthRMSE=0 loadRelRMSE=0.12041594578792293
+noise_only fixed_received_snr three_view_complete SNR=10 joint strict=0.9375 CI=[0.87722486329121141,0.99777513670878859] group=0.9375 lengthRMSE=0.26349019589603984 loadRelRMSE=0.14317821063276351
+noise_only fixed_received_snr three_view_complete SNR=0 joint strict=0.61250000000000004 CI=[0.49744743764147126,0.72755256235852883] group=0.67500000000000004 lengthRMSE=0.5259911279353171 loadRelRMSE=0.11180339887498945
+noise_only fixed_noise_power three_view_complete SNR=30 joint strict=1 CI=[1,1] group=1 lengthRMSE=0 loadRelRMSE=0.059160797830996148
+noise_only fixed_noise_power three_view_complete SNR=20 joint strict=1 CI=[1,1] group=1 lengthRMSE=0.048412291827592747 loadRelRMSE=0.13964240043768941
+noise_only fixed_noise_power three_view_complete SNR=10 joint strict=0.94999999999999996 CI=[0.89268003011717101,1] group=0.94999999999999996 lengthRMSE=0.23562859192664506 loadRelRMSE=0.14317821063276351
+noise_only fixed_noise_power three_view_complete SNR=0 joint strict=0.71250000000000002 CI=[0.62345159506733072,0.80154840493266932] group=0.75 lengthRMSE=0.47302219821061298 loadRelRMSE=0.10246950765959596
+joint_parameter_uncertainty fixed_received_snr siso_forward SNR=20 joint strict=0.72499999999999998 CI=[0.6386533912530129,0.81134660874698705] group=0.90000000000000002 lengthRMSE=0.33388643288063036 loadRelRMSE=0.15999631922799407
+joint_parameter_uncertainty fixed_noise_power siso_forward SNR=20 joint strict=0.65000000000000002 CI=[0.56006903232273986,0.73993096767726019] group=0.84999999999999998 lengthRMSE=0.31474545169812107 loadRelRMSE=0.2002532279436991
+joint_parameter_uncertainty fixed_received_snr three_view_complete SNR=20 joint strict=0.875 CI=[0.80849515253124693,0.94150484746875307] group=0.875 lengthRMSE=0.34137520782794772 loadRelRMSE=0.19034036482284078
+joint_parameter_uncertainty fixed_noise_power three_view_complete SNR=20 joint strict=0.91249999999999998 CI=[0.85888207781956327,0.96611792218043668] group=0.91249999999999998 lengthRMSE=0.33988937862166357 loadRelRMSE=0.2048022430123243

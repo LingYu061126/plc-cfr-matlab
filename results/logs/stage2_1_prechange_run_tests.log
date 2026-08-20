@@ -1,0 +1,9 @@
+Running MATLAB PLC CFR stage-1.5 tests...
+{Unrecognized function or variable 'default_config'.
+
+Error in run_tests (line 6)
+    cfg = default_config(root_dir);
+
+Error in run (line 112)
+evalin('caller', strcat(scriptStem, ';'));
+} 

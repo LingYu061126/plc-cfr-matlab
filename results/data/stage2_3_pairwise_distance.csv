@@ -1,0 +1,8 @@
+measurement_kind,topology_i,topology_j,complex_distance,same_equivalence_class,class_i,class_j,view_count,tie_tolerance
+bidirectional_endpoint_fixed,T2,T3,0.00907659652683311,0,{T2},"{T3}",2,1e-10
+dual_receiver_complete,T2,T3,0.00949938330115452,0,{T2},"{T3}",2,1e-10
+siso_forward_asymmetric,T2,T3,0.00907659652683312,0,{T2},"{T3}",1,1e-10
+siso_forward,T2,T3,0.00991387788137379,0,{T2},"{T3,T5}",1,1e-10
+siso_reverse_endpoint_fixed,T2,T3,0.00907659652683311,0,{T2},"{T3}",1,1e-10
+siso_reverse_role_fixed,T2,T3,0.00903418435403456,0,{T2},"{T3}",1,1e-10
+three_view_complete,T2,T3,0.00963952870305908,0,{T2},"{T3}",3,1e-10

@@ -1,0 +1,14 @@
+feature,weight_amplitude,weight_phase,phase_threshold_db,snr_db,noise_mode,sample_count,strict_accuracy,group_accuracy,result_class
+amplitude,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+amplitude_raw_db,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+amplitude_db_standardized,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+phase_weighted,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+complex,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+phase_masked,0.5,0.5,-20,20,fixed_received_snr,40,0.97499999999999998,0.97499999999999998,noisy_equivalent_pilot_measurement
+phase_masked,0.5,0.5,-30,20,fixed_received_snr,40,0.82499999999999996,0.82499999999999996,noisy_equivalent_pilot_measurement
+phase_masked,0.5,0.5,-40,20,fixed_received_snr,40,0.90000000000000002,0.90000000000000002,noisy_equivalent_pilot_measurement
+phase_masked,0.5,0.5,-50,20,fixed_received_snr,40,0.90000000000000002,0.90000000000000002,noisy_equivalent_pilot_measurement
+phase_masked,0.5,0.5,-60,20,fixed_received_snr,40,0.90000000000000002,0.90000000000000002,noisy_equivalent_pilot_measurement
+amp_phase_joint_weighted,0.20000000000000001,0.80000000000000004,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+amp_phase_joint_weighted,0.5,0.5,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement
+amp_phase_joint_weighted,0.80000000000000004,0.20000000000000001,-40,20,fixed_received_snr,40,1,1,noisy_equivalent_pilot_measurement

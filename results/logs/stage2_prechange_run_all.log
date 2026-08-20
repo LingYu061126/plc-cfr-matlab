@@ -1,0 +1,42 @@
+MATLAB_VERSION=24.1.0.2537033 (R2024a)
+RELEASE=2024a
+RUN_ALL_PRECHANGE_START
+PLC CFR project root: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr
+Frequency grid: 2e+06--3e+07 Hz, 2048 points
+Running MATLAB PLC CFR stage-1.5 tests...
+  PASS RLGC values at 10 MHz
+  PASS strictly-positive finite frequency validation
+  PASS nominal sqrt(L/C) checks
+  PASS uniform-line determinant AD-BC=1 (max 4.44e-16)
+  PASS split-line ABCD cascade equivalence
+  PASS no-branch network equals one uniform line
+  PASS scalar real/complex, vector, open and short branch loads
+  PASS Cañete parallel-RLC frequency-selective network load
+  PASS source-port normalization applicability constraints
+  PASS scalar and equal frequency-vector network loads agree
+  PASS stable recursion matches short-line ABCD complex CFR
+  PASS stable long matched-line analytic limit
+  PASS stable long-line segmentation invariance
+  Long-line legacy ABCD determinant audit:
+    L= 300 m kG=1 max=6.35529e-14 median=1.77636e-15 worst=29.247680 MHz legacyReliable=1 CFRrel=1.2333e-15
+    L= 500 m kG=1 max=2.9118e-12 median=7.16072e-15 worst=29.234001 MHz legacyReliable=1 CFRrel=9.59981e-16
+    L= 800 m kG=1 max=4.69285e-10 median=1.13687e-13 worst=29.343429 MHz legacyReliable=1 CFRrel=1.15587e-15
+    L=1200 m kG=1 max=5.3312e-07 median=2.72848e-12 worst=29.316072 MHz legacyReliable=1 CFRrel=1.23259e-15
+    L= 300 m kG=5 max=7.84996e-06 median=8.13477e-12 worst=29.986321 MHz legacyReliable=0 CFRrel=1.2947e-15
+    L= 500 m kG=5 max=64.6297 median=1.49012e-08 worst=29.835857 MHz legacyReliable=0 CFRrel=1.13731e-15
+    L= 800 m kG=5 max=1.55494e+12 median=0.0649521 worst=29.835857 MHz legacyReliable=0 CFRrel=1.22349e-15
+    L=1200 m kG=5 max=1.54743e+26 median=9699.29 worst=29.931607 MHz legacyReliable=0 CFRrel=1.10848e-15
+  PASS long-line determinant diagnostics and stable physical checks
+ALL STAGE-1.5 TESTS PASSED
+EXP01 参数自检 / parameter sanity
+  cable 0 sqrt(L/C)=268.32815730 ohm (nominal 270.00)
+  cable 1 sqrt(L/C)=234.21601751 ohm (nominal 234.00)
+  10 MHz, kG=5: cable 0 R=0.37947332 ohm/m, G=9.7075213e-05 S/m
+  10 MHz, kG=5: cable 1 R=0.29535673 ohm/m, G=0.00010901327 S/m
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+All tests and experiments completed.
+Figures: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr/results/figures
+Data: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr/results/data
+RUN_ALL_PRECHANGE_END

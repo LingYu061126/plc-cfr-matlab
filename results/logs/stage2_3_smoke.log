@@ -1,0 +1,19 @@
+EXP11 prepared siso_forward: views=1 templates=972 classes=3
+EXP11 prepared siso_forward_asymmetric: views=1 templates=972 classes=4
+EXP11 prepared siso_reverse_role_fixed: views=1 templates=972 classes=4
+EXP11 prepared siso_reverse_endpoint_fixed: views=1 templates=972 classes=4
+EXP11 prepared bidirectional_endpoint_fixed: views=2 templates=972 classes=4
+EXP11 prepared dual_receiver_complete: views=2 templates=972 classes=4
+EXP11 prepared three_view_complete: views=3 templates=972 classes=4
+{Error using struct2table (line 61)
+Input structure must be a scalar structure, or a structure array with one
+column or one row.
+
+Error in exp11_stage2_3_observability>write_outputs (line 225)
+    writetable(struct2table(pairwise),fullfile(cfg.results_data,'stage2_3_pairwise_distance.csv'));writetable(struct2table(summary),fullfile(cfg.results_data,'stage2_3_summary.csv'));writetable(struct2table(confusion),fullfile(cfg.results_data,'stage2_3_confusion.csv'));writetable(struct2table(config),fullfile(cfg.results_data,'stage2_3_config.csv'));writetable(struct2table(records),fullfile(cfg.results_data,'stage2_3_trials.csv'));
+
+Error in exp11_stage2_3_observability (line 86)
+    write_outputs(cfg,sc,pairwise,summary,confusion,config_rows,records, ...
+} 
+EXP11 prepared siso_forward: views=1 templates=972 classes=3
+EXP11 stage 2.3 smoke completed in 10.018 s; evaluation rows=1060.

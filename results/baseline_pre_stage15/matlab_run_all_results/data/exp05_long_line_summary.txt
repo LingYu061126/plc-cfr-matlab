@@ -1,0 +1,10 @@
+实验五：文献参数外推复现；主线 300/500/800/1200 m，支路 50 m，kG=1/5。
+Cañete 校准线段典型范围为 0.5--50 m，故本文件不宣称原始论文已验证这些长线。
+L=300m kG=1 finite_H=1 finite_ABCD=1 max_abs_ABCD=4064.0016 min_abs_denominator=230.36804
+L=500m kG=1 finite_H=1 finite_ABCD=1 max_abs_ABCD=22153.735 min_abs_denominator=268.33172
+L=800m kG=1 finite_H=1 finite_ABCD=1 max_abs_ABCD=319345.1 min_abs_denominator=516.28521
+L=1200m kG=1 finite_H=1 finite_ABCD=1 max_abs_ABCD=11058845 min_abs_denominator=712.83556
+L=300m kG=5 finite_H=1 finite_ABCD=1 max_abs_ABCD=36762891 min_abs_denominator=841.41789
+L=500m kG=5 finite_H=1 finite_ABCD=1 max_abs_ABCD=1.151349e+11 min_abs_denominator=1133.0009
+L=800m kG=5 finite_H=1 finite_ABCD=1 max_abs_ABCD=2.0179174e+16 min_abs_denominator=3323.7599
+L=1200m kG=5 finite_H=1 finite_ABCD=1 max_abs_ABCD=1.9792405e+23 min_abs_denominator=10416.977

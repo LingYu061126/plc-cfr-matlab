@@ -1,0 +1,12 @@
+BASELINE_TESTS_START
+Running MATLAB/Octave PLC CFR tests...
+  PASS RLGC values at 10 MHz
+  PASS nominal sqrt(L/C) checks
+  PASS uniform-line determinant AD-BC=1 (max 4.44e-16)
+  PASS split-line cascade equivalence
+  PASS no-branch network equals one uniform line
+  PASS open/short/finite/zero-length branch cases
+  PASS matched lossless normalization and H_port=2*H_V
+  PASS single-branch finite result
+ALL TESTS PASSED
+BASELINE_TESTS_END

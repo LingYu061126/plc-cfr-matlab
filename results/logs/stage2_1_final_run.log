@@ -1,0 +1,92 @@
+EXP09 stage 2.1 audit: 6 topology candidates, 1793 pilots, 50 trials/SNR/topology
+  Structural observability groups: T1 T2 T3_T5_mirror_equivalent T4 T6 
+  uncertainty scenario main_length_-1percent: 9 feature rows (stored=9)
+  uncertainty scenario main_length_+1percent: 9 feature rows (stored=18)
+  uncertainty scenario main_length_-2percent: 9 feature rows (stored=27)
+  uncertainty scenario main_length_+2percent: 9 feature rows (stored=36)
+  uncertainty scenario main_length_-5percent: 9 feature rows (stored=45)
+  uncertainty scenario main_length_+5percent: 9 feature rows (stored=54)
+  uncertainty scenario branch_length_-1percent: 9 feature rows (stored=63)
+  uncertainty scenario branch_length_+1percent: 9 feature rows (stored=72)
+  uncertainty scenario branch_length_-2percent: 9 feature rows (stored=81)
+  uncertainty scenario branch_length_+2percent: 9 feature rows (stored=90)
+  uncertainty scenario branch_length_-5percent: 9 feature rows (stored=99)
+  uncertainty scenario branch_length_+5percent: 9 feature rows (stored=108)
+  uncertainty scenario all_line_length_-1percent: 9 feature rows (stored=117)
+  uncertainty scenario all_line_length_+1percent: 9 feature rows (stored=126)
+  uncertainty scenario all_line_length_-2percent: 9 feature rows (stored=135)
+  uncertainty scenario all_line_length_+2percent: 9 feature rows (stored=144)
+  uncertainty scenario all_line_length_-5percent: 9 feature rows (stored=153)
+  uncertainty scenario all_line_length_+5percent: 9 feature rows (stored=162)
+  uncertainty scenario branch_load_-10percent: 9 feature rows (stored=171)
+  uncertainty scenario branch_load_+10percent: 9 feature rows (stored=180)
+  uncertainty scenario branch_load_-20percent: 9 feature rows (stored=189)
+  uncertainty scenario branch_load_+20percent: 9 feature rows (stored=198)
+  uncertainty scenario branch_load_parallel_RLC: 9 feature rows (stored=207)
+  uncertainty scenario joint_random_001: 9 feature rows (stored=216)
+  uncertainty scenario joint_random_002: 9 feature rows (stored=225)
+  uncertainty scenario joint_random_003: 9 feature rows (stored=234)
+  uncertainty scenario joint_random_004: 9 feature rows (stored=243)
+  uncertainty scenario joint_random_005: 9 feature rows (stored=252)
+  uncertainty scenario joint_random_006: 9 feature rows (stored=261)
+  uncertainty scenario joint_random_007: 9 feature rows (stored=270)
+  uncertainty scenario joint_random_008: 9 feature rows (stored=279)
+  uncertainty scenario joint_random_009: 9 feature rows (stored=288)
+  uncertainty scenario joint_random_010: 9 feature rows (stored=297)
+  uncertainty scenario joint_random_011: 9 feature rows (stored=306)
+  uncertainty scenario joint_random_012: 9 feature rows (stored=315)
+  uncertainty scenario joint_random_013: 9 feature rows (stored=324)
+  uncertainty scenario joint_random_014: 9 feature rows (stored=333)
+  uncertainty scenario joint_random_015: 9 feature rows (stored=342)
+  uncertainty scenario joint_random_016: 9 feature rows (stored=351)
+  uncertainty scenario joint_random_017: 9 feature rows (stored=360)
+  uncertainty scenario joint_random_018: 9 feature rows (stored=369)
+  uncertainty scenario joint_random_019: 9 feature rows (stored=378)
+  uncertainty scenario joint_random_020: 9 feature rows (stored=387)
+  uncertainty scenario joint_random_021: 9 feature rows (stored=396)
+  uncertainty scenario joint_random_022: 9 feature rows (stored=405)
+  uncertainty scenario joint_random_023: 9 feature rows (stored=414)
+  uncertainty scenario joint_random_024: 9 feature rows (stored=423)
+  uncertainty scenario joint_random_025: 9 feature rows (stored=432)
+  uncertainty scenario joint_random_026: 9 feature rows (stored=441)
+  uncertainty scenario joint_random_027: 9 feature rows (stored=450)
+  uncertainty scenario joint_random_028: 9 feature rows (stored=459)
+  uncertainty scenario joint_random_029: 9 feature rows (stored=468)
+  uncertainty scenario joint_random_030: 9 feature rows (stored=477)
+  uncertainty scenario joint_random_031: 9 feature rows (stored=486)
+  uncertainty scenario joint_random_032: 9 feature rows (stored=495)
+  uncertainty scenario joint_random_033: 9 feature rows (stored=504)
+  uncertainty scenario joint_random_034: 9 feature rows (stored=513)
+  uncertainty scenario joint_random_035: 9 feature rows (stored=522)
+  uncertainty scenario joint_random_036: 9 feature rows (stored=531)
+  uncertainty scenario joint_random_037: 9 feature rows (stored=540)
+  uncertainty scenario joint_random_038: 9 feature rows (stored=549)
+  uncertainty scenario joint_random_039: 9 feature rows (stored=558)
+  uncertainty scenario joint_random_040: 9 feature rows (stored=567)
+  uncertainty scenario joint_random_041: 9 feature rows (stored=576)
+  uncertainty scenario joint_random_042: 9 feature rows (stored=585)
+  uncertainty scenario joint_random_043: 9 feature rows (stored=594)
+  uncertainty scenario joint_random_044: 9 feature rows (stored=603)
+  uncertainty scenario joint_random_045: 9 feature rows (stored=612)
+  uncertainty scenario joint_random_046: 9 feature rows (stored=621)
+  uncertainty scenario joint_random_047: 9 feature rows (stored=630)
+  uncertainty scenario joint_random_048: 9 feature rows (stored=639)
+  uncertainty scenario joint_random_049: 9 feature rows (stored=648)
+  uncertainty scenario joint_random_050: 9 feature rows (stored=657)
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+  Noise modes complete: fixed received SNR and fixed noise power.
+    fixed_received_snr SNR=30 dB: strict 0.787 +/- 0.147, group 0.947, tie 0.347, NMSE 0.0010025
+    fixed_received_snr SNR=20 dB: strict 0.700 +/- 0.168, group 0.843, tie 0.347, NMSE 0.0099824
+    fixed_received_snr SNR=10 dB: strict 0.310 +/- 0.121, group 0.360, tie 0.123, NMSE 0.10003
+    fixed_received_snr SNR=0 dB: strict 0.200 +/- 0.095, group 0.200, tie 0.023, NMSE 1.0008
+    fixed_noise_power SNR=30 dB: strict 0.733 +/- 0.147, group 0.920, tie 0.350, NMSE 0.0022134
+    fixed_noise_power SNR=20 dB: strict 0.610 +/- 0.145, group 0.770, tie 0.357, NMSE 0.022106
+    fixed_noise_power SNR=10 dB: strict 0.263 +/- 0.096, group 0.267, tie 0.050, NMSE 0.22163
+    fixed_noise_power SNR=0 dB: strict 0.143 +/- 0.117, group 0.147, tie 0.027, NMSE 2.2154
+  Measurement scenarios: C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_forward_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_reverse_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C1_bidirectional_symmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_forward_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C2_bidirectional_asymmetric C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 C3_endpoint_plus_node40 
+  Uncertainty rows: 657; feature-audit rows: 27.
+  Structural indistinguishable groups remain defined by candidate metadata;
+  noisy T3/T5 score differences are recorded as numeric gaps, not new topology information.
+EXP09 stage 2.1 audit completed in 192.027 s.

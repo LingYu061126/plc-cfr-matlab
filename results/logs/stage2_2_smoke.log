@@ -1,0 +1,21 @@
+EXP10 stage 2.2: 4 candidates, 1793 pilots, 1 grid points/topology, 1 trials
+  building siso_forward parameter library...
+  building three_view_complete parameter library...
+{Subscripted assignment between dissimilar structures.
+
+Error in exp10_stage2_2_physical_multiview>noisy_views (line 239)
+        allm(v)=cfr_estimation_metrics(obs{v},true_views{v});
+
+Error in exp10_stage2_2_physical_multiview>run_noise_statistics (line 90)
+                        [obs,est]=noisy_views(nominal_refs{vk}(t).views,pilot,s.snr_db(si), ...
+
+Error in exp10_stage2_2_physical_multiview (line 22)
+    noise_rows=run_noise_statistics(candidates,main_kinds,libraries,nominal_refs, ...
+} 
+EXP10 stage 2.2: 4 candidates, 1793 pilots, 1 grid points/topology, 1 trials
+  building siso_forward parameter library...
+  building three_view_complete parameter library...
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+EXP10 stage 2.2 completed in 17.667 s; raw trial rows=48.

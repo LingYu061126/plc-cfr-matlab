@@ -1,0 +1,156 @@
+MATLAB_VERSION=24.1.0.2537033 (R2024a)
+PRODUCT=5G Toolbox|24.1
+PRODUCT=AUTOSAR Blockset|24.1
+PRODUCT=Aerospace Blockset|24.1
+PRODUCT=Aerospace Toolbox|24.1
+PRODUCT=Antenna Toolbox|24.1
+PRODUCT=Audio Toolbox|24.1
+PRODUCT=Automated Driving Toolbox|24.1
+PRODUCT=Bioinformatics Toolbox|24.1
+PRODUCT=Bluetooth Toolbox|24.1
+PRODUCT=C2000 Microcontroller Blockset|24.1
+PRODUCT=Communications Toolbox|24.1
+PRODUCT=Computer Vision Toolbox|24.1
+PRODUCT=Control System Toolbox|24.1
+PRODUCT=Curve Fitting Toolbox|24.1
+PRODUCT=DDS Blockset|24.1
+PRODUCT=DSP HDL Toolbox|24.1
+PRODUCT=DSP System Toolbox|24.1
+PRODUCT=Database Toolbox|24.1
+PRODUCT=Datafeed Toolbox|24.1
+PRODUCT=Deep Learning HDL Toolbox|24.1
+PRODUCT=Deep Learning Toolbox|24.1
+PRODUCT=Econometrics Toolbox|24.1
+PRODUCT=Embedded Coder|24.1
+PRODUCT=Filter Design HDL Coder|24.1
+PRODUCT=Financial Instruments Toolbox|24.1
+PRODUCT=Financial Toolbox|24.1
+PRODUCT=Fixed-Point Designer|24.1
+PRODUCT=Fuzzy Logic Toolbox|24.1
+PRODUCT=GPU Coder|24.1
+PRODUCT=Global Optimization Toolbox|24.1
+PRODUCT=HDL Coder|24.1
+PRODUCT=HDL Verifier|24.1
+PRODUCT=Image Acquisition Toolbox|24.1
+PRODUCT=Image Processing Toolbox|24.1
+PRODUCT=Industrial Communication Toolbox|24.1
+PRODUCT=Instrument Control Toolbox|24.1
+PRODUCT=LTE Toolbox|24.1
+PRODUCT=Lidar Toolbox|24.1
+PRODUCT=MATLAB|24.1
+PRODUCT=MATLAB Coder|24.1
+PRODUCT=MATLAB Compiler|24.1
+PRODUCT=MATLAB Compiler SDK|24.1
+PRODUCT=MATLAB Report Generator|24.1
+PRODUCT=MATLAB Test|24.1
+PRODUCT=Mapping Toolbox|24.1
+PRODUCT=Medical Imaging Toolbox|24.1
+PRODUCT=Mixed-Signal Blockset|24.1
+PRODUCT=Model Predictive Control Toolbox|24.1
+PRODUCT=Motor Control Blockset|24.1
+PRODUCT=Navigation Toolbox|24.1
+PRODUCT=Optimization Toolbox|24.1
+PRODUCT=Parallel Computing Toolbox|24.1
+PRODUCT=Partial Differential Equation Toolbox|24.1
+PRODUCT=Phased Array System Toolbox|24.1
+PRODUCT=Powertrain Blockset|24.1
+PRODUCT=Predictive Maintenance Toolbox|24.1
+PRODUCT=RF Blockset|24.1
+PRODUCT=RF PCB Toolbox|24.1
+PRODUCT=RF Toolbox|24.1
+PRODUCT=ROS Toolbox|24.1
+PRODUCT=Radar Toolbox|24.1
+PRODUCT=Reinforcement Learning Toolbox|24.1
+PRODUCT=Requirements Toolbox|24.1
+PRODUCT=Risk Management Toolbox|24.1
+PRODUCT=Robotics System Toolbox|24.1
+PRODUCT=Robust Control Toolbox|24.1
+PRODUCT=Satellite Communications Toolbox|24.1
+PRODUCT=Sensor Fusion and Tracking Toolbox|24.1
+PRODUCT=SerDes Toolbox|24.1
+PRODUCT=Signal Integrity Toolbox|24.1
+PRODUCT=Signal Processing Toolbox|24.1
+PRODUCT=SimBiology|24.1
+PRODUCT=SimEvents|24.1
+PRODUCT=Simscape|24.1
+PRODUCT=Simscape Battery|24.1
+PRODUCT=Simscape Driveline|24.1
+PRODUCT=Simscape Electrical|24.1
+PRODUCT=Simscape Fluids|24.1
+PRODUCT=Simscape Multibody|24.1
+PRODUCT=Simulink|24.1
+PRODUCT=Simulink 3D Animation|24.1
+PRODUCT=Simulink Check|24.1
+PRODUCT=Simulink Code Inspector|24.1
+PRODUCT=Simulink Coder|24.1
+PRODUCT=Simulink Compiler|24.1
+PRODUCT=Simulink Control Design|24.1
+PRODUCT=Simulink Coverage|24.1
+PRODUCT=Simulink Design Optimization|24.1
+PRODUCT=Simulink Design Verifier|24.1
+PRODUCT=Simulink Desktop Real-Time|24.1
+PRODUCT=Simulink Fault Analyzer|24.1
+PRODUCT=Simulink PLC Coder|24.1
+PRODUCT=Simulink Real-Time|24.1
+PRODUCT=Simulink Report Generator|24.1
+PRODUCT=Simulink Test|24.1
+PRODUCT=SoC Blockset|24.1
+PRODUCT=Stateflow|24.1
+PRODUCT=Statistics and Machine Learning Toolbox|24.1
+PRODUCT=Symbolic Math Toolbox|24.1
+PRODUCT=System Composer|24.1
+PRODUCT=System Identification Toolbox|24.1
+PRODUCT=Text Analytics Toolbox|24.1
+PRODUCT=UAV Toolbox|24.1
+PRODUCT=Vehicle Dynamics Blockset|24.1
+PRODUCT=Vehicle Network Toolbox|24.1
+PRODUCT=Vision HDL Toolbox|24.1
+PRODUCT=WLAN Toolbox|24.1
+PRODUCT=Wavelet Toolbox|24.1
+PRODUCT=Wireless HDL Toolbox|24.1
+PRODUCT=Wireless Testbench|24.1
+Running MATLAB PLC CFR stage-1.5 tests...
+  PASS RLGC values at 10 MHz
+  PASS strictly-positive finite frequency validation
+  PASS nominal sqrt(L/C) checks
+  PASS uniform-line determinant AD-BC=1 (max 4.44e-16)
+  PASS split-line ABCD cascade equivalence
+  PASS no-branch network equals one uniform line
+  PASS scalar real/complex, vector, open and short branch loads
+  PASS Cañete parallel-RLC frequency-selective network load
+  PASS source-port normalization applicability constraints
+  PASS scalar and equal frequency-vector network loads agree
+  PASS stable recursion matches short-line ABCD complex CFR
+  PASS stable long matched-line analytic limit
+  PASS stable long-line segmentation invariance
+  Long-line legacy ABCD determinant audit:
+    L= 300 m kG=1 max=6.35529e-14 median=1.77636e-15 worst=29.247680 MHz legacyReliable=1 CFRrel=1.2333e-15
+    L= 500 m kG=1 max=2.9118e-12 median=7.16072e-15 worst=29.234001 MHz legacyReliable=1 CFRrel=9.59981e-16
+    L= 800 m kG=1 max=4.69285e-10 median=1.13687e-13 worst=29.343429 MHz legacyReliable=1 CFRrel=1.15587e-15
+    L=1200 m kG=1 max=5.3312e-07 median=2.72848e-12 worst=29.316072 MHz legacyReliable=1 CFRrel=1.23259e-15
+    L= 300 m kG=5 max=7.84996e-06 median=8.13477e-12 worst=29.986321 MHz legacyReliable=0 CFRrel=1.2947e-15
+    L= 500 m kG=5 max=64.6297 median=1.49012e-08 worst=29.835857 MHz legacyReliable=0 CFRrel=1.13731e-15
+    L= 800 m kG=5 max=1.55494e+12 median=0.0649521 worst=29.835857 MHz legacyReliable=0 CFRrel=1.22349e-15
+    L=1200 m kG=5 max=1.54743e+26 median=9699.29 worst=29.931607 MHz legacyReliable=0 CFRrel=1.10848e-15
+  PASS long-line determinant diagnostics and stable physical checks
+ALL STAGE-1.5 TESTS PASSED
+Running stage-2 OFDM/topology baseline tests...
+  PASS known X,H noiseless LS recovery
+  PASS noiseless H_hat recovery
+  PASS noise NMSE decreases with SNR (0 dB 0.9404, 30 dB 0.0009568)
+  PASS IFFT/FFT CFR-CIR consistency
+  PASS candidate topology IDs and stable reference CFRs
+  PASS fixed-reference topology matching repeatability
+  PASS mirror-equivalent T3/T5 ambiguity is reported
+  PASS empty/open/short/complex/RLC load cases
+ALL STAGE-2 OFDM BASELINE TESTS PASSED
+Running stage-2.1 audit tests...
+  PASS +Inf/-Inf/NaN/complex SNR boundaries
+  PASS fixed received-SNR and fixed-noise-power modes
+  PASS fixed-seed repeatability and 50-trial audit configuration
+  PASS raw/masked/weighted phase metrics and valid fraction
+  PASS circular band-limited CIR naming, metadata and dimensions
+  PASS structural T3/T5 equivalence versus numeric tie separation
+  PASS multiview matcher interface
+  PASS invalid length and extra-measurement input validation
+ALL STAGE-2.1 AUDIT TESTS PASSED

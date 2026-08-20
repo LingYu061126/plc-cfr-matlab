@@ -1,0 +1,6 @@
+feature,accuracy,group_accuracy,ambiguous_rate,edge_precision,edge_recall,edge_f1
+amplitude,1,1,0.33333333333333331,1,1,1
+phase,1,1,0.33333333333333331,1,1,1
+complex,1,1,0.33333333333333331,1,1,1
+cir,1,1,0.33333333333333331,1,1,1
+amp_phase_joint,1,1,0.33333333333333331,1,1,1

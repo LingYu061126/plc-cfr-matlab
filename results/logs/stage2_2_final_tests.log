@@ -1,0 +1,53 @@
+Running MATLAB PLC CFR stage-1.5 tests...
+  PASS RLGC values at 10 MHz
+  PASS strictly-positive finite frequency validation
+  PASS nominal sqrt(L/C) checks
+  PASS uniform-line determinant AD-BC=1 (max 4.44e-16)
+  PASS split-line ABCD cascade equivalence
+  PASS no-branch network equals one uniform line
+  PASS scalar real/complex, vector, open and short branch loads
+  PASS Cañete parallel-RLC frequency-selective network load
+  PASS source-port normalization applicability constraints
+  PASS scalar and equal frequency-vector network loads agree
+  PASS stable recursion matches short-line ABCD complex CFR
+  PASS stable long matched-line analytic limit
+  PASS stable long-line segmentation invariance
+  Long-line legacy ABCD determinant audit:
+    L= 300 m kG=1 max=6.35529e-14 median=1.77636e-15 worst=29.247680 MHz legacyReliable=1 CFRrel=1.2333e-15
+    L= 500 m kG=1 max=2.9118e-12 median=7.16072e-15 worst=29.234001 MHz legacyReliable=1 CFRrel=9.59981e-16
+    L= 800 m kG=1 max=4.69285e-10 median=1.13687e-13 worst=29.343429 MHz legacyReliable=1 CFRrel=1.15587e-15
+    L=1200 m kG=1 max=5.3312e-07 median=2.72848e-12 worst=29.316072 MHz legacyReliable=1 CFRrel=1.23259e-15
+    L= 300 m kG=5 max=7.84996e-06 median=8.13477e-12 worst=29.986321 MHz legacyReliable=0 CFRrel=1.2947e-15
+    L= 500 m kG=5 max=64.6297 median=1.49012e-08 worst=29.835857 MHz legacyReliable=0 CFRrel=1.13731e-15
+    L= 800 m kG=5 max=1.55494e+12 median=0.0649521 worst=29.835857 MHz legacyReliable=0 CFRrel=1.22349e-15
+    L=1200 m kG=5 max=1.54743e+26 median=9699.29 worst=29.931607 MHz legacyReliable=0 CFRrel=1.10848e-15
+  PASS long-line determinant diagnostics and stable physical checks
+ALL STAGE-1.5 TESTS PASSED
+Running stage-2 OFDM/topology baseline tests...
+  PASS known X,H noiseless LS recovery
+  PASS noiseless H_hat recovery
+  PASS noise NMSE decreases with SNR (0 dB 0.9404, 30 dB 0.0009568)
+  PASS IFFT/FFT CFR-CIR consistency
+  PASS candidate topology IDs and stable reference CFRs
+  PASS fixed-reference topology matching repeatability
+  PASS mirror-equivalent T3/T5 ambiguity is reported
+  PASS empty/open/short/complex/RLC load cases
+ALL STAGE-2 OFDM BASELINE TESTS PASSED
+Running stage-2.1 audit tests...
+  PASS +Inf/-Inf/NaN/complex SNR boundaries
+  PASS fixed received-SNR and fixed-noise-power modes
+  PASS fixed-seed repeatability and 50-trial audit configuration
+  PASS raw/masked/weighted phase metrics and valid fraction
+  PASS circular band-limited CIR naming, metadata and dimensions
+  PASS structural T3/T5 equivalence versus numeric tie separation
+  PASS multiview matcher interface
+  PASS invalid length and extra-measurement input validation
+ALL STAGE-2.1 AUDIT TESTS PASSED
+Running stage-2.2 physical multiview/joint-matching tests...
+  PASS complete-network endpoint CFR matches stage-1.5 stable recursion
+  PASS reverse-only and reverse-plus-impedance-swap cases are explicit
+  PASS internal receiver uses the complete network without prefix truncation
+  PASS absolute/shape amplitude and weighted joint phase features
+  PASS configured joint topology/parameter grid matching
+  PASS Inf/zero/zero-length/empty-network boundaries are explicit
+ALL STAGE-2.2 TESTS PASSED

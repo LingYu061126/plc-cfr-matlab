@@ -1,0 +1,7 @@
+{Error using save
+Unable to write file '/home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作
+集/matlab_plc_cfr/results/data/stage2_3_results.mat'.
+
+Error in compile_stage2_3_results (line 30)
+        x=rows(strcmp(key,keys{k}));r=x(1);w=[x.sample_count];n=sum(w);r.sample_count=n;r.trials=sum([x.trials]);
+} 

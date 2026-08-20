@@ -1,0 +1,11 @@
+parameter,value
+MATLAB_version,24.1.0.2537033 (R2024a)
+random_seed,20260819
+NFFT,4096
+Fs_hz,64000000
+pilot_count,1793
+frequency_low_hz,2000000
+frequency_high_hz,30000000
+trials,20
+grid_points_per_topology,243
+lambda,0.01
