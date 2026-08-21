@@ -38,6 +38,11 @@ function [measurements, metadata] = plc_measurement_bundle(kind, network, theta,
             measurements=base; measurements.receiver_nodes=[nmain,mid];
             measurements.receiver_loads_ohm=[Zrx,Zrx];
             meaning='one full-network excitation with endpoint and internal receiver loads simultaneously connected';
+        case 'dual_receiver_highz_complete'
+            measurements=base; measurements.receiver_nodes=[nmain,mid];
+            measurements.receiver_loads_ohm=[Zrx,1e6];
+            meaning=['one full-network excitation with an endpoint receiver and ' ...
+                'a finite high-input-impedance internal receiver'];
         case 'three_view_complete'
             forward=base; forward.receiver_nodes=[nmain,mid];
             forward.receiver_loads_ohm=[Zrx,Zrx];

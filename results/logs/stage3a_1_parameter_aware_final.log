@@ -1,0 +1,18 @@
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+  PASS Stage3A.1 high-Z receiver and bounded parameter grid interfaces
+  PASS Stage3A explicit RLGC perturbation uses complete network
+  PASS Stage3A SISO equivalence and complete multiview observability audit
+  PASS Stage3A circular delay is explicitly nonphysical ToA
+  PASS explicit circular convolution equivalence (max 3.72e-16, CP coverage 0.727, threshold support 4095 samples)
+ALL STAGE-3A TESTS PASSED
+EXP14 Stage 3A.1 parameter-aware completed: trials=6720 summaries=84 grid=27 elapsed=95.730 s
+              mode: 'parameter_aware'
+        trial_rows: 6720
+      summary_rows: 84
+    confusion_rows: 414
+         grid_size: 27
+         elapsed_s: 95.7303

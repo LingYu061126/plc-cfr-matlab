@@ -7,5 +7,13 @@ function result = run_stage3a(mode)
     addpath(fullfile(root,'experiments'));addpath(fullfile(root,'tests'));
     ensure_result_dirs(default_config(root));
     test_stage3a();
-    result=exp12_stage3a_communication_baseline(mode);
+    if strcmpi(mode,'audit')
+        result=exp13_stage3a_1_audit(root);
+    elseif strcmpi(mode,'audit_smoke')
+        result=exp13_stage3a_1_audit(root,2);
+    elseif strcmpi(mode,'parameter_aware')
+        result=exp14_stage3a_1_parameter_aware(root);
+    else
+        result=exp12_stage3a_communication_baseline(mode);
+    end
 end

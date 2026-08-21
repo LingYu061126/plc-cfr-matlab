@@ -201,3 +201,19 @@ run_stage3a('formal')  % 当前配置的基线统计
 阶段 3A formal 的轻量输出包括 `results/data/stage3a_formal_{config,trial_metrics,summary,confusion,example_cfr}.csv` 和 `results/figures/stage3a_formal_*.png`。完整 `stage3a_formal_raw.mat` 会保存 H_true、H_hat、CIR、循环延迟、噪声和参数，但约 185 MB，按发布策略由 `.gitignore` 排除；因此克隆者可审阅 CSV/图/日志，不能仅凭仓库重建全部原始 MAT。
 
 阶段 3A 的正式结果显示：对称 SISO 下 T3/T5 仍只能报告为等价类；在 20 dB 白噪声下 `dual_receiver_complete` 和 `three_view_complete` 的当前模型严格率为 1，而 `siso_forward` 的等价类率为 1、严格唯一率为 0.5。该结果不等于现场拓扑识别性能，也不等于已经完成完整 PLC OFDM 收发机。详细假设、实际运行状态和阶段 3B 判断见 [`report/stage3a_communication_baseline.md`](report/stage3a_communication_baseline.md) 与 [`notes/阶段3A实验设计.md`](notes/阶段3A实验设计.md)。
+
+## 阶段 3A.1：结果审计与参数感知基线
+
+阶段 3A.1 不优化波形。新增 `run_stage3a('audit')`，固定使用 5/10/15/20/30 dB、导频间隔 1/2/4/8、4 种完整网络观测和 amplitude/amp-phase/CIR/circular-delay 四类特征，每个条件每个拓扑 50 次。正式 audit 已实际生成 `stage3a_1_audit_trial_metrics.csv`（64,000 条 feature-level 记录）、summary、confusion、配置、原始轻量 MAT、图和日志。`run_stage3a('audit_smoke')` 仅是诊断模式，不能当作正式统计。
+
+新增 `run_stage3a('parameter_aware')`，比较 `nominal_nearest`、`topology_only` 和有界 `nuisance_aware_joint`。当前参数网格为 27 点，范围、正则化 `lambda=0.01` 和随机种子写入 `stage3a_1_parameter_aware_config.csv`；参数感知匹配不是经过充分校准的最优算法，存在拟合噪声风险。新增 `dual_receiver_highz_complete` 作为 1e6 Ω 内部接收负载对照；`dual_receiver_complete` 和 high-Z 观测均来自完整网络，接收机负载会改变网络，不能直接解释为现场无扰动传感器。
+
+运行命令：
+
+```matlab
+run_stage3a('audit_smoke')       % 诊断，不作正式统计
+run_stage3a('audit')             % 正式 50 次/拓扑/条件审计
+run_stage3a('parameter_aware')   % 参数感知基线
+```
+
+完整方法、实际数值、证据等级和阶段 3B 门槛见 [`notes/stage3a_1_audit.md`](notes/stage3a_1_audit.md) 与 [`report/stage3a_1_parameter_aware_baseline.md`](report/stage3a_1_parameter_aware_baseline.md)。当前结论是不建议直接进入阶段 3B：主要限制仍是对称 SISO 的观测等价、参数不确定性和同步/测量模型边界，而不是已经证实的 OFDM 资源不足。

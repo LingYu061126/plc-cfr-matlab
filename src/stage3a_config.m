@@ -21,6 +21,8 @@ function cfg = stage3a_config(root_dir)
     cfg.candidate_indices = [2, 3, 4, 5];
     cfg.measurement_kinds = {'siso_forward','bidirectional_endpoint_fixed', ...
         'dual_receiver_complete','three_view_complete'};
+    cfg.audit_measurement_kinds = {'siso_forward','bidirectional_endpoint_fixed', ...
+        'dual_receiver_complete','dual_receiver_highz_complete','three_view_complete'};
     cfg.observation_modes = {'ordinary_ofdm_cfr','fdr_tfdr_reflection_proxy', ...
         'input_admittance_proxy'};
     cfg.features = {'amplitude','amp_phase_joint_weighted','cir','toa'};
@@ -40,6 +42,19 @@ function cfg = stage3a_config(root_dir)
     cfg.colored_noise_tilt = 0.8;
     cfg.formal_trials_per_case = 2;
     cfg.smoke_trials_per_case = 1;
+    cfg.audit_trials_per_condition = 50;
+    cfg.audit_snr_db = [5,10,15,20,30];
+    cfg.audit_pilot_spacings = [1,2,4,8];
+    cfg.audit_noise_kind = 'white_awgn';
+    cfg.audit_parameter_trials = 20;
+    cfg.audit_parameter_snr_db = 20;
+    cfg.audit_parameter_feature = 'amp_phase_joint_weighted';
+    cfg.audit_parameter_lambda = 0.01;
+    cfg.audit_parameter_scales = struct('main_length',[0.98,1,1.02], ...
+        'branch_length',[0.98,1,1.02],'branch_load',[0.90,1,1.10], ...
+        'rlgc',[0.98,1,1.02],'source_impedance',[49,50,51], ...
+        'receiver_impedance',[49,50,51],'coupler_amplitude',[0.98,1,1.02], ...
+        'coupler_phase',[0,-pi/36,pi/36]);
     cfg.tie_tolerance = 1e-10;
     cfg.results_data = fullfile(root_dir,'results','data');
     cfg.results_figures = fullfile(root_dir,'results','figures');

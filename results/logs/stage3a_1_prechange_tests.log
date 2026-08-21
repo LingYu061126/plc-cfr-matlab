@@ -1,0 +1,11 @@
+24.1.0.2537033 (R2024a)
+MATLAB_LICENSE=1
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+  PASS Stage3A explicit RLGC perturbation uses complete network
+  PASS Stage3A SISO equivalence and complete multiview observability audit
+  PASS Stage3A circular delay is explicitly nonphysical ToA
+ALL STAGE-3A TESTS PASSED
