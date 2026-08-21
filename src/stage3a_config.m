@@ -55,6 +55,17 @@ function cfg = stage3a_config(root_dir)
         'rlgc',[0.98,1,1.02],'source_impedance',[49,50,51], ...
         'receiver_impedance',[49,50,51],'coupler_amplitude',[0.98,1,1.02], ...
         'coupler_phase',[0,-pi/36,pi/36]);
+    cfg.stage3a2_measurement_kinds = {'siso_forward','dual_receiver_complete', ...
+        'dual_receiver_highz_complete','dual_receiver_counterfactual','three_view_complete'};
+    cfg.stage3a2_scenarios = {'nominal_noise_20','load_error_10','joint_bounded'};
+    cfg.stage3a2_snr_db = 20;
+    cfg.stage3a2_calibration_trials = 10;
+    cfg.stage3a2_test_trials = 50;
+    cfg.stage3a2_lambda_grid = [0,0.001,0.01,0.05];
+    cfg.stage3a2_calibration_seed_offset = 52000;
+    % Keep calibration/test seed ranges disjoint even after scenario/kind
+    % offsets are added inside exp16_stage3a_2_protocol_audit.
+    cfg.stage3a2_test_seed_offset = 6200000;
     cfg.tie_tolerance = 1e-10;
     cfg.results_data = fullfile(root_dir,'results','data');
     cfg.results_figures = fullfile(root_dir,'results','figures');

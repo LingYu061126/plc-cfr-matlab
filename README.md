@@ -217,3 +217,18 @@ run_stage3a('parameter_aware')   % 参数感知基线
 ```
 
 完整方法、实际数值、证据等级和阶段 3B 门槛见 [`notes/stage3a_1_audit.md`](notes/stage3a_1_audit.md) 与 [`report/stage3a_1_parameter_aware_baseline.md`](report/stage3a_1_parameter_aware_baseline.md)。当前结论是不建议直接进入阶段 3B：主要限制仍是对称 SISO 的观测等价、参数不确定性和同步/测量模型边界，而不是已经证实的 OFDM 资源不足。
+
+## 阶段 3A.2：OFDM 链路物理有效性与观测协议
+
+阶段 3A.2 保留阶段 3A 的 `circular_sampled_cfr` 循环采样 CFR 基线，并新增明确标记的 `linear_sampled_cfr` 审计模式。后者对同一采样 CFR 的 `ifft` 冲激响应与有限 CP 帧做显式线性卷积，用于比较帧边界和 CP 效应；它不是经物理校准的连续时间 PLC 信道。`stage3a_cp_coverage` 分别输出物理延迟支撑（当前不可用）、99% 能量支撑、阈值支撑、CP 能量覆盖率以及线性/循环误差。循环带限 CIR 主峰只能作为循环时延指标，不能称真实 ToA。
+
+新增配置和入口：
+
+```matlab
+run_stage3a('model_validity') % CP/循环-线性卷积审计
+run_stage3a('protocol_audit') % 独立校准/测试的正式协议审计
+```
+
+协议审计固定 `NFFT=4096`、`Fs=64 MHz`、`2–30 MHz`、CP=256 和 20 dB 等效白噪声；观测包括 `siso_forward`、`dual_receiver_complete`、`dual_receiver_highz_complete`、分析专用 `dual_receiver_counterfactual` 和 `three_view_complete`。参数感知匹配使用 27 点有界网格，校准每拓扑 10 次、测试每拓扑 50 次，测试种子采用与校准分离的百万级偏移并在内部场景/观测步长后保持不重叠；lambda 候选为 `{0,0.001,0.01,0.05}`。这些都是仿真基线，不是实际 PLC 标准或最优算法。
+
+正式输出位于 `results/data/stage3a_2_*`、`results/figures/stage3a_2_*` 和 `results/logs/stage3a_2_*`。本机已实际完成 2400 条校准记录和 9000 条测试方法记录；正式测试中对称 SISO 的 T3/T5 仍只能报告为物理等价类，参数感知联合搜索不能把该等价变成可信唯一识别。多视图严格率为 1 是当前完整网络模型、端接/接收负载和参数边界下的结果，不能直接解释为现场无扰动传感器性能。阶段 3B 的波形优化暂不启动；详细边界和阶段门槛见 [`report/stage3a_2_model_validity_and_observation_protocol.md`](report/stage3a_2_model_validity_and_observation_protocol.md) 与 [`notes/stage3a_2_model_validity.md`](notes/stage3a_2_model_validity.md)。

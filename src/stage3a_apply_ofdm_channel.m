@@ -1,18 +1,40 @@
 function [rx_frame,details] = stage3a_apply_ofdm_channel(symbol,H_active,ofdm_cfg,noise_cfg,impairment,seed)
-%STAGE3A_APPLY_OFDM_CHANNEL Apply an equivalent OFDM frame channel.
-%   H_active follows ofdm_cfg.active_bin_1based. The payload is filtered by
-%   the specified sampled CFR, a CP is prepended, then noise and receiver
-%   measurement errors are applied. Colored and impulsive noise are explicit
-%   simulation models, not field-noise claims.
+%STAGE3A_APPLY_OFDM_CHANNEL Apply a sampled-CFR OFDM channel.
+%   The default channel_mode='circular_sampled_cfr' preserves the Stage-3A
+%   baseline. channel_mode='linear_sampled_cfr' convolves the transmitted
+%   CP frame with the same sampled impulse response and keeps the received
+%   frame-length prefix. The linear mode is a model audit, not a calibrated
+%   physical PLC impulse response.
     H_active=H_active(:).';
     if numel(H_active)~=numel(ofdm_cfg.active_bin_1based) || any(~isfinite(H_active))
         error('stage3a_apply_ofdm_channel:InvalidCFR','H_active has invalid size/value.');
     end
     H_full=zeros(1,ofdm_cfg.nfft); H_full(ofdm_cfg.active_bin_1based)=H_active;
-    y_payload=ifft(fft(symbol.payload).*H_full,ofdm_cfg.nfft);
+    h_sampled=ifft(H_full,ofdm_cfg.nfft);
     cp=symbol.cyclic_prefix_samples;
-    if cp==0, prefix=zeros(1,0); else, prefix=y_payload(end-cp+1:end); end
-    ideal=[prefix,y_payload];
+    mode=lower(char(get_field(impairment,'channel_mode','circular_sampled_cfr')));
+    switch mode
+        case {'circular_sampled_cfr','circular','baseline'}
+            y_payload=ifft(fft(symbol.payload).*H_full,ofdm_cfg.nfft);
+            if cp==0, prefix=zeros(1,0); else, prefix=y_payload(end-cp+1:end); end
+            ideal=[prefix,y_payload];
+            linear_full=[];linear_tail=[];
+            model_name='sampled CFR circular payload filtering with CP';
+            mode='circular_sampled_cfr';
+        case {'linear_sampled_cfr','linear'}
+            if numel(symbol.tx_frame)~=cp+ofdm_cfg.nfft
+                error('stage3a_apply_ofdm_channel:InvalidSymbolFrame', ...
+                    'symbol.tx_frame must contain CP and one NFFT payload.');
+            end
+            linear_full=stage3a_explicit_linear_convolution(symbol.tx_frame,h_sampled);
+            ideal=linear_full(1:cp+ofdm_cfg.nfft);
+            linear_tail=linear_full(cp+ofdm_cfg.nfft+1:end);
+            model_name='sampled CFR linear convolution of transmitted CP frame';
+            mode='linear_sampled_cfr';
+        otherwise
+            error('stage3a_apply_ofdm_channel:UnknownChannelMode', ...
+                'Unknown channel_mode %s.',mode);
+    end
     [noise,noise_details]=stage3a_noise(ideal,noise_cfg,seed);
     rx_frame=ideal+noise;
     phase=get_field(impairment,'pilot_phase_rotation_rad',0);
@@ -20,9 +42,11 @@ function [rx_frame,details] = stage3a_apply_ofdm_channel(symbol,H_active,ofdm_cf
         error('stage3a_apply_ofdm_channel:InvalidPhase','Invalid pilot phase rotation.');
     end
     rx_frame=rx_frame*exp(1i*phase);
-    details=struct('H_active',H_active,'H_full',H_full,'ideal_frame',ideal, ...
+    details=struct('H_active',H_active,'H_full',H_full,'h_sampled',h_sampled, ...
+        'ideal_frame',ideal,'linear_full_frame',linear_full,'linear_tail',linear_tail, ...
         'noise',noise,'noise_details',noise_details,'phase_rotation_rad',phase, ...
-        'channel_model','sampled CFR circular payload filtering with CP');
+        'channel_mode',mode,'channel_model',model_name, ...
+        'linear_tail_samples',numel(linear_tail));
 end
 
 function [noise,d] = stage3a_noise(signal,spec,seed)

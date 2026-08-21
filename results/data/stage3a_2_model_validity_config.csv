@@ -1,0 +1,4 @@
+mode,component,nfft,sample_rate_hz,baseline_cp_samples,random_seed
+stage3a_2,circular_sampled_cfr,4096,64000000,256,20333821
+stage3a_2,linear_sampled_cfr,4096,64000000,256,20333821
+stage3a_2,cp_coverage,4096,64000000,256,20333821

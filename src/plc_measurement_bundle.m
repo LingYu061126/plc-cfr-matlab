@@ -43,6 +43,10 @@ function [measurements, metadata] = plc_measurement_bundle(kind, network, theta,
             measurements.receiver_loads_ohm=[Zrx,1e6];
             meaning=['one full-network excitation with an endpoint receiver and ' ...
                 'a finite high-input-impedance internal receiver'];
+        case 'dual_receiver_counterfactual'
+            measurements=base;
+            meaning=['analysis-only counterfactual; endpoint receiver remains loaded ' ...
+                'but the internal observation is computed without an internal shunt'];
         case 'three_view_complete'
             forward=base; forward.receiver_nodes=[nmain,mid];
             forward.receiver_loads_ohm=[Zrx,Zrx];
