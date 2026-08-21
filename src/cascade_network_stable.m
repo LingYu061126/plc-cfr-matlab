@@ -71,6 +71,9 @@ function [H, details] = cascade_network_stable(f_hz, network, cfg)
                 'Branch node must be an integer from 1 to number of segments minus 1.');
         end
         bcable = cable_parameters(branches(ib).cable_type);
+        if isfield(network,'rlgc_scale')
+            bcable = cable_apply_rlgc_scale(bcable,network.rlgc_scale);
+        end
         [~, ~, ~, ~, bgamma, bZc] = cable_rlgc( ...
             f_hz, bcable, cfg.kG, cfg.lossless);
         branch_zin{ib} = branch_input_impedance( ...
@@ -90,6 +93,9 @@ function [H, details] = cascade_network_stable(f_hz, network, cfg)
 
     for seg = nseg:-1:1
         cable = cable_parameters(main_types(seg));
+        if isfield(network,'rlgc_scale')
+            cable = cable_apply_rlgc_scale(cable,network.rlgc_scale);
+        end
         [~, ~, ~, ~, gamma, Zc] = cable_rlgc( ...
             f_hz, cable, cfg.kG, cfg.lossless);
         [Zeq, ratio] = terminated_line_response( ...

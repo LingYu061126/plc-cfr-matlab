@@ -1,0 +1,54 @@
+{File: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作
+集/matlab_plc_cfr_publish/src/stage3a_apply_ofdm_channel.m Line: 38 Column: 19
+Invalid use of operator.
+
+Error in test_stage3a (line 8)
+    [rx,d]=stage3a_apply_ofdm_channel(symbol,H,s3.ofdm,struct('kind','none','snr_db',Inf),struct(),7); %#ok<ASGLU>
+} 
+{Output argument "noise" (and possibly others) not assigned a value in the
+execution with "stage3a_apply_ofdm_channel>stage3a_noise" function.
+
+Error in stage3a_apply_ofdm_channel (line 16)
+    [noise,noise_details]=stage3a_noise(ideal,noise_cfg,seed);
+
+Error in test_stage3a (line 8)
+    [rx,d]=stage3a_apply_ofdm_channel(symbol,H,s3.ofdm,struct('kind','none','snr_db',Inf),struct(),7); %#ok<ASGLU>
+} 
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+{Unrecognized function or variable 'stage3a_apply_parameters'.
+
+Error in test_stage3a (line 37)
+    [net,cfg2,~]=stage3a_apply_parameters(candidates(2).network,base,theta); %#ok<ASGLU>
+} 
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+{Unrecognized function or variable 'cable_apply_rlgc_scale'.
+
+Error in plc_full_network_response (line 63)
+            cable = cable_apply_rlgc_scale(cable,network.rlgc_scale);
+
+Error in plc_multiview_response (line 18)
+        [H,d] = plc_full_network_response(f_hz,network,measurements(m),cfg);
+
+Error in stage3a_compute_observations (line 10)
+        [views,solve]=plc_multiview_response(f_hz,network,measurements,cfg_theta);
+
+Error in test_stage3a (line 38)
+    [views,meta]=stage3a_compute_observations(f,candidates(2),base,theta,'siso_forward'); %#ok<ASGLU>
+} 
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+  PASS Stage3A explicit RLGC perturbation uses complete network
+  PASS Stage3A SISO equivalence and complete multiview observability audit
+  PASS Stage3A circular delay is explicitly nonphysical ToA
+ALL STAGE-3A TESTS PASSED

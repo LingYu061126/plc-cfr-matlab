@@ -1,0 +1,21 @@
+  PASS Stage3A dense OFDM CP/FFT/LS noiseless chain
+  PASS Stage3A sparse-pilot interpolation dimensions and finite output
+  PASS Stage3A white/colored/impulsive noise repeatability
+  PASS Stage3A timing and sample-clock impairment interface
+  PASS Stage3A observation O labels separate CFR/FDR/input-admittance proxies
+  PASS Stage3A explicit RLGC perturbation uses complete network
+  PASS Stage3A SISO equivalence and complete multiview observability audit
+  PASS Stage3A circular delay is explicitly nonphysical ToA
+ALL STAGE-3A TESTS PASSED
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+EXP12 Stage 3A smoke completed: trials=480 raw=120 summaries=120 elapsed=19.689 s
+              mode: 'smoke'
+        trial_rows: 480
+          raw_rows: 120
+      summary_rows: 120
+    confusion_rows: 480
+         elapsed_s: 19.6888
+       data_prefix: 'stage3a_smoke'
+

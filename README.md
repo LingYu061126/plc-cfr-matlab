@@ -179,3 +179,25 @@ Z(f) = R/(1 + j*Q*(f/f0 - f0/f))
 图像位于 `results/figures/`，复数 CFR、幅值、相位和诊断数据位于 `results/data/`。`results/baseline_pre_stage15/` 保存修改前结果快照、SHA-256 清单、MATLAB 版本/依赖和基线控制台日志。
 
 长线使用的 Cañete 原始校准线段范围是 0.5–50 m；300–1200 m 全部是参数外推。`-120 dB` 只作为报告中的参考筛查门限，项目没有给定真实硬件动态范围，因此不能把该门限称为实际测量极限。
+
+## 阶段 3A：通信型 OFDM 拓扑感知基线
+
+阶段 3A 在不优化波形的前提下增加了 IFFT/循环前缀/去循环前缀/FFT/LS 的通信型等效链路：
+
+```text
+X[k] -> IFFT+CP -> 完整网络 H(f;G,theta) -> 噪声/测量误差
+    -> 去CP+FFT -> H_hat[k] -> CFR/CIR/circular-delay -> 拓扑/等价类匹配
+```
+
+这里 `H(f;G,theta)` 是基础物理模型，观测配置 `O` 负责端口、端接和多视图组合。当前配置为 `NFFT=4096`、`Fs=64 MHz`、`2–30 MHz`、1793 个有效频点和仿真假设 `CP=256`。普通 OFDM 端到端 CFR 与 FDR/TFDR 反射代理、输入导纳代理分开命名；后两者不是完整 FDR/TFDR 仪器模型。CIR 使用循环带限定义，主峰只是循环延迟指标，不是真实 ToA/测距。
+
+运行：
+
+```matlab
+run_stage3a('smoke')   % 少量试验，检查全链路和文件格式
+run_stage3a('formal')  % 当前配置的基线统计
+```
+
+阶段 3A formal 的轻量输出包括 `results/data/stage3a_formal_{config,trial_metrics,summary,confusion,example_cfr}.csv` 和 `results/figures/stage3a_formal_*.png`。完整 `stage3a_formal_raw.mat` 会保存 H_true、H_hat、CIR、循环延迟、噪声和参数，但约 185 MB，按发布策略由 `.gitignore` 排除；因此克隆者可审阅 CSV/图/日志，不能仅凭仓库重建全部原始 MAT。
+
+阶段 3A 的正式结果显示：对称 SISO 下 T3/T5 仍只能报告为等价类；在 20 dB 白噪声下 `dual_receiver_complete` 和 `three_view_complete` 的当前模型严格率为 1，而 `siso_forward` 的等价类率为 1、严格唯一率为 0.5。该结果不等于现场拓扑识别性能，也不等于已经完成完整 PLC OFDM 收发机。详细假设、实际运行状态和阶段 3B 判断见 [`report/stage3a_communication_baseline.md`](report/stage3a_communication_baseline.md) 与 [`notes/阶段3A实验设计.md`](notes/阶段3A实验设计.md)。

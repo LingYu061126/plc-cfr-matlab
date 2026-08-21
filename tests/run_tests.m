@@ -194,6 +194,7 @@ function run_tests()
     test_stage2_1();
     test_stage2_2();
     test_stage2_3();
+    test_stage3a();
 end
 
 function err = determinant_error(T)

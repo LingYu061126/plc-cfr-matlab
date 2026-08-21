@@ -59,6 +59,9 @@ function [H, details] = plc_full_network_response(f_hz, network, measurement, cf
                 'Zero-length distributed edges require node contraction.');
         end
         cable = cable_parameters(edges(e).cable_type);
+        if isfield(network,'rlgc_scale')
+            cable = cable_apply_rlgc_scale(cable,network.rlgc_scale);
+        end
         [~,~,~,~,gamma,Zc] = cable_rlgc(f_hz, cable, cfg.kG, cfg.lossless);
         x = gamma .* edges(e).length_m;
         em = exp(-x); em2 = exp(-2*x); den = 1-em2;
@@ -117,6 +120,9 @@ function [H, details] = plc_full_network_response(f_hz, network, measurement, cf
     branch_input_admittance = cell(1,numel(branch_meta));
     for b = 1:numel(branch_meta)
         cable = cable_parameters(branch_meta(b).cable_type);
+        if isfield(network,'rlgc_scale')
+            cable = cable_apply_rlgc_scale(cable,network.rlgc_scale);
+        end
         [~,~,~,~,gamma,Zc] = cable_rlgc(f_hz,cable,cfg.kG,cfg.lossless);
         Zin = branch_input_impedance(gamma,Zc,branch_meta(b).length_m,branch_meta(b).load);
         branch_input_admittance{b} = impedance_to_admittance(Zin);
