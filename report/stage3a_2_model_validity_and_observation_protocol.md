@@ -111,7 +111,7 @@ result = exp16_stage3a_2_protocol_audit(pwd);
 
 这里的三种多视图配置不是同一种物理测量：loaded/high-Z 视图的内部接收机是并联负载；counterfactual 只是同一完整网络解中的分析性无负载节点电压。多视图严格率为 1 是模型内、20 dB、当前参数边界和特征下的结果，不能直接写成现场传感器性能。
 
-对于 SISO，T3/T5 的等价类率均为 1；联合搜索虽然 strict accuracy 为 0.790，却把一部分物理等价的 noisy observation 变成非 tie 的唯一候选，故 `false_unique_rate=0.460`、unique rate 下降到 0.420。这是参数自由度造成的不可辨识/过拟合风险，不是算法已经打破物理等价。名义匹配和 amplitude topology-only 的严格率也不等于 T3/T5 的唯一可辨识性。
+对于 SISO，T3/T5 的等价类率均为 1；联合搜索虽然 strict accuracy 为 0.785，却把一部分物理等价的 noisy observation 变成非 tie 的唯一候选，故 `false_unique_rate=0.470`、unique rate 为 0.430。这是参数自由度造成的不可辨识/过拟合风险，不是算法已经打破物理等价。名义匹配和 amplitude topology-only 的严格率也不等于 T3/T5 的唯一可辨识性。
 
 `load_error_10` 和 `joint_bounded` 的逐场景结果在 summary/trial CSV 中保存。它们用于显示负载/参数不确定性和测量误差如何改变距离与歧义，不代表现场参数分布。所有方法使用相同观测信号、噪声种子、频点和候选集合；nominal 与 joint 只在匹配器和特征定义上按配置明确区分，不能把不同特征的结果当成公平的单一算法比较。
 
@@ -164,3 +164,9 @@ run_tests                              % 文档更新后的最终回归
 ```
 
 已实际运行：修改前全量 `run_tests`、阶段 3A.2 接口测试、model-validity 实验、protocol smoke、protocol formal，以及最终 seed 分区修复后的全量回归。正式协议日志为 `results/logs/stage3a_2_protocol_formal_final.log`，smoke 日志为 `results/logs/stage3a_2_protocol_smoke_final.log`，最终全量回归日志为 `results/logs/stage3a_2_final_run_tests_seedfix.log`。此前 seed 分区存在碰撞的 formal 文件已由修正后的入口重新生成，不再作为最终统计依据。第一次未加入 MATLAB path 的调用错误保留在 `results/logs/stage3a_2_final_run_tests.log`，不计为测试通过；修正 path 后全量回归退出码为 0。
+
+## 8. 本次收尾审计修订记录
+
+- 修正了本节 SISO `nuisance_aware_joint` 正文中的旧数字 `0.790/0.420/0.460`，与正式 `stage3a_2_protocol_summary.csv` 的 `0.785/0.430/0.470` 一致。
+- 这是报告数字一致性修正，不是重新运行实验；正式 CSV、MAT 和日志未被修改。
+- 收尾修改前的完整测试实际通过，日志为 `results/logs/stage3a_2_closeout_prechange_tests.log`；本次只增加证据矩阵、结论说明、Word 汇报提纲和文档链接，完成后再运行一次相同测试入口确认文档修改不影响代码。
