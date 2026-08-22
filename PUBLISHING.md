@@ -15,6 +15,8 @@ cd matlab_plc_cfr_publish
 
 本项目使用频域等效 OFDM 导频模型，不是完整 PLC 收发机；结论仅适用于报告中说明的完整树网络、端接、噪声和参数假设。
 
+本仓库还包含宽窄带文献与双频段设计材料：`docs/宽窄带OFDM与PLC拓扑感知文献综合.md`、`docs/宽窄带双频段研究设计.md`、`docs/模型假设修正与证据表.md`、`docs/参数来源与缺口清单.md` 和 `src/stage3_band_configs.m`。这些文件不代表已经完成 NB/BB 数值实验。`cfg_nb` 的 FFT/采样/CP/导频字段保持待协议确认；`cfg_bb` 的 2–30 MHz、64 MHz、4096 点和 256 点 CP 是项目仿真假设，不是标准声明。新增文献 PDF 不作为仓库运行时依赖。
+
 ## 阶段 3A 数据
 
 阶段 3A 的入口为 `run_stage3a('smoke')` 和 `run_stage3a('formal')`。formal 轻量 CSV 和图已保存在 `results/data/stage3a_formal_*`、`results/figures/stage3a_formal_*`；本机的 `stage3a_formal_raw.mat` 约 185 MB，按大型原始数据策略不发布。它包含每次试验的 H_true、H_hat、CIR、循环延迟、噪声细节和参数配置，克隆者不能在缺少该 MAT 时独立重建完整原始 trial。

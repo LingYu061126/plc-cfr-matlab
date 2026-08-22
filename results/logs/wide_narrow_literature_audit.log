@@ -1,0 +1,95 @@
+PLC wide/narrow OFDM literature, model-assumption and dual-band design audit
+Date: 2026-08-22
+Repository: matlab_plc_cfr_publish
+
+Pre-change command attempted:
+  timeout -k 10s 900s env LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/compat/lib QT_QPA_PLATFORM=xcb /home/chidan/Matlab/bin/matlab -batch "cd('matlab_plc_cfr_publish'); diary('results/logs/wide_narrow_literature_prechange_tests.log'); disp(version); disp(license('test','matlab')); run_tests; diary off"
+
+Observed result:
+  exit code 1
+  Unable to load ApplicationService for command client-v1
+  std::exception: failed to load settings errors_warnings plugin
+  The diary was empty; this run did not execute MATLAB tests.
+
+Additional no-JVM probe:
+  /home/chidan/Matlab/bin/matlab -nodisplay -nosplash -nojvm -r "disp(version); exit"
+  timed out with the same ApplicationService failure (exit 124).
+
+Historical baseline (not rerun in this task):
+  results/logs/stage3a_2_closeout_final_tests.log records prior MATLAB R2024a
+  passes through Stage 3A.2. It does not include the new dual-band test.
+
+Post-change command attempted:
+  timeout -k 5s 120s env LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/compat/lib QT_QPA_PLATFORM=xcb /home/chidan/Matlab/bin/matlab -batch "cd('matlab_plc_cfr_publish'); diary('results/logs/wide_narrow_literature_postchange_tests.log'); disp(version); run_tests; diary off"
+
+Observed result:
+  The launcher again emitted "Unable to load ApplicationService for command
+  client-v1" before MATLAB produced a diary. No post-change MATLAB test was
+  executed and no test pass is claimed.
+
+Literature status:
+  Eight requested English PDFs and six requested Chinese PDFs were found in
+  the research workspace. pdftotext succeeded for all; several Chinese PDFs
+  are encrypted and their page layout/formulas require visual rechecking.
+  No dual-band numerical experiment, chart, or formal result was generated.
+
+Auxiliary compatibility check (not MATLAB acceptance):
+  octave --no-gui --quiet --eval "cd('matlab_plc_cfr_publish'); addpath('src'); addpath('config'); addpath('tests'); test_stage3_band_configs();"
+  PASS: Stage3 dual-band configuration boundaries and default isolation.
+  Octave emitted its normal exit warning; this does not change the MATLAB status.
+
+User-requested MATLAB retry:
+  1) Reused MATLAB_PREFDIR=/tmp/matlab-pref-stage3a with full run_tests.
+  2) Created a fresh temporary preference directory and ran the focused
+     test_stage3_band_configs command with MATLAB R2024a flags.
+  3) Both attempts emitted "Unable to load ApplicationService for command
+  client-v1" before diary creation. No MATLAB calculation was executed.
+
+Additional low-level launch probes:
+  - -nodisplay -nosplash -nojvm -r with and without LD_LIBRARY_PATH:
+    timed out after 15 s; both emitted the ApplicationService/client-v1 error
+    (the no-compat run emitted it twice).
+  - -nodesktop -nodisplay -nosplash -batch without LD_LIBRARY_PATH:
+    timed out after 15 s and emitted the same error.
+  - -nouserjavapath -singleCompThread -batch:
+    timed out after 15 s and emitted the same error.
+  MATLAB therefore remains unavailable for numerical execution in this session.
+
+User reported that the environment had been fixed and requested another run:
+  - Direct R2024a -batch version/config test with MATLAB_PREFDIR and the
+    compatibility library: failed before diary creation with client-v1.
+  - /home/chidan/.local/bin/matlab -batch "disp(version)": failed with the
+    same client-v1 message.
+  Package versions remained glibc 2.44, gnutls 3.8.13, openssl 3.6.3, and
+  no newer MATLAB crash dump was created during these attempts.
+
+After user-reported terminal restart:
+  Minimal version probe with MATLAB_PREFDIR=/tmp/matlab-pref-stage3a,
+  LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/compat/lib,
+  QT_QPA_PLATFORM=xcb and -nodisplay -nosplash -softwareopengl -batch
+  "disp(version)" timed out after 20 s (exit 124) and emitted
+  "Unable to load ApplicationService for command `client-v1`".
+  The current shell has empty MATLAB_PREFDIR/LD_LIBRARY_PATH and no residual
+  MATLAB process; no new crash dump was created.
+
+Crash-dump audit:
+  Four existing MATLAB crash dumps (2026-08-19) consistently show MATLAB
+  R2024a 24.1.0.2537033 on EndeavourOS with glibc 2.44. The top stack frames
+  are libmwlmgrimpl.so/lc_init followed by /usr/lib/libgnutls.so.30 and a
+  segmentation violation. This is the current strongest environment-level
+  clue; it is not a confirmed root-cause diagnosis. See
+  report/matlab启动故障诊断.md and /home/chidan/matlab_crash_dump.146554-1.
+
+Independent final verification after the user-reported launcher repair:
+  Command:
+    MATLAB_PREFDIR=/tmp/matlab-pref-plc-verify
+    /home/chidan/.local/bin/matlab -batch "cd('matlab_plc_cfr_publish'); ...; run_tests; ..."
+  Result:
+    exit code 0; MATLAB R2024a 24.1.0.2537033; MATLAB_LICENSE=1.
+    Stage 1.5, 2, 2.1, 2.2, 2.3, 3A, 3A.1, 3A.2 and the dual-band
+    configuration boundary test all passed.
+  Full diary:
+    results/logs/wide_narrow_literature_final_verify.log
+  The console still printed repeated client-v1 mutex/ApplicationService
+  warnings, but the MATLAB process completed the tests and no new crash dump
+  was created. This run did not generate new dual-band numerical experiments.

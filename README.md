@@ -234,3 +234,19 @@ run_stage3a('protocol_audit') % 独立校准/测试的正式协议审计
 正式输出位于 `results/data/stage3a_2_*`、`results/figures/stage3a_2_*` 和 `results/logs/stage3a_2_*`。本机已实际完成 2400 条校准记录和 9000 条测试方法记录；正式测试中对称 SISO 的 T3/T5 仍只能报告为物理等价类，参数感知联合搜索不能把该等价变成可信唯一识别。多视图严格率为 1 是当前完整网络模型、端接/接收负载和参数边界下的结果，不能直接解释为现场无扰动传感器性能。阶段 3B 的波形优化暂不启动；详细边界和阶段门槛见 [`report/stage3a_2_model_validity_and_observation_protocol.md`](report/stage3a_2_model_validity_and_observation_protocol.md) 与 [`notes/stage3a_2_model_validity.md`](notes/stage3a_2_model_validity.md)。
 
 阶段 3A.2 收尾材料还包括 [`report/stage3a_2_final_evidence_matrix.md`](report/stage3a_2_final_evidence_matrix.md)、[`notes/stage3a_2_final_conclusions.md`](notes/stage3a_2_final_conclusions.md) 和 [`report/stage3_progress_report_outline.md`](report/stage3_progress_report_outline.md)。这些文件把正式 CSV/日志支持的结果、模型内推断和真实 PLC 待验证问题分开记录。阶段 3A.2 可作为“模型内阶段性成果”提交导师，但在真实 OFDM 参数、端接、耦合器、同步和因果时域信道冻结前，不建议启动阶段 3B。
+
+## 宽窄带 OFDM 文献与双频段设计（本轮）
+
+本轮新增了文献索引、逐篇笔记和证据驱动的双频段设计：
+
+- [`docs/宽窄带OFDM与PLC拓扑感知文献综合.md`](docs/宽窄带OFDM与PLC拓扑感知文献综合.md)：区分 OFDM 信道估计、路径识别、拓扑变化检测、反射/FDR、节点导纳和完整树反演。
+- [`docs/宽窄带双频段研究设计.md`](docs/宽窄带双频段研究设计.md)：给出 NB/BB 受控比较、等能量/等频点/等时间公平性和阶段边界。
+- [`docs/模型假设修正与证据表.md`](docs/模型假设修正与证据表.md) 与 [`docs/参数来源与缺口清单.md`](docs/参数来源与缺口清单.md)：记录文献证据、代码影响和参数缺口。
+- [`report/wide_narrow_ofdm_literature_audit.md`](report/wide_narrow_ofdm_literature_audit.md)：记录本轮读取文件、运行状态、证据等级、首个实验和导师确认问题。
+- [`src/stage3_band_configs.m`](src/stage3_band_configs.m)：新增 `cfg_nb` 和 `cfg_bb`。NB 的 PHY 参数故意保持待确认，BB 继承现有 2–30 MHz 项目仿真假设；两者共用原有传输线/拓扑接口，不改变默认配置。
+
+本轮没有运行双频段数值实验，也没有生成双频段图或覆盖既有结果。42–472 kHz 是受控 NB 候选频带，不是项目已确认标准；`Fs=64 MHz、NFFT=4096、CP=256、2–30 MHz` 仍是 BB 项目仿真假设。真实 NB/BB PHY、PSD/缺口、耦合器、端接、同步、RLGC 适用范围和噪声尚待确认。只有这些因素冻结并完成公平比较后，才能判断瓶颈是否来自 OFDM 资源配置；本轮不进入阶段 3B。
+
+MATLAB 启动故障的集中诊断见 [`report/matlab启动故障诊断.md`](report/matlab启动故障诊断.md)。当前错误发生在 MATLAB 许可管理器初始化和系统 GnuTLS 调用阶段，早于项目代码执行；本报告列出启动命令、系统版本、崩溃转储位置和建议排查顺序。
+
+新增测试 `test_stage3_band_configs` 检查配置共享接口、默认配置隔离和 NB 参数未确认状态；它已加入 `tests/run_tests.m`。本轮 MATLAB 基线启动失败，详见 `results/logs/wide_narrow_literature_prechange_tests.log`，因此不能把新增测试写成实际通过。
