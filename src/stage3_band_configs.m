@@ -22,6 +22,8 @@ function [cfg_nb, cfg_bb, meta] = stage3_band_configs(root_dir)
 
     base = default_config(root_dir);
     base_ofdm = base.ofdm;
+    stage3a = stage3a_config(root_dir);
+    stage3a_ofdm = stage3a.ofdm;
 
     common = struct();
     common.root_dir = root_dir;
@@ -58,14 +60,15 @@ function [cfg_nb, cfg_bb, meta] = stage3_band_configs(root_dir)
     cfg_nb.fs_hz = NaN;
     cfg_nb.nfft = NaN;
     cfg_nb.cp_samples = NaN;
+    cfg_nb.cp_source = '待与实际 NB-PLC PHY 确认';
     cfg_nb.active_subcarrier_rule = '待与实际 NB-PLC PHY 确认';
     cfg_nb.pilot_rule = '待与实际 NB-PLC PHY 确认；不得假定全导频';
     cfg_nb.psd_rule = '待确认；当前仅记录候选频带，不代表标准 PSD';
     cfg_nb.noise_psd_rule = '待确认；应允许有色/窄带/脉冲噪声';
     cfg_nb.load_frequency_model = 'use existing load interface; frequency law not field-calibrated';
     cfg_nb.reference_basis = {'project_design_candidate_below_500_kHz', ...
-        'P1 local review compares 42--472 kHz NB-PLC conditions', ...
-        'not a claim that this is the project modem standard'};
+        'P12 local review compares 42--472 kHz NB-PLC conditions', ...
+        'not a claim that this is PRIME, G3 or another project modem standard'};
     cfg_nb.status = 'design_only_protocol_and_sampling_parameters_required';
     cfg_nb.extension_note = ['NB frequency endpoints are a controlled research ' ...
         'candidate. They are not sufficient to instantiate OFDM without a confirmed PHY.'];
@@ -85,7 +88,10 @@ function [cfg_nb, cfg_bb, meta] = stage3_band_configs(root_dir)
     cfg_bb.frequency_spacing_hz = base_ofdm.subcarrier_spacing_hz;
     cfg_bb.fs_hz = base_ofdm.sample_rate_hz;
     cfg_bb.nfft = base_ofdm.nfft;
-    cfg_bb.cp_samples = 256;
+    cfg_bb.cp_samples = stage3a_ofdm.cyclic_prefix_samples;
+    cfg_bb.cp_source = stage3a_ofdm.cyclic_prefix_source;
+    cfg_bb.stage2_baseline_cp_samples = base_ofdm.cyclic_prefix_samples;
+    cfg_bb.cp_definition = stage3a_ofdm.cyclic_prefix_definition;
     cfg_bb.active_subcarrier_rule = 'existing project active bins in 2--30 MHz';
     cfg_bb.pilot_rule = 'existing project all-active baseline; sparse spacing is audit-only';
     cfg_bb.pilot_spacings = [1, 2, 4, 8];
@@ -93,7 +99,7 @@ function [cfg_nb, cfg_bb, meta] = stage3_band_configs(root_dir)
     cfg_bb.noise_psd_rule = 'white baseline plus existing colored/impulsive interfaces';
     cfg_bb.load_frequency_model = 'existing scalar/complex/vector/parallel-RLC interfaces';
     cfg_bb.reference_basis = {'current_project_simulation_assumption_2_30_MHz', ...
-        'P8 discusses 1.1--30 MHz and 30--86 MHz separately in standard-specific context', ...
+        'P09 discusses 1.1--30 MHz and 30--86 MHz separately in standard-specific context', ...
         'not a claim that Fs=64 MHz/NFFT=4096/CP=256 is a standard profile'};
     cfg_bb.extension_band_hz = [30e6, 86e6];
     cfg_bb.extension_status = ['design extension only; current RLGC, Fs, PSD, ' ...

@@ -208,3 +208,9 @@ MATLAB_PREFDIR=/tmp/matlab-pref-plc-verify \
 结果：MATLAB R2024a（`24.1.0.2537033`）、`MATLAB_LICENSE=1`；阶段 1.5、2、2.1、2.2、2.3、3A、3A.1、3A.2 以及双频段配置边界测试全部通过。完整控制台/Diary 保存在 `results/logs/wide_narrow_literature_final_verify.log`；命令返回 `0`。
 
 运行期间仍出现数次 `Unable to load ApplicationService for command client-v1` 提示，但 MATLAB 随后完成了全部测试，未产生新的崩溃转储。该提示应继续视为当前沙箱 IPC 警告，不能单独作为本次测试失败依据；若在脱离该启动环境后仍出现，应重新收集新的崩溃转储。
+
+### 8.4 宽窄带文献审计门控复核（2026-08-22）
+
+针对双频段配置来源和 CP 来源标注修正后，使用新的临时偏好目录再次执行完整 `run_tests`。最终回归日志为 `results/logs/wide_narrow_literature_gate_final_verify_v2.log`（此前的 `wide_narrow_literature_gate_final_verify.log` 也保留），MATLAB R2024a、`MATLAB_LICENSE=1`，命令退出码为 `0`。阶段 1.5、2、2.1、2.2、2.3、3A、3A.1、3A.2 及 `test_stage3_band_configs` 均通过。
+
+该日志只证明代码回归和配置边界通过；没有运行 NB/BB 双频段数值实验，也没有生成双频段图、CSV、MAT 或 OFDM 波形优化结果。

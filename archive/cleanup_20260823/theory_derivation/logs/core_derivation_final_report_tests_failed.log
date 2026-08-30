@@ -1,0 +1,19 @@
+PLC CFR final theory report test rerun status
+Date: 2026-08-22
+Repository: matlab_plc_cfr_publish
+Git commit inspected: f663bda04f9ef541db28be2cff9aeb5399577150
+
+Command:
+set +e; timeout -k 10s 90s env MATLAB_PREFDIR=/tmp/matlab-pref-core-derivation-probe /home/chidan/.local/bin/matlab -nodisplay -nosplash -nojvm -r "disp(version); disp(['MATLAB_LICENSE=' num2str(license('test','matlab'))]); exit" > /tmp/core_derivation_matlab_probe.out 2>&1; rc=$?; echo PROBE_EXIT=$rc
+
+Exit code: 1
+MATLAB version: not reported; MATLAB process did not enter the interpreter.
+Output:
+Fatal Error:
+Dynamic exception type: foundation::catapult::carrier::stream::TransportException
+std::exception::what: Unable to launch /home/chidan/Matlab/bin/glnxa64/MATLAB
+because: bind: Operation not permitted [system:1]
+
+Interpretation: this rerun was not a MATLAB test run. No source code, launcher, system library, or existing result was changed. The latest successful MATLAB evidence remains:
+- results/logs/core_derivation_review_config_test.log
+- results/logs/core_derivation_review_full_test.log

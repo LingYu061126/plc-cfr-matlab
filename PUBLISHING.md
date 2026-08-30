@@ -23,4 +23,4 @@ cd matlab_plc_cfr_publish
 
 阶段 3A 当前是 `Y=XH+N` 的通信型等效模型，加入了仿真 IFFT/CP/FFT/LS 和稀疏导频插值，但没有完整同步、CFO、编码、PAPR、现场有色/脉冲噪声、真实耦合器/MIMO 或市电测量。FDR/TFDR 和输入导纳输出仅为明确标记的 proxy，不应和普通端到端 OFDM-CFR 混称。
 
-最终审计状态：MATLAB R2024a 的阶段 1.5、2、2.1、2.2、2.3 测试全部通过；阶段 3A 单元测试和 formal 入口也已实际通过。阶段 3A formal 使用固定种子和当前代码运行生成 1088 条 trial 指标、136 条汇总组；轻量 CSV 可审阅，但约 185 MB 的 raw MAT 不发布。阶段 2.3 的旧 formal fixed 仍按历史来源说明，不与阶段 3A formal 混用。详细命令、数据来源和限制见 `report/stage3a_communication_baseline.md`。
+最终审计状态：MATLAB R2024a 的阶段 1.5、2、2.1、2.2、2.3、3A、3A.1、3A.2 测试以及 `test_stage3_band_configs` 全部有最终通过日志。阶段 3A formal 使用固定种子和当前代码运行生成 1088 条 trial 指标、136 条汇总组；轻量 CSV 可审阅，但约 185 MB 的 raw MAT 不发布。阶段 2.3 的旧 formal fixed 仍按历史来源说明，不与阶段 3A formal 混用。NB/BB 双频段数值实验、图、CSV 和 OFDM 波形优化尚未完成；详细命令、数据来源和限制见 `report/wide_narrow_ofdm_literature_audit.md` 与 `report/matlab启动故障诊断.md`。

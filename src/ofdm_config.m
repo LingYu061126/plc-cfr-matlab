@@ -13,7 +13,10 @@ function cfg = ofdm_config()
     cfg.pilot_spacing = 1;
     cfg.pilot_mode = 'all_active_known_qpsk';
     cfg.pilot_seed = 20260819;
-    cfg.cyclic_prefix_samples = 0; % not used by this frequency-domain baseline
+    cfg.cyclic_prefix_samples = 0; % historical stage-2 frequency-domain baseline
+    cfg.cyclic_prefix_source = 'stage2_historical_frequency_domain_baseline';
+    cfg.cyclic_prefix_definition = ...
+        'No CP is instantiated in the stage-2 frequency-domain equivalent model.';
 
     first_sc = ceil(cfg.frequency_band_hz(1) / cfg.subcarrier_spacing_hz);
     last_sc = floor(cfg.frequency_band_hz(2) / cfg.subcarrier_spacing_hz);

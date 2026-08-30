@@ -38,7 +38,7 @@ results/baseline_pre_stage15/logs/
 - `experiments/exp05_long_line_literature_case.m`：稳定正式结果、旧 ABCD 审计和诊断图。
 - `experiments/exp06_frequency_selective_load.m`：新增频选负载实验。
 - `run_all.m`：执行新实验并设置图形字体。
-- `README.md`、`report/core_derivation.md`、`report/experiment_results.md`：同步公式、边界和结果。
+- `README.md`、`archive/cleanup_20260823/theory_derivation/reports/core_derivation.md`、`report/experiment_results.md`：同步公式、边界和结果；核心推导现保留为归档历史文件。
 
 ## 3. 稳定方法与原理
 

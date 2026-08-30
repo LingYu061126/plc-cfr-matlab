@@ -9,6 +9,11 @@ function cfg = stage3a_config(root_dir)
     base = default_config(root_dir);
     ofdm = base.ofdm;
     ofdm.cyclic_prefix_samples = 256;
+    ofdm.cyclic_prefix_source = 'stage3a_project_simulation_assumption';
+    ofdm.cyclic_prefix_definition = ...
+        '256 samples for the stage-3A sampled-CFR IFFT/CP audit; not a standard PHY value.';
+    ofdm.stage2_baseline_cyclic_prefix_samples = ...
+        base.ofdm.cyclic_prefix_samples;
     ofdm.pilot_spacings = [1, 4];
     ofdm.full_grid_bin_1based = ofdm.active_bin_1based;
     ofdm.full_grid_frequency_hz = ofdm.active_frequency_hz;

@@ -169,7 +169,8 @@ Z(f) = R/(1 + j*Q*(f/f0 - f0/f))
 - `experiments/exp05`：300/500/800/1200 m 文献参数外推，正式曲线使用稳定递推，旧 ABCD 仅审计。
 - `experiments/exp06`：频率选择性并联 RLC 负载。
 - `experiments/exp07`、`exp08`：OFDM 等效信道估计和拓扑匹配基线；`exp09_stage2_1_audit`：统计稳健性、噪声定义、测量配置、参数不确定性和特征审计。
-- `report/core_derivation.md`：代码一致的公式和稳定递推推导。
+- `archive/cleanup_20260823/theory_derivation/reports/core_derivation.md`：已归档的代码一致公式和稳定递推推导。
+- `materials/derivations/电力线载波拓扑识别核心理论推导_导师汇报版.md` 与同名 `.docx`：面向导师汇报的独立理论推导稿；其中明确区分论文证据、代码核对、历史结果和模型推断。
 - `report/experiment_results.md`：实际 MATLAB 数值结果和可保留/排除结论。
 - `report/stage15_acceptance.md`：阶段验收、修改前后对比、日志和限制。
 - `report/stage2_baseline.md`：阶段 2 流程、距离定义、候选拓扑、实际结果、混淆矩阵和失败边界。
@@ -242,11 +243,11 @@ run_stage3a('protocol_audit') % 独立校准/测试的正式协议审计
 - [`docs/宽窄带OFDM与PLC拓扑感知文献综合.md`](docs/宽窄带OFDM与PLC拓扑感知文献综合.md)：区分 OFDM 信道估计、路径识别、拓扑变化检测、反射/FDR、节点导纳和完整树反演。
 - [`docs/宽窄带双频段研究设计.md`](docs/宽窄带双频段研究设计.md)：给出 NB/BB 受控比较、等能量/等频点/等时间公平性和阶段边界。
 - [`docs/模型假设修正与证据表.md`](docs/模型假设修正与证据表.md) 与 [`docs/参数来源与缺口清单.md`](docs/参数来源与缺口清单.md)：记录文献证据、代码影响和参数缺口。
-- [`report/wide_narrow_ofdm_literature_audit.md`](report/wide_narrow_ofdm_literature_audit.md)：记录本轮读取文件、运行状态、证据等级、首个实验和导师确认问题。
+- [`report/wide_narrow_ofdm_literature_audit.md`](report/wide_narrow_ofdm_literature_audit.md)：记录本轮读取文件、修复前历史状态、修复后 MATLAB 证据、证据等级、首个实验和导师确认问题。
 - [`src/stage3_band_configs.m`](src/stage3_band_configs.m)：新增 `cfg_nb` 和 `cfg_bb`。NB 的 PHY 参数故意保持待确认，BB 继承现有 2–30 MHz 项目仿真假设；两者共用原有传输线/拓扑接口，不改变默认配置。
 
 本轮没有运行双频段数值实验，也没有生成双频段图或覆盖既有结果。42–472 kHz 是受控 NB 候选频带，不是项目已确认标准；`Fs=64 MHz、NFFT=4096、CP=256、2–30 MHz` 仍是 BB 项目仿真假设。真实 NB/BB PHY、PSD/缺口、耦合器、端接、同步、RLGC 适用范围和噪声尚待确认。只有这些因素冻结并完成公平比较后，才能判断瓶颈是否来自 OFDM 资源配置；本轮不进入阶段 3B。
 
-MATLAB 启动故障的集中诊断见 [`report/matlab启动故障诊断.md`](report/matlab启动故障诊断.md)。当前错误发生在 MATLAB 许可管理器初始化和系统 GnuTLS 调用阶段，早于项目代码执行；本报告列出启动命令、系统版本、崩溃转储位置和建议排查顺序。
+MATLAB 启动故障的集中诊断见 [`report/matlab启动故障诊断.md`](report/matlab启动故障诊断.md)。其中第 1–7 节保留修复前的许可管理器/GnuTLS 历史诊断，第 8 节记录修复后 R2024a 已能进入项目代码并完成测试。
 
-新增测试 `test_stage3_band_configs` 检查配置共享接口、默认配置隔离和 NB 参数未确认状态；它已加入 `tests/run_tests.m`。本轮 MATLAB 基线启动失败，详见 `results/logs/wide_narrow_literature_prechange_tests.log`，因此不能把新增测试写成实际通过。
+新增测试 `test_stage3_band_configs` 检查配置共享接口、默认配置隔离、NB 参数未确认状态以及阶段 2/3A CP 来源隔离；它已加入 `tests/run_tests.m`。该测试已在 MATLAB R2024a 中实际通过，证据见 `results/logs/wide_narrow_literature_gate_final_verify_v2.log`。这只证明配置边界通过，不代表 NB/BB 双频段拓扑识别实验已经完成。

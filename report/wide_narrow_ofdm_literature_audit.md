@@ -51,9 +51,15 @@ Y_{rt}[k]=X_t[k]H_{rt}(k;G,\theta)+N_{rt}[k].$$
 
 两套配置共享阶段 1.5 的 RLGC/ABCD、稳定网络、支路阻抗和拓扑匹配接口，不复制或修改物理模型。
 
+来源说明：42–472 kHz 是 P12 文献场景对照下的候选研究频带，不代表已确认 PRIME、G3 或其他 NB-PLC 标准；2–30 MHz、Fs=64 MHz、NFFT=4096、CP=256 是项目 BB 仿真假设。
+
 ## 5. 运行与测试状态
 
-本轮尝试的基线命令：
+### 5.1 修复前历史记录（保留）
+
+本小节记录修复前的启动失败，不代表当前 MATLAB 状态。
+
+当时尝试的基线命令：
 
 ```bash
 timeout -k 10s 900s env LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/compat/lib \
@@ -72,7 +78,26 @@ timeout -k 10s 900s env LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/
 | 新增双频段图/CSV/MAT | 未生成 |
 | 静态代码/文档/Git 检查 | 已执行，结果见最终交付摘要 |
 
-因此本轮不能声称“全部测试通过”或“NB/BB 识别结果已验证”。
+因此在修复前不能声称“全部测试通过”或“NB/BB 识别结果已验证”。
+
+### 5.2 修复后最终状态
+
+用户修复 MATLAB 启动器后，已使用仓库既定启动方式和全新 MATLAB_PREFDIR 实际运行完整测试。证据文件为：
+
+- results/logs/wide_narrow_literature_final_verify.log；
+- results/logs/wide_narrow_literature_gate_final_verify_v2.log；
+- report/matlab启动故障诊断.md 第 8 节；
+- 同时保留的 results/logs/wide_narrow_literature_recheck_full.log。
+
+最终日志记录 MATLAB R2024a 24.1.0.2537033、MATLAB_LICENSE=1，并通过了阶段 1.5、2、2.1、2.2、2.3、3A、3A.1、3A.2 测试以及 test_stage3_band_configs。配置边界测试通过只表示 NB/BB 配置接口和边界检查通过，不表示已经完成宽窄带拓扑识别。
+
+本轮仍未完成：
+
+- NB/BB 双频段数值实验；
+- 双频段识别图、CSV 或 MAT；
+- OFDM 波形、导频、子载波、功率或资源优化。
+
+因此当前交付是文献审计、模型边界和设计配置收尾，不是双频段识别结果。
 
 ## 6. 当前科学结论
 
@@ -94,13 +119,19 @@ timeout -k 10s 900s env LD_LIBRARY_PATH=/home/chidan/.local/share/matlab-r2024a/
 
 ## 7. 当前最值得优先实现的一个实验
 
-在不优化波形的前提下，先由导师确认 NB/BB PHY 后，做“相同候选树、相同总能量、相同有效频点数、相同观测时间、同一 50 Ω SISO 端口”的 Level A/B 双频段实验；同时加入 T3/T5、负载扰动和参数扰动，并报告复数 CFR/CIR 的类间/类内距离、严格率、等价类率和 false-unique。该实验最先区分“频带/采样不足”与“结构性 SISO 等价”。
+在不优化波形的前提下，先由导师确认 NB/BB PHY 后，做“相同候选树、相同参数扰动、相同总发送能量、相同有效频点数、相同观测时间、同一 50 Ω SISO 端口”的 Level-A 双频段理想 CFR 实验；同时加入 T3/T5、负载扰动和参数扰动，并报告复数 CFR/CIR 的类间/类内距离、严格率、等价类率和 false-unique。该实验最先区分“频带/采样不足”与“结构性 SISO 等价”。
 
 ## 8. 需要向导师确认的三个问题
 
 1. NB 研究对象是具体 PRIME/G3/其他设备，还是只做 42–472 kHz 的抽象受控频带？对应 `Fs/NFFT/CP/导频/PSD` 是什么？
 2. BB 是否只研究 2–30 MHz，还是扩展到 30–86 MHz？可用的 RLGC、PSD、耦合器和户外线路依据是什么？
 3. 实际可获得的观测是单端 SISO、双向、内部节点、线间 MIMO、输入导纳还是反射/FDR？端接和同步参考面如何定义？
+
+进入 Level-A 双频段理想 CFR 实验前，必须由导师确认：
+
+1. NB PHY：具体设备/标准、Fs/NFFT/CP、有效子载波、导频和 PSD；
+2. BB 频带范围：仅 2–30 MHz，还是包含 30–86 MHz 扩展，以及对应 RLGC/PSD 依据；
+3. 实际观测方式：SISO、双向、节点、多端口、输入导纳或反射/FDR，以及端接和耦合器参考面。
 
 ## 9. 阶段 3B 判断
 
