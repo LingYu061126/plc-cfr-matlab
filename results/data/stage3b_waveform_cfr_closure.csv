@@ -1,0 +1,7 @@
+case_name,cfr_nmse,cp_mathematically_covered
+clean,6.7497501501463e-32,1
+integer_timing_2,2.27946242597633,1
+cfo_5kHz,1.75405616839199,1
+sco_100ppm,0.198083755603639,1
+colored_20dB,0.00843871723847255,1
+impulsive_20dB,0.0105443728815662,1
