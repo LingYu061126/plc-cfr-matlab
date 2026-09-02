@@ -1,5 +1,7 @@
 function out = stage3b_pre_level_a_match(f_hz, candidates, base_cfg, theta, snr_db, seed, cfg)
-%STAGE3B_PRE_LEVEL_A_MATCH Isolated ideal-CFR topology matching diagnostic.
+%STAGE3B_PRE_LEVEL_A_MATCH Ideal-CFR plus receiver-sample-noise diagnostic.
+%   One CFR vector is observed per trial. No waveform energy, symbol time,
+%   repetitions, averaging, coupler loss or receiver noise figure is modeled.
     refs=topology_reference_cfr(f_hz,candidates,base_cfg);
     views=cell(1,numel(refs));
     for v=1:numel(refs), views{v}={refs(v).reference_H}; end
@@ -21,7 +23,7 @@ function out = stage3b_pre_level_a_match(f_hz, candidates, base_cfg, theta, snr_
     metrics=topology_equivalence_evaluation(truth,matches,candidates,classes);
     out=struct('metrics',metrics,'classes',classes,'truth',truth,'matches',{matches}, ...
         'class_intra_distance',intra,'nearest_class_inter_distance',inter, ...
-        'nearest_competitor',{nearest},'cfr_sampling_nmse',0, ...
+        'nearest_competitor',{nearest},'cfr_sampling_nmse_ideal_input',0, ...
         'noise_is_receiver_domain',isfinite(snr_db));
 end
 
