@@ -1,0 +1,7 @@
+item,BB,NB,evidence_level,formal_level_a_allowed
+RLGC frequency applicability,2--30 MHz existing project model window,below existing evidence: analytic frequency extrapolation,code/history model boundary,0
+load model,scalar/complex model interface,same mathematical interface; no field calibration,code interface only,0
+source_receiver_impedance,50 ohm mathematical assumption,same mathematical assumption; no hardware calibration,project assumption,0
+frequency_grid,G.hn-derived 2--30 MHz indices,G3 CENELEC-A derived 36-tone grid,standard-derived reference,0
+noise definition,receiver-domain controlled diagnostic,same controlled diagnostic definition,simulation definition,0
+observation port,SISO forward model,same SISO forward model,model observation definition,0
