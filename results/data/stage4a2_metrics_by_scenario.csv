@@ -1,0 +1,5 @@
+scenario_id,frequency_grid_id,trial_count,candidate_count_after_prior,truth_coverage_rate,strict_accuracy,equivalent_class_accuracy,false_unique_rate,reject_rate,out_of_library_false_accept_rate,mean_margin
+P0_no_prior,A_stage4a1_quick61,3,7,0.666666666666667,0.333333333333333,0.666666666666667,0,0.666666666666667,0,0.0427325447911959
+P1_partial_consistent_prior,A_stage4a1_quick61,1,4,1,1,1,0,0,0,0.0988218812768828
+P2_stale_or_inconsistent_prior,A_stage4a1_quick61,1,4,0,0,0,0,1,0,0.0138245996462281
+P0_no_prior,B_ofdm_active_subcarriers,1,7,1,1,1,0,0,0,0.118798590889187

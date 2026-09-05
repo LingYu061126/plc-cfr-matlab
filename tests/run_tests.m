@@ -201,6 +201,7 @@ function run_tests()
     test_stage3b_pre();
     test_stage3b_waveform();
     test_stage4a1();
+    test_stage4a2_prior_constrained_library();
 end
 
 function err = determinant_error(T)

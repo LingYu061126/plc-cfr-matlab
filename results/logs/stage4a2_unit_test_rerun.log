@@ -1,0 +1,8 @@
+24.1.0.2537033 (R2024a)
+Running Stage 4A.1 candidate-library tests...
+ALL STAGE-4A.1 TESTS PASSED
+Running Stage 4A.2 prior-constrained library tests...
+  PASS P0/P1/P2 coverage, prior-order invariance and hard-conflict safety
+  PASS 243-template grid declaration, finite CFR and streamed/full agreement
+  PASS symmetric equivalence output and library-out rejection
+ALL STAGE-4A.2 TESTS PASSED
