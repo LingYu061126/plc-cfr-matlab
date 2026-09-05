@@ -203,6 +203,7 @@ function run_tests()
     test_stage4a1();
     test_stage4a2_prior_constrained_library();
     test_stage4a3_open_set_audit();
+    test_stage4a3_1_statistical_open_set_audit();
 end
 
 function err = determinant_error(T)

@@ -1,0 +1,3 @@
+grid_id,source,nfft,sample_rate_hz,active_bin_count,frequency_count,frequency_min_hz,frequency_max_hz,frequency_spacing_hz,active_bin_1based,frequency_array_hz,configuration_hash
+A_stage4a1_quick61,stage4a1_config.frequency_hz,4096,64000000,0,5,2000000,3866666.66666667,466666.666666667,,[2000000 2466666.6666666665 2933333.3333333335 3400000 3866666.666666667],bc30b2925b1f49054a9f904919774c889181c8ccf394e0700fde9f8ae0d8d0b6
+B_ofdm_active_subcarriers,default_config.ofdm.active_frequency_hz,4096,64000000,5,5,2000000,2062500,15625,[129 130 131 132 133],[2000000 2015625 2031250 2046875 2062500],6d726c44296c253b66826fd554cb5dd535c85e9586052b56b98f9c7cb5fdf9f1

@@ -1,0 +1,193 @@
+function metrics = evaluate_stage4a3_1_metrics(decisions, scoring_labels, truth_labels)
+%EVALUATE_STAGE4A3_1_METRICS Score observation-only decisions offline.
+%   This function is intentionally downstream of matching. It is the only
+%   place where truth coverage, truth topology and scenario labels are used.
+%   Rejected samples never contribute to accepted strict/set accuracy.
+
+    if numel(decisions) ~= numel(scoring_labels) || ...
+            numel(decisions) ~= numel(truth_labels)
+        error('evaluate_stage4a3_1_metrics:Alignment', ...
+            'Decision, scoring-label and truth-label arrays must align.');
+    end
+    if isempty(decisions), metrics = repmat(metric_template(),0,1); return; end
+    keys = unique(strcat({scoring_labels.scenario_id}, '|', ...
+        {scoring_labels.grid_id}, '|', {scoring_labels.category}));
+    metrics = repmat(metric_template(), numel(keys), 1);
+    for q = 1:numel(keys)
+        ix = strcmp(strcat({scoring_labels.scenario_id}, '|', ...
+            {scoring_labels.grid_id}, '|', {scoring_labels.category}), keys{q});
+        d = decisions(ix);
+        s = scoring_labels(ix);
+        t = truth_labels(ix);
+        decision_names = {d.decision};
+        accepted = ismember(decision_names, ...
+            {'unique_topology','unique_given_prior','equivalence_class'});
+        rejected = ismember(decision_names, ...
+            {'reject_model_mismatch','reject_low_margin','reject_no_feasible_candidate'});
+        unique_output = ismember(decision_names, {'unique_topology','unique_given_prior'});
+        covered = [s.truth_covered];
+        truth_hit_topology = false(1,numel(d));
+        truth_hit_class = false(1,numel(d));
+        for k = 1:numel(d)
+            truth_hit_topology(k) = strcmp(d(k).best_topology_id, s(k).truth_topology_id);
+            truth_hit_class(k) = topology_set_contains(d(k).best_equivalence_class, ...
+                s(k).truth_topology_id);
+        end
+        strict_correct = covered & accepted & unique_output & truth_hit_topology;
+        set_correct = covered & accepted & ...
+            arrayfun(@(k)topology_set_contains(d(k).accepted_topology_set, ...
+            s(k).truth_topology_id), 1:numel(d));
+        baseline_nonunique = [t.truth_is_observationally_nonunique];
+        false_unique = baseline_nonunique & strcmp(decision_names, 'unique_topology');
+        prior_output = strcmp(decision_names, 'unique_given_prior');
+        prior_correct = prior_output & truth_hit_topology;
+        prior_collapsed = [t.prior_collapsed_equivalence];
+
+        row = metric_template();
+        row.scenario_id = s(1).scenario_id;
+        row.grid_id = s(1).grid_id;
+        row.category = s(1).category;
+        row.sample_count = numel(s);
+        [row.truth_coverage_rate,row.truth_coverage_num,row.truth_coverage_den, ...
+            row.truth_coverage_wilson_low,row.truth_coverage_wilson_high] = ...
+            ratio(sum(covered), numel(covered));
+        [row.unique_accuracy_given_covered,row.unique_accuracy_num, ...
+            row.unique_accuracy_den,row.unique_accuracy_wilson_low, ...
+            row.unique_accuracy_wilson_high] = ratio(sum(strict_correct), sum(covered));
+        [row.set_accuracy_given_covered,row.set_accuracy_num,row.set_accuracy_den, ...
+            row.set_accuracy_wilson_low,row.set_accuracy_wilson_high] = ...
+            ratio(sum(set_correct), sum(covered));
+        [row.nearest_topology_hit_rate,row.nearest_topology_hit_num, ...
+            row.nearest_topology_hit_den,row.nearest_topology_hit_wilson_low, ...
+            row.nearest_topology_hit_wilson_high] = ...
+            ratio(sum(covered & truth_hit_topology), sum(covered));
+        [row.nearest_class_hit_rate,row.nearest_class_hit_num, ...
+            row.nearest_class_hit_den,row.nearest_class_hit_wilson_low, ...
+            row.nearest_class_hit_wilson_high] = ...
+            ratio(sum(covered & truth_hit_class), sum(covered));
+        [row.in_library_reject_rate,row.in_library_reject_num, ...
+            row.in_library_reject_den,row.in_library_reject_wilson_low, ...
+            row.in_library_reject_wilson_high] = ratio(sum(covered & rejected), sum(covered));
+        [row.false_unique_rate_given_nonunique,row.false_unique_num, ...
+            row.false_unique_den,row.false_unique_wilson_low, ...
+            row.false_unique_wilson_high] = ratio(sum(false_unique), sum(baseline_nonunique));
+        [row.unique_given_prior_rate,row.unique_given_prior_num, ...
+            row.unique_given_prior_den,row.unique_given_prior_wilson_low, ...
+            row.unique_given_prior_wilson_high] = ratio(sum(prior_output), numel(s));
+        [row.unique_given_prior_accuracy,row.unique_given_prior_accuracy_num, ...
+            row.unique_given_prior_accuracy_den,row.unique_given_prior_accuracy_wilson_low, ...
+            row.unique_given_prior_accuracy_wilson_high] = ratio(sum(prior_correct), sum(prior_output));
+        [row.unique_given_prior_error_rate,row.unique_given_prior_error_num, ...
+            row.unique_given_prior_error_den,row.unique_given_prior_error_wilson_low, ...
+            row.unique_given_prior_error_wilson_high] = ...
+            ratio(sum(prior_output & ~truth_hit_topology), sum(prior_output));
+        [row.prior_collapsed_equivalence_rate,row.prior_collapsed_equivalence_num, ...
+            row.prior_collapsed_equivalence_den,row.prior_collapsed_equivalence_wilson_low, ...
+            row.prior_collapsed_equivalence_wilson_high] = ...
+            ratio(sum(prior_collapsed), sum(covered & baseline_nonunique));
+        structure_out = strcmp({s.category}, 'structure_out');
+        parameter_out = strcmp({s.category}, 'parameter_out');
+        excluded = strcmp({s.coverage_status}, 'excluded_by_prior');
+        [row.structure_out_false_accept_rate,row.structure_out_false_accept_num, ...
+            row.structure_out_false_accept_den,row.structure_out_false_accept_wilson_low, ...
+            row.structure_out_false_accept_wilson_high] = ...
+            ratio(sum(structure_out & accepted), sum(structure_out));
+        [row.parameter_out_false_accept_rate,row.parameter_out_false_accept_num, ...
+            row.parameter_out_false_accept_den,row.parameter_out_false_accept_wilson_low, ...
+            row.parameter_out_false_accept_wilson_high] = ...
+            ratio(sum(parameter_out & accepted), sum(parameter_out));
+        [row.excluded_by_prior_false_accept_rate,row.excluded_by_prior_false_accept_num, ...
+            row.excluded_by_prior_false_accept_den,row.excluded_by_prior_false_accept_wilson_low, ...
+            row.excluded_by_prior_false_accept_wilson_high] = ...
+            ratio(sum(excluded & accepted), sum(excluded));
+        [row.reject_model_mismatch_rate,row.reject_model_mismatch_num, ...
+            row.reject_model_mismatch_den,row.reject_model_mismatch_wilson_low, ...
+            row.reject_model_mismatch_wilson_high] = ...
+            ratio(sum(strcmp(decision_names,'reject_model_mismatch')), numel(s));
+        [row.reject_low_margin_rate,row.reject_low_margin_num, ...
+            row.reject_low_margin_den,row.reject_low_margin_wilson_low, ...
+            row.reject_low_margin_wilson_high] = ...
+            ratio(sum(strcmp(decision_names,'reject_low_margin')), numel(s));
+        [row.reject_no_feasible_candidate_rate,row.reject_no_feasible_candidate_num, ...
+            row.reject_no_feasible_candidate_den,row.reject_no_feasible_candidate_wilson_low, ...
+            row.reject_no_feasible_candidate_wilson_high] = ...
+            ratio(sum(strcmp(decision_names,'reject_no_feasible_candidate')), numel(s));
+        row.mean_best_distance = finite_mean([d.best_distance]);
+        row.mean_margin = finite_mean([d.margin]);
+        row.mean_candidate_count_after_prior = finite_mean([d.candidate_count_after_prior]);
+        row.parameter_template_count = finite_mean([d.parameter_template_count]);
+        row.composite_template_count = finite_mean([d.composite_template_count]);
+        row.config_hash = s(1).config_hash;
+        metrics(q) = row;
+    end
+end
+
+function row = metric_template()
+    ratio_fields = {'truth_coverage','nearest_topology_hit','nearest_class_hit', ...
+        'in_library_reject','unique_given_prior', ...
+        'unique_given_prior_error','prior_collapsed_equivalence', ...
+        'structure_out_false_accept','parameter_out_false_accept', ...
+        'excluded_by_prior_false_accept','reject_model_mismatch', ...
+        'reject_low_margin','reject_no_feasible_candidate'};
+    row = struct('scenario_id','','grid_id','','category','','sample_count',0);
+    for k = 1:numel(ratio_fields)
+        name = ratio_fields{k};
+        row.([name '_rate']) = NaN;
+        row.([name '_num']) = 0;
+        row.([name '_den']) = 0;
+        row.([name '_wilson_low']) = NaN;
+        row.([name '_wilson_high']) = NaN;
+    end
+    % These task-level metric names are deliberately not suffixed with
+    % "_rate"; their numerator/denominator fields remain explicit.
+    row.unique_accuracy_given_covered = NaN;
+    row.unique_accuracy_num = 0;
+    row.unique_accuracy_den = 0;
+    row.unique_accuracy_wilson_low = NaN;
+    row.unique_accuracy_wilson_high = NaN;
+    row.set_accuracy_given_covered = NaN;
+    row.set_accuracy_num = 0;
+    row.set_accuracy_den = 0;
+    row.set_accuracy_wilson_low = NaN;
+    row.set_accuracy_wilson_high = NaN;
+    row.unique_given_prior_accuracy = NaN;
+    row.unique_given_prior_accuracy_num = 0;
+    row.unique_given_prior_accuracy_den = 0;
+    row.unique_given_prior_accuracy_wilson_low = NaN;
+    row.unique_given_prior_accuracy_wilson_high = NaN;
+    row.false_unique_rate_given_nonunique = NaN;
+    row.false_unique_num = 0;
+    row.false_unique_den = 0;
+    row.false_unique_wilson_low = NaN;
+    row.false_unique_wilson_high = NaN;
+    row.mean_best_distance = NaN;
+    row.mean_margin = NaN;
+    row.mean_candidate_count_after_prior = NaN;
+    row.parameter_template_count = NaN;
+    row.composite_template_count = NaN;
+    row.config_hash = '';
+end
+
+function [rate,num,den,low,high] = ratio(num,den)
+    if den == 0
+        rate = NaN; low = NaN; high = NaN;
+        return;
+    end
+    rate = num / den;
+    z = 1.95996398454005;
+    center = (rate + z^2/(2*den)) / (1 + z^2/den);
+    half = z * sqrt(rate*(1-rate)/den + z^2/(4*den^2)) / (1 + z^2/den);
+    low = max(0, center-half);
+    high = min(1, center+half);
+end
+
+function value = finite_mean(x)
+    x = x(isfinite(x));
+    if isempty(x), value = NaN; else, value = mean(x); end
+end
+
+function tf = topology_set_contains(set_text, topology_id)
+    if isempty(set_text) || isempty(topology_id), tf = false; return; end
+    tokens = strsplit(strrep(strrep(char(set_text),'{',''),'}',''), ',');
+    tf = any(strcmp(strtrim(tokens), char(topology_id)));
+end

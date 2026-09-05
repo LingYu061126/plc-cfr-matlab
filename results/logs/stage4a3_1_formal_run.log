@@ -1,0 +1,20 @@
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: formal
+Run entry: run_stage4a3_1_statistical_open_set_audit(formal)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_formal_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=8, per-graph test=12
+Stage 4A.3.1 mode=formal: 56 calibration, 124 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Stage 4A3.1 grid B_ofdm_active_subcarriers: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Generated or rewritten Stage 4A.3.1 files under /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data
+  total elapsed at output write: 127.997 s
+Stage 4A.3.1 completed in 127.998 s
+Exit status: 0
+Generated result prefix: stage4a3_1

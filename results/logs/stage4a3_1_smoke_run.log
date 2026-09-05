@@ -1,0 +1,76 @@
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+Stage 4A.3.1 mode=smoke: 7 calibration, 11 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+Stage 4A.3.1 mode=smoke: 7 calibration, 11 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+DEBUG decisions-only fields:
+DEBUG result-only fields:
+    {'best_topology_index'}
+    {'class_scores'       }
+    {'topology_scores'    }
+
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+Stage 4A.3.1 mode=smoke: 7 calibration, 11 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+Stage 4A.3.1 mode=smoke: 7 calibration, 11 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Stage 4A3.1 grid B_ofdm_active_subcarriers: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Generated or rewritten Stage 4A.3.1 files under /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data
+  total elapsed at output write: 48.808 s
+Stage 4A.3.1 completed in 48.808 s
+Exit status: 0
+Generated result prefix: stage4a3_1_smoke
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.3.1 mode: smoke
+Run entry: run_stage4a3_1_statistical_open_set_audit(smoke)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a3_1_smoke_run.log
+Git HEAD status=0, commit=cfcaeaf27f5db0b6a4cc1a72c22bef8b45f87f97
+Calibration seed=20261101, test seed=20261102, per-graph calibration=1, per-graph test=1
+Stage 4A.3.1 mode=smoke: 7 calibration, 11 test, 243 parameter templates
+Stage 4A3.1 grid A_stage4a1_quick61: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Stage 4A3.1 grid B_ofdm_active_subcarriers: building P0 baseline audit and cache
+  scenario P0_no_prior: cache and repeated test matching
+  scenario P1_partial_consistent_prior: cache and repeated test matching
+  scenario P2_stale_or_inconsistent_prior: cache and repeated test matching
+Generated or rewritten Stage 4A.3.1 files under /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data
+  total elapsed at output write: 47.955 s
+Stage 4A.3.1 completed in 47.955 s
+Exit status: 0
+Generated result prefix: stage4a3_1_smoke
