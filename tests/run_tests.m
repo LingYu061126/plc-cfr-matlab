@@ -200,6 +200,7 @@ function run_tests()
     test_stage3_band_configs();
     test_stage3b_pre();
     test_stage3b_waveform();
+    test_stage4a1();
 end
 
 function err = determinant_error(T)

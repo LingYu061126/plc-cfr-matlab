@@ -1,0 +1,2 @@
+stage_name,version,result_scope,candidate_count,structural_count_after_dedup,parameter_template_count,composite_template_count,measurement_kind,tie_tolerance,frequency_count,runtime_s,config_hash
+Stage 4A.1,4a1_candidate_library_audit_v1,"model-internal audit under declared grammar, nominal parameters, port, termination and forward model",7,7,1,7,siso_forward,1e-10,61,0.049249,00061583

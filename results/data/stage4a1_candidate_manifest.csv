@@ -1,0 +1,8 @@
+topology_id,canonical_key,node_count,edge_count,branch_count,source_node,receiver_node
+G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",5,4,0,TX,RX
+G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",6,5,1,TX,RX
+G003,"TX=TX|RX=RX|P=4|1:0,2:1,3:0",6,5,1,TX,RX
+G004,"TX=TX|RX=RX|P=4|1:0,2:1,3:1",7,6,2,TX,RX
+G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",6,5,1,TX,RX
+G006,"TX=TX|RX=RX|P=4|1:1,2:0,3:1",7,6,2,TX,RX
+G007,"TX=TX|RX=RX|P=4|1:1,2:1,3:0",7,6,2,TX,RX

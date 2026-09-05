@@ -1,0 +1,6 @@
+Running Stage 4A.1 candidate-library tests...
+  PASS bounded radial grammar, tree constraints and deterministic canonical keys
+  PASS candidate-count protection
+  PASS parameter Cartesian product and finite complete-network CFR templates
+  PASS T1--T6 preservation and configuration-specific T3/T5 audit
+ALL STAGE-4A.1 TESTS PASSED

@@ -1,0 +1,6 @@
+Running stage-2.3 observability/equivalence tests...
+  PASS symmetric T3/T5 class, strict/group/unique metrics and tie output
+  PASS configuration-specific class audit distinguishes asymmetric endpoint SISO
+  PASS numerical tie and physical false-unique statistics are separate
+  PASS fair nominal/joint interface uses an identical declared feature
+ALL STAGE-2.3 TESTS PASSED
