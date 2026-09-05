@@ -1,0 +1,13 @@
+scenario_id,frequency_grid_id,class_label,member_topology_ids,member_count,tie_tolerance,config_hash
+P0_no_prior,smoke_3_frequency_points,"{G001}","G001",1,1e-10,0006014A
+P0_no_prior,smoke_3_frequency_points,"{G002,G005}","G002,G005",2,1e-10,0006014A
+P0_no_prior,smoke_3_frequency_points,"{G003}","G003",1,1e-10,0006014A
+P0_no_prior,smoke_3_frequency_points,"{G004,G007}","G004,G007",2,1e-10,0006014A
+P0_no_prior,smoke_3_frequency_points,"{G006}","G006",1,1e-10,0006014A
+P1_partial_consistent_prior,smoke_3_frequency_points,"{G001}","G001",1,1e-10,0006014A
+P1_partial_consistent_prior,smoke_3_frequency_points,"{G003}","G003",1,1e-10,0006014A
+P1_partial_consistent_prior,smoke_3_frequency_points,"{G005}","G005",1,1e-10,0006014A
+P1_partial_consistent_prior,smoke_3_frequency_points,"{G007}","G007",1,1e-10,0006014A
+P2_stale_or_inconsistent_prior,smoke_3_frequency_points,"{G001}","G001",1,1e-10,0006014A
+P2_stale_or_inconsistent_prior,smoke_3_frequency_points,"{G002,G005}","G002,G005",2,1e-10,0006014A
+P2_stale_or_inconsistent_prior,smoke_3_frequency_points,"{G006}","G006",1,1e-10,0006014A

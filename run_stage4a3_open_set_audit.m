@@ -1,0 +1,1 @@
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end

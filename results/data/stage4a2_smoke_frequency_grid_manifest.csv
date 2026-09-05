@@ -1,0 +1,2 @@
+frequency_grid_id,source,nfft,sample_rate_hz,frequency_count,frequency_band_hz,frequency_spacing_hz,active_bin_1based,frequency_hz_full
+smoke_3_frequency_points,stage4a1_config.frequency_hz,4096,64000000,3,"2000000,2933333.3333333335",NaN,,"2000000,2466666.6666666665,2933333.3333333335,"

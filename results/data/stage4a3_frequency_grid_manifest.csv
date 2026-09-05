@@ -1,0 +1,3 @@
+grid_id,source,nfft,sample_rate_hz,active_bin_count,frequency_count,frequency_min_hz,frequency_max_hz,frequency_spacing_hz,config_hash
+A_stage4a1_quick61,stage4a1_config.frequency_hz,4096,64000000,0,61,2000000,30000000,466666.666666667,55831F22
+B_ofdm_active_subcarriers,default_config.ofdm.active_frequency_hz,4096,64000000,1793,1793,2000000,30000000,15625,55831F22

@@ -1,0 +1,40 @@
+{Error using topology_observability_classes>assert_view_bundle (line 77)
+All CFR views must be nonempty finite numeric vectors.
+
+Error in topology_observability_classes (line 24)
+        assert_view_bundle(reference_views{i}, 'reference_views');
+
+Error in stage3b_pre_level_a_match (line 5)
+    classes=topology_observability_classes(views,candidates,struct(),cfg.tie_tolerance);
+
+Error in test_stage3b_pre (line 11)
+    candidates=topology_candidates(before);out=stage3b_pre_level_a_match(nb0.frequency_hz,candidates([2,3,4,5]),before,struct(),Inf,1,cfg);
+
+Error in run_stage3b_pre (line 4)
+    test_stage3b_pre();result=exp_stage3b_pre_level_a(root);
+} 
+  PASS Stage3B-pre isolated standard-derived diagnostic boundaries
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage3b_pre_level_a (line 15)
+                    r=r+1;rows(r)=summarize(band,fair,cfg,theta,cfg.snr_db(si),out); %#ok<AGROW>
+
+Error in run_stage3b_pre (line 4)
+    test_stage3b_pre();result=exp_stage3b_pre_level_a(root);
+} 
+  PASS Stage3B-pre isolated standard-derived diagnostic boundaries
+{Scalar structure required for this assignment.
+
+Error in exp_stage3b_pre_level_a>applicability_table (line 60)
+    A.formal_level_a_allowed(:)=false;
+
+Error in exp_stage3b_pre_level_a (line 28)
+    A=applicability_table();writetable(struct2table(A),fullfile(cfg.results_data,'stage3b_pre_applicability.csv'));
+
+Error in run_stage3b_pre (line 4)
+    test_stage3b_pre();result=exp_stage3b_pre_level_a(root);
+} 
+  PASS Stage3B-pre isolated standard-derived diagnostic boundaries
+Stage3B-pre analytic extrapolation diagnostic complete: 24 summary rows.
+  PASS Stage3B-pre isolated standard-derived diagnostic boundaries
+Stage3B-pre analytic extrapolation diagnostic complete: 24 summary rows.

@@ -1,0 +1,10 @@
+24.1.0.2537033 (R2024a)
+{Error using builtin
+Cannot find built-in function 'unique'
+
+Error in exp_stage4a2_prior_constrained_matching>metrics_rows (line 148)
+    keys=builtin('unique',strcat({trials.scenario_id},'|',{trials.frequency_grid_id}),'stable'); rows=struct([]);
+
+Error in exp_stage4a2_prior_constrained_matching (line 49)
+    metric_rows=metrics_rows(trials);
+} 

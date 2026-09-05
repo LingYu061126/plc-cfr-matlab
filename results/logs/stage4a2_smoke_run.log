@@ -1,0 +1,19 @@
+24.1.0.2537033 (R2024a)
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage4a2_prior_constrained_matching>metrics_rows (line 155)
+        rows(end+1)=struct('scenario_id',x(1).scenario_id,'frequency_grid_id',x(1).frequency_grid_id, ...
+
+Error in exp_stage4a2_prior_constrained_matching (line 49)
+    metric_rows=metrics_rows(trials);
+} 
+24.1.0.2537033 (R2024a)
+{Error using struct2table (line 97)
+Input structure is a scalar, but its fields have different numbers of rows. If
+you intended to create a table with one row, set 'AsArray' to true.
+
+Error in exp_stage4a2_prior_constrained_matching (line 57)
+    writetable(struct2table(grid_records),fullfile(cfg.results_data,[prefix '_frequency_grid_manifest.csv']));
+} 
+24.1.0.2537033 (R2024a)
+Stage 4A.2: grid=243 templates/graph, trials=1, elapsed=12.572 s

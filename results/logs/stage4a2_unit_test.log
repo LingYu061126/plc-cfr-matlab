@@ -1,0 +1,34 @@
+24.1.0.2537033 (R2024a)
+Running Stage 4A.1 candidate-library tests...
+ALL STAGE-4A.1 TESTS PASSED
+Running Stage 4A.2 prior-constrained library tests...
+{Error using stage4a2_prior_config>make_prior
+Too many input arguments.
+
+Error in stage4a2_prior_config (line 36)
+        make_scenario('P0_no_prior',make_prior(source_tag,[],[],[],sc.generator),source_tag), ...
+
+Error in test_stage4a2_prior_constrained_library (line 4)
+    root=fileparts(fileparts(mfilename('fullpath'))); cfg=default_config(root); sc=stage4a2_prior_config(cfg);
+} 
+24.1.0.2537033 (R2024a)
+Running Stage 4A.1 candidate-library tests...
+ALL STAGE-4A.1 TESTS PASSED
+Running Stage 4A.2 prior-constrained library tests...
+{Error using assert
+Expected error validate_topology_prior_consistency:RequiredForbiddenConflict.
+
+Error in test_stage4a2_prior_constrained_library>assert_throws (line 68)
+    assert(hit,'Expected error %s.',id);
+
+Error in test_stage4a2_prior_constrained_library (line 20)
+    assert_throws(@()validate_topology_prior_consistency(conflict,sc.generator), ...
+} 
+24.1.0.2537033 (R2024a)
+Running Stage 4A.1 candidate-library tests...
+ALL STAGE-4A.1 TESTS PASSED
+Running Stage 4A.2 prior-constrained library tests...
+  PASS P0/P1/P2 coverage, prior-order invariance and hard-conflict safety
+  PASS 243-template grid declaration, finite CFR and streamed/full agreement
+  PASS symmetric equivalence output and library-out rejection
+ALL STAGE-4A.2 TESTS PASSED

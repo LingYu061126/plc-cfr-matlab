@@ -1,0 +1,73 @@
+24.1.0.2537033 (R2024a)
+{File: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作
+集/matlab_plc_cfr_publish/experiments/exp_stage4a3_open_set_audit.m Line: 2
+Column: 89
+Invalid expression. When calling a function or indexing a variable, use
+parentheses. Otherwise, check for mismatched delimiters.
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 
+24.1.0.2537033 (R2024a)
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage4a3_open_set_audit>labels (line 19)
+s=struct([]);ids={c.topology_id};for i=1:numel(b),covered=any(strcmp(ids,b(i).truth_topology_id))&&strcmp(b(i).category,'in_library_continuous');s(i)=struct('sample_id',b(i).sample_id,'grid_id',gid,'scenario_id',scenario,'truth_topology_id',b(i).truth_topology_id,'category',b(i).category,'coverage_status',tern(covered,'covered','out_of_library_or_excluded'));end
+
+Error in exp_stage4a3_open_set_audit (line 8)
+  c=generate_prior_constrained_candidates(sc.generator,sc.scenarios(ss).asset_prior);test=bank(strcmp({bank.split},'test'));dec=runset(test,c,f,grid,cfg,baseopt(sc,th),sc.grids(fg).id,sc.scenarios(ss).id);D=[D;dec];S=[S;labels(test,c,sc.grids(fg).id,sc.scenarios(ss).id)]; %#ok<AGROW>
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 
+24.1.0.2537033 (R2024a)
+24.1.0.2537033 (R2024a)
+Stage4A3 grid A_stage4a1_quick61: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+Stage4A3 grid B_ofdm_active_subcarriers: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage4a3_open_set_audit>metrics (line 25)
+function r=bankrows(b),r=rmfield(b,{'truth_network','truth_theta'});end
+
+Error in exp_stage4a3_open_set_audit (line 12)
+ T=[T;struct('grid_id',sc.grids(fg).id,'residual_threshold',th.residual,'margin_threshold',th.margin,'calibration_count',th.sample_count)]; %#ok<AGROW>
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 
+  scenario P2_stale_or_inconsistent_prior
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage4a3_open_set_audit>metrics (line 27)
+m=struct([]);keys=unique(strcat({s.scenario_id},'|',{s.grid_id},'|',{s.category}));for k=1:numel(keys),ix=strcmp(strcat({s.scenario_id},'|',{s.grid_id},'|',{s.category}),keys{k});a=s(ix);z=d(ix);cov=strcmp({a.coverage_status},'covered');rej=startsWith({z.decision},'reject_');non=contains({z.best_equivalence_class},',');m(k)=struct('scenario_id',a(1).scenario_id,'grid_id',a(1).grid_id,'category',a(1).category,'sample_count',numel(a),'truth_coverage_rate',mean(cov),'strict_accuracy_given_covered',mean(cov&strcmp({z.best_topology_id},{a.truth_topology_id})),'equivalent_class_accuracy_given_covered',mean(cov&contains({z.best_equivalence_class},{a.truth_topology_id})),'in_library_reject_rate',mean(cov&rej),'false_unique_rate_given_nonunique',mean(non&strcmp({z.decision},'unique_topology')),'out_of_library_false_accept_rate',mean(~cov&~rej),'out_of_library_reject_rate',mean(~cov&rej),'mean_best_distance',mean([z.best_distance]),'mean_margin',mean([z.margin]));end
+
+Error in exp_stage4a3_open_set_audit (line 14)
+M=metrics(D,S); writetable(struct2table(decisionrows(D)),fullfile(cfg.results_data,'stage4a3_match_decisions.csv'));writetable(struct2table(S),fullfile(cfg.results_data,'stage4a3_scoring_labels.csv'));writetable(struct2table(T),fullfile(cfg.results_data,'stage4a3_thresholds.csv'));writetable(struct2table(M),fullfile(cfg.results_data,'stage4a3_metrics.csv'));writetable(struct2table(bankrows(bank)),fullfile(cfg.results_data,'stage4a3_trial_bank.csv'));save(fullfile(cfg.results_data,'stage4a3_results.mat'),'sc','bank','D','S','T','M','grid');out=struct('runtime_s',toc,'decisions',D,'metrics',M);
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 
+24.1.0.2537033 (R2024a)
+Stage4A3 grid A_stage4a1_quick61: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+Stage4A3 grid B_ofdm_active_subcarriers: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+{Error using struct2table (line 61)
+Input structure must be a scalar structure, or a structure array with one
+column or one row.
+
+Error in exp_stage4a3_open_set_audit (line 14)
+ for ss=1:numel(sc.scenarios)
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 

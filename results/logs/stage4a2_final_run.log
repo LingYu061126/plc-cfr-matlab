@@ -1,0 +1,53 @@
+24.1.0.2537033 (R2024a)
+{Unrecognized field name "prior_config_hash".
+
+Error in exp_stage4a2_prior_constrained_matching>prior_row (line 116)
+    row=struct('scenario_id',s.id,'source_tag',s.source_tag,'prior_config_hash',s.asset_prior.prior_config_hash, ...
+
+Error in exp_stage4a2_prior_constrained_matching (line 15)
+        prior_rows=[prior_rows;prior_row(scenarios(s))]; %#ok<AGROW>
+
+Error in run_stage4a2_prior_constrained_matching (line 4)
+    cfg=default_config(root); sc=stage4a2_prior_config(cfg); output=exp_stage4a2_prior_constrained_matching(cfg,sc);
+} 
+24.1.0.2537033 (R2024a)
+24.1.0.2537033 (R2024a)
+{Unrecognized function or variable 'unique'.
+
+Error in exp_stage4a2_prior_constrained_matching>metrics_rows (line 145)
+end
+
+Error in exp_stage4a2_prior_constrained_matching (line 47)
+        end
+
+Error in run_stage4a2_prior_constrained_matching (line 4)
+    cfg=default_config(root); sc=stage4a2_prior_config(cfg); output=exp_stage4a2_prior_constrained_matching(cfg,sc);
+} 
+{Unrecognized function or variable 'unique'.
+
+Error in exp_stage4a2_prior_constrained_matching>metrics_rows (line 147)
+    keys=unique(strcat({trials.scenario_id},'|',{trials.frequency_grid_id}),'stable'); rows=struct([]);
+
+Error in exp_stage4a2_prior_constrained_matching (line 49)
+    metric_rows=metrics_rows(trials);
+
+Error in run_stage4a2_prior_constrained_matching (line 4)
+    cfg=default_config(root); sc=stage4a2_prior_config(cfg); output=exp_stage4a2_prior_constrained_matching(cfg,sc);
+} 
+24.1.0.2537033 (R2024a)
+{Error using builtin
+Cannot find built-in function 'unique'
+
+Error in exp_stage4a2_prior_constrained_matching>metrics_rows (line 147)
+function rows=metrics_rows(trials)
+
+Error in exp_stage4a2_prior_constrained_matching (line 49)
+    metric_rows=metrics_rows(trials);
+
+Error in run_stage4a2_prior_constrained_matching (line 4)
+    cfg=default_config(root); sc=stage4a2_prior_config(cfg); output=exp_stage4a2_prior_constrained_matching(cfg,sc);
+} 
+24.1.0.2537033 (R2024a)
+Stage 4A.2: grid=243 templates/graph, trials=6, elapsed=52.845 s
+24.1.0.2537033 (R2024a)
+Stage 4A.2: grid=243 templates/graph, trials=6, elapsed=68.073 s

@@ -1,0 +1,10 @@
+24.1.0.2537033 (R2024a)
+Stage4A3 grid A_stage4a1_quick61: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+Stage4A3 grid B_ofdm_active_subcarriers: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+STAGE4A3_RUNTIME_S=561.183913

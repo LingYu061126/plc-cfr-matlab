@@ -1,0 +1,17 @@
+sample_id,split,category,truth_topology_id,config_hash
+cal_G001_01,calibration,in_library_continuous,G001,55831F22
+cal_G002_01,calibration,in_library_continuous,G002,55831F22
+cal_G003_01,calibration,in_library_continuous,G003,55831F22
+cal_G004_01,calibration,in_library_continuous,G004,55831F22
+cal_G005_01,calibration,in_library_continuous,G005,55831F22
+cal_G006_01,calibration,in_library_continuous,G006,55831F22
+cal_G007_01,calibration,in_library_continuous,G007,55831F22
+test_G001_01,test,in_library_continuous,G001,55831F22
+test_G002_01,test,in_library_continuous,G002,55831F22
+test_G003_01,test,in_library_continuous,G003,55831F22
+test_G004_01,test,in_library_continuous,G004,55831F22
+test_G005_01,test,in_library_continuous,G005,55831F22
+test_G006_01,test,in_library_continuous,G006,55831F22
+test_G007_01,test,in_library_continuous,G007,55831F22
+test_structure_out,test,structure_out,G008,55831F22
+test_parameter_out,test,parameter_out,G001,55831F22

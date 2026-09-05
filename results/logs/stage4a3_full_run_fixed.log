@@ -1,0 +1,39 @@
+24.1.0.2537033 (R2024a)
+Stage4A3 grid A_stage4a1_quick61: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+Stage4A3 grid B_ofdm_active_subcarriers: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+{Unrecognized field name "second_competing_class".
+
+Error in exp_stage4a3_open_set_audit>decisionrows (line 83)
+  'second_competing_class',d(k).second_competing_class,'second_distance',d(k).second_distance, ...
+
+Error in exp_stage4a3_open_set_audit (line 27)
+writetable(struct2table(decisionrows(D)),fullfile(cfg.results_data,'stage4a3_match_decisions.csv'));
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 
+24.1.0.2537033 (R2024a)
+Stage4A3 grid A_stage4a1_quick61: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+Stage4A3 grid B_ofdm_active_subcarriers: calibration and test matching
+  scenario P0_no_prior
+  scenario P1_partial_consistent_prior
+  scenario P2_stale_or_inconsistent_prior
+{Error using struct2table (line 61)
+Input structure must be a scalar structure, or a structure array with one
+column or one row.
+
+Error in exp_stage4a3_open_set_audit (line 28)
+writetable(struct2table(S),fullfile(cfg.results_data,'stage4a3_scoring_labels.csv'));
+
+Error in run_stage4a3_open_set_audit (line 1)
+function out=run_stage4a3_open_set_audit(),root=fileparts(mfilename('fullpath'));addpath(fullfile(root,'src'));addpath(fullfile(root,'config'));addpath(fullfile(root,'experiments'));out=exp_stage4a3_open_set_audit(default_config(root));end
+} 

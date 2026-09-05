@@ -1,0 +1,16 @@
+scenario_id,topology_id,canonical_key,node_count,edge_count,soft_prior_score,prior_config_hash
+P0_no_prior,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",5,4,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",6,5,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G003,"TX=TX|RX=RX|P=4|1:0,2:1,3:0",6,5,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G004,"TX=TX|RX=RX|P=4|1:0,2:1,3:1",7,6,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",6,5,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G006,"TX=TX|RX=RX|P=4|1:1,2:0,3:1",7,6,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P0_no_prior,G007,"TX=TX|RX=RX|P=4|1:1,2:1,3:0",7,6,0,d03add3ca5bd071bad1e6975c2bce63a2390e814553e819986c85b552dd5e293
+P1_partial_consistent_prior,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",5,4,0,467d868c370d0cd2ba959025c4e3c392cd0f1460ca9088f93def274744bb4f5b
+P1_partial_consistent_prior,G003,"TX=TX|RX=RX|P=4|1:0,2:1,3:0",6,5,0,467d868c370d0cd2ba959025c4e3c392cd0f1460ca9088f93def274744bb4f5b
+P1_partial_consistent_prior,G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",6,5,0,467d868c370d0cd2ba959025c4e3c392cd0f1460ca9088f93def274744bb4f5b
+P1_partial_consistent_prior,G007,"TX=TX|RX=RX|P=4|1:1,2:1,3:0",7,6,0,467d868c370d0cd2ba959025c4e3c392cd0f1460ca9088f93def274744bb4f5b
+P2_stale_or_inconsistent_prior,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",5,4,0,45f6f6c7d3c8c1f421d116fb08403d8ca094248279987c0a19b3a998a0ecc9cb
+P2_stale_or_inconsistent_prior,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",6,5,0,45f6f6c7d3c8c1f421d116fb08403d8ca094248279987c0a19b3a998a0ecc9cb
+P2_stale_or_inconsistent_prior,G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",6,5,1,45f6f6c7d3c8c1f421d116fb08403d8ca094248279987c0a19b3a998a0ecc9cb
+P2_stale_or_inconsistent_prior,G006,"TX=TX|RX=RX|P=4|1:1,2:0,3:1",7,6,1,45f6f6c7d3c8c1f421d116fb08403d8ca094248279987c0a19b3a998a0ecc9cb

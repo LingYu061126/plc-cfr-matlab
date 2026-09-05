@@ -1,0 +1,2 @@
+scenario_id,frequency_grid_id,trial_count,candidate_count_after_prior,truth_coverage_rate,strict_accuracy,equivalent_class_accuracy,false_unique_rate,reject_rate,out_of_library_false_accept_rate,mean_margin
+P0_no_prior,smoke_3_frequency_points,1,7,1,1,1,0,0,0,0.156070136735971

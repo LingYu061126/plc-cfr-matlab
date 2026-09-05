@@ -1,0 +1,3 @@
+grid_id,residual_threshold,margin_threshold,calibration_count,quantile,safety_factor,config_hash
+A_stage4a1_quick61,0.267130227889787,0.00642971910469442,7,0.95,1.1,55831F22
+B_ofdm_active_subcarriers,0.268404871174611,0.0065976736159663,7,0.95,1.1,55831F22
