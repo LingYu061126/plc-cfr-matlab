@@ -1,0 +1,69 @@
+MATLAB version: 24.1.0.2537033 (R2024a)
+Stage 4A.4 mode: formal
+Run entry: run_stage4a4_candidate_confirmation(formal)
+Log file: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/logs/stage4a4_formal_run.log
+Git HEAD status=0, commit=83c379aadc5eac4bed29672a86b0c6c6a4ff4888
+Git status status=0, text=M .gitignore
+ M tests/run_tests.m
+?? config/stage4a4_candidate_confirmation_config.m
+?? experiments/exp_stage4a4_candidate_confirmation.m
+?? results/data/stage4a4_baseline_summary.csv
+?? results/data/stage4a4_configuration_manifest.csv
+?? results/data/stage4a4_frequency_grid_manifest.csv
+?? results/data/stage4a4_match_decisions.csv
+?? results/data/stage4a4_metrics.csv
+?? results/data/stage4a4_recommendations.csv
+?? results/data/stage4a4_runtime_and_cache.csv
+?? results/data/stage4a4_scoring_labels.csv
+?? results/data/stage4a4_smoke_baseline_summary.csv
+?? results/data/stage4a4_smoke_configuration_manifest.csv
+?? results/data/stage4a4_smoke_frequency_grid_manifest.csv
+?? results/data/stage4a4_smoke_match_decisions.csv
+?? results/data/stage4a4_smoke_metrics.csv
+?? results/data/stage4a4_smoke_recommendations.csv
+?? results/data/stage4a4_smoke_runtime_and_cache.csv
+?? results/data/stage4a4_smoke_scoring_labels.csv
+?? results/data/stage4a4_smoke_thresholds.csv
+?? results/data/stage4a4_smoke_trial_bank.csv
+?? results/data/stage4a4_smoke_validation_summary.csv
+?? results/data/stage4a4_smoke_validation_tradeoff.csv
+?? results/data/stage4a4_thresholds.csv
+?? results/data/stage4a4_trial_bank.csv
+?? results/data/stage4a4_validation_summary.csv
+?? results/data/stage4a4_validation_tradeoff.csv
+?? results/logs/stage4a4_formal_run.log
+?? results/logs/stage4a4_full_regression.log
+?? results/logs/stage4a4_smoke_run.log
+?? results/logs/stage4a4_smoke_smoke_run.log
+?? results/logs/stage4a4_unit_test.log
+?? run_stage4a4_candidate_confirmation.m
+?? src/apply_candidate_confirmation.m
+?? src/build_stage4a4_truth_equivalence_labels.m
+?? src/calibrate_candidate_confirmation.m
+?? src/evaluate_stage4a4_metrics.m
+?? src/generate_stage4a4_trial_bank.m
+?? src/match_candidate_library_calibrated.m
+?? src/stage4a4_scientific_config_hash.m
+?? tests/test_stage4a4_candidate_confirmation.m
+Seeds: training=20261111 calibration=20261112 validation=20261113 test=20261114
+Configured methods: baseline_abs_margin, absolute_ratio, joint_abs_margin_ratio, class_conditioned
+Stage 4A.4 completed in 151.941 s
+Stage 4A.4 exit status=0, total runtime 152.092 s
+Generated result prefix: stage4a4
+Stage 4A.4 grid A_stage4a1_quick61: shared observations and P0 calibration
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_A_stage4a1_quick61_P0_no_prior.mat
+  scenario P0_no_prior: 7 candidates, 1701 templates, raw scoring 5.05 s
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_A_stage4a1_quick61_P1_partial_consistent_prior.mat
+  scenario P1_partial_consistent_prior: 4 candidates, 972 templates, raw scoring 2.83 s
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_A_stage4a1_quick61_P2_stale_or_inconsistent_prior.mat
+  scenario P2_stale_or_inconsistent_prior: 4 candidates, 972 templates, raw scoring 3.25 s
+Stage 4A.4 grid B_ofdm_active_subcarriers: shared observations and P0 calibration
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_B_ofdm_active_subcarriers_P0_no_prior.mat
+  scenario P0_no_prior: 7 candidates, 1701 templates, raw scoring 31.85 s
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_B_ofdm_active_subcarriers_P1_partial_consistent_prior.mat
+  scenario P1_partial_consistent_prior: 4 candidates, 972 templates, raw scoring 18.47 s
+  cache reused after scientific-hash match: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/matlab_plc_cfr_publish/results/data/stage4a4_cache/stage4a4_cache_B_ofdm_active_subcarriers_P2_stale_or_inconsistent_prior.mat
+  scenario P2_stale_or_inconsistent_prior: 4 candidates, 972 templates, raw scoring 19.01 s
+Stage 4A.4 completed in 112.216 s
+Stage 4A.4 exit status=0, total runtime 112.389 s
+Generated result prefix: stage4a4

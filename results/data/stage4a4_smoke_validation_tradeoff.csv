@@ -1,0 +1,16 @@
+grid_id,scenario_id,method_id,residual_scale,validation_accepted_rate,validation_inlibrary_set_accuracy,validation_ool_false_accept,validation_false_unique
+A_stage4a1_quick61,P0_no_prior,baseline_abs_margin_sweep,0.8,0.678571428571429,0.678571428571429,0,0
+A_stage4a1_quick61,P0_no_prior,baseline_abs_margin_sweep,0.9,0.678571428571429,0.678571428571429,0,0
+A_stage4a1_quick61,P0_no_prior,baseline_abs_margin_sweep,1,0.678571428571429,0.678571428571429,0,0
+A_stage4a1_quick61,P0_no_prior,baseline_abs_margin_sweep,1.1,0.678571428571429,0.678571428571429,0,0
+A_stage4a1_quick61,P0_no_prior,baseline_abs_margin_sweep,1.2,0.678571428571429,0.678571428571429,0,0
+A_stage4a1_quick61,P1_partial_consistent_prior,baseline_abs_margin_sweep,0.8,0.75,0.6875,0,0
+A_stage4a1_quick61,P1_partial_consistent_prior,baseline_abs_margin_sweep,0.9,0.75,0.6875,0,0
+A_stage4a1_quick61,P1_partial_consistent_prior,baseline_abs_margin_sweep,1,0.75,0.6875,0,0
+A_stage4a1_quick61,P1_partial_consistent_prior,baseline_abs_margin_sweep,1.1,0.785714285714286,0.75,0,0
+A_stage4a1_quick61,P1_partial_consistent_prior,baseline_abs_margin_sweep,1.2,0.785714285714286,0.75,0,0
+A_stage4a1_quick61,P2_stale_or_inconsistent_prior,baseline_abs_margin_sweep,0.8,0.678571428571429,0.75,0,0.4375
+A_stage4a1_quick61,P2_stale_or_inconsistent_prior,baseline_abs_margin_sweep,0.9,0.678571428571429,0.75,0,0.4375
+A_stage4a1_quick61,P2_stale_or_inconsistent_prior,baseline_abs_margin_sweep,1,0.678571428571429,0.75,0,0.4375
+A_stage4a1_quick61,P2_stale_or_inconsistent_prior,baseline_abs_margin_sweep,1.1,0.678571428571429,0.75,0,0.4375
+A_stage4a1_quick61,P2_stale_or_inconsistent_prior,baseline_abs_margin_sweep,1.2,0.714285714285714,0.75,0,0.5

@@ -1,0 +1,2 @@
+grid_id,method_id,selection_basis,validation_set_accuracy,validation_ool_false_accept
+A_stage4a1_quick61,absolute_ratio,P0 validation fallback: no method reached set-accuracy target,0.75,0.25

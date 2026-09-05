@@ -1,6 +1,7 @@
 # Large MATLAB raw outputs belong in an external data package.
 results/data/*.mat
 results/data/stage4a3_1_cache/*.mat
+results/data/stage4a4_cache/*.mat
 results/data/stage2_3_partial_*
 results/data/stage2_3_smoke_*
 !results/data/stage2_3_smoke_fixed_*.csv

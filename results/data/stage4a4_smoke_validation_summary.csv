@@ -1,0 +1,13 @@
+method_id,grid_id,scenario_id,validation_inlibrary_set_accuracy,validation_ool_false_accept,validation_false_unique,validation_inlibrary_reject,eligible
+baseline_abs_margin,A_stage4a1_quick61,P0_no_prior,0.678571428571429,0,0,0.321428571428571,0
+absolute_ratio,A_stage4a1_quick61,P0_no_prior,0.75,0.25,0,0.25,0
+joint_abs_margin_ratio,A_stage4a1_quick61,P0_no_prior,0.678571428571429,0,0,0.321428571428571,0
+class_conditioned,A_stage4a1_quick61,P0_no_prior,0.714285714285714,0.25,0,0.285714285714286,0
+baseline_abs_margin,A_stage4a1_quick61,P1_partial_consistent_prior,0.6875,0,0,0.3125,0
+absolute_ratio,A_stage4a1_quick61,P1_partial_consistent_prior,0.6875,0.25,0,0.3125,0
+joint_abs_margin_ratio,A_stage4a1_quick61,P1_partial_consistent_prior,0.6875,0,0,0.3125,0
+class_conditioned,A_stage4a1_quick61,P1_partial_consistent_prior,0.6875,0.25,0,0.3125,0
+baseline_abs_margin,A_stage4a1_quick61,P2_stale_or_inconsistent_prior,0.75,0,0.4375,0.25,0
+absolute_ratio,A_stage4a1_quick61,P2_stale_or_inconsistent_prior,0.75,0.25,0.4375,0.25,0
+joint_abs_margin_ratio,A_stage4a1_quick61,P2_stale_or_inconsistent_prior,0.75,0,0.4375,0.25,0
+class_conditioned,A_stage4a1_quick61,P2_stale_or_inconsistent_prior,0.75,0.25,0.4375,0.25,0
