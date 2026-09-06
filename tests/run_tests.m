@@ -206,6 +206,10 @@ function run_tests()
     test_stage4a3_1_statistical_open_set_audit();
     test_stage4a4_candidate_confirmation();
     test_stage4a5_multiscale_confirmation();
+    test_stage4a5_1_integrity();
+    test_stage4a6_parameter_optimization();
+    test_stage4a6_domain_decision();
+    test_stage4a6_protocol_isolation();
 end
 
 function err = determinant_error(T)

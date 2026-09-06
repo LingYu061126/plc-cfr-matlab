@@ -1,0 +1,4 @@
+function hash=stage4a6_source_tree_hash(root)
+%STAGE4A6_SOURCE_TREE_HASH Path-independent hash of diagnostic implementation.
+    rel={'config/stage4a6_parameter_domain_config.m','src/generate_stage4a6_trial_bank.m','src/build_extended_parameter_domain.m','src/optimize_topology_parameters_bounded.m','src/compute_parameter_profile_evidence.m','src/compute_parameter_boundary_evidence.m','src/compute_parameter_jacobian.m','src/analyze_parameter_identifiability.m','src/compute_stage4a6_member_evidence.m','src/calibrate_parameter_domain_detector.m','src/apply_joint_topology_parameter_decision.m','src/evaluate_stage4a6_metrics.m','src/select_stage4a6_eta.m','src/topology_apply_parameters.m','src/plc_multiview_response.m'};p=struct('relative_path',{},'content',{});for k=1:numel(rel),p(k)=struct('relative_path',rel{k},'content',fileread(fullfile(root,rel{k})));end;hash=stage4a4_scientific_config_hash(p);
+end
