@@ -1,0 +1,3 @@
+case_id,topology_id,status,runtime_s,profile_computed,profile_reliable,optimizer_converged,multistart_consistent,active_parameter_count,profile_statuses
+stage4a6_2_smoke_G001,G001,completed,1.111273,1,1,1,1,3,"indeterminate,inactive,inactive,indeterminate,indeterminate"
+stage4a6_2_smoke_G007,G007,completed,0.530502,1,1,1,1,5,"indeterminate,indeterminate,indeterminate,indeterminate,indeterminate"

@@ -1,0 +1,2 @@
+mode,frequency_count,case_count,completed_count,resumed_count,failed_count,runtime_s,solver,workers,scientific_hash,source_tree_hash
+smoke,9,2,2,0,0,1.819873,lsqnonlin,1,7d2177966e6e529810459af29be60cb13cbfad20db02a299fe2eb434fcfba811,5b3e2695646d4f5ced479b930ddc69eb956f274e492f25fe1e46e0ae00bc0cfa

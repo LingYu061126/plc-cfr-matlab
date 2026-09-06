@@ -214,6 +214,11 @@ function run_tests()
     test_stage4a6_1_optimizer_stability();
     test_stage4a6_1_profile_metrics();
     test_stage4a6_1_protocol();
+    test_stage4a6_2_profile_semantics();
+    test_stage4a6_2_calibration_counts();
+    test_stage4a6_2_flat_profile();
+    test_stage4a6_2_member_aggregation();
+    test_stage4a6_2_resume();
 end
 
 function err = determinant_error(T)
