@@ -1,0 +1,19 @@
+Stage 4A.6 started: 2026-09-06 14:51:08
+MATLAB version: 24.1.0.2537033 (R2024a)
+Entry: run_stage4a6_parameter_domain_diagnostic(formal_a)
+Development seeds: []
+Final seeds: [20261701 20261702 20261703 20261704 20261705]
+Stage 4A.6 grid A_stage4a1_quick61 (61 points)
+Stage 4A.6 started: 2026-09-06 14:51:46
+MATLAB version: 24.1.0.2537033 (R2024a)
+Entry: run_stage4a6_parameter_domain_diagnostic(formal_a)
+Development seeds: []
+Final seeds: [20261701 20261702 20261703 20261704 20261705]
+Stage 4A.6 grid A_stage4a1_quick61 (61 points)
+  frozen eta = 0.5
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+Stage 4A.6 completed in 39.968 s
+Exit status: 0
+Total runner time: 40.013 s

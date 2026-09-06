@@ -1,0 +1,3 @@
+grid_id,selected_eta,selection_source,experiment_scientific_hash
+A_stage4a1_quick61,0.5,development validation only,13e6dad096c524ee9ff4533830a2185d46695edf1ce2241e687ed69c3293211b
+B_ofdm_active_subcarriers,0.5,development validation only,13e6dad096c524ee9ff4533830a2185d46695edf1ce2241e687ed69c3293211b

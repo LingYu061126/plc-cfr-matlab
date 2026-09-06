@@ -1,0 +1,13 @@
+Stage 4A.6 started: 2026-09-06 14:52:51
+MATLAB version: 24.1.0.2537033 (R2024a)
+Entry: run_stage4a6_parameter_domain_diagnostic(formal_b)
+Development seeds: []
+Final seeds: [20261701 20261702 20261703 20261704 20261705]
+Stage 4A.6 grid B_ofdm_active_subcarriers (1793 points)
+  frozen eta = 0.5
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+Stage 4A.6 completed in 155.137 s
+Exit status: 0
+Total runner time: 155.172 s

@@ -1,0 +1,11 @@
+Stage 4A.5.1 started: 2026-09-06 09:27:12
+MATLAB version: 24.1.0.2537033 (R2024a)
+Entry: run_stage4a5_1_integrity_audit(formal)
+Stage 4A.5.1 grid A_stage4a1_quick61 (61 points)
+Stage 4A.5.1 grid B_ofdm_active_subcarriers (1793 points)
+[Warning: MATLAB has disabled some advanced graphics rendering features by
+switching to software OpenGL. For more information, click <a
+href="matlab:opengl('problems')">here</a>.] 
+Stage 4A.5.1 completed in 1110.281 s; gate=1
+Exit status: 0
+Total runner time: 1110.560 s

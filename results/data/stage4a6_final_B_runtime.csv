@@ -1,0 +1,2 @@
+grid_id,sample_count,candidate_count,parameter_template_count,cache_templates,elapsed_s,experiment_scientific_hash
+B_ofdm_active_subcarriers,135,7,243,1701,149.428111,421e76a3c0ee9d63a4141910dbbe38234900fe0ef8b1ae6829cf6d3d1635345b
