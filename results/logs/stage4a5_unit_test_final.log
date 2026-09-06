@@ -1,0 +1,7 @@
+24.1.0.2537033 (R2024a)
+Running Stage 4A.5 multiscale-confirmation tests...
+  PASS candidate counts, method enumeration and split isolation
+  PASS subband, top-K and block-stability evidence
+  PASS residual, margin, empty-set, equivalence and stability semantics
+  PASS protocol isolation and path-independent scientific hash
+ALL STAGE-4A.5 TESTS PASSED

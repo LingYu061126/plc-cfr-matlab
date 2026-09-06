@@ -1,0 +1,15 @@
+Stage 4A.5 run started: 2026-09-06 00:27:25
+MATLAB version: 24.1.0.2537033 (R2024a)
+Entry: run_stage4a5_multiscale_confirmation(formal)
+Git HEAD and worktree are recorded by the caller; source hash is computed by the experiment.
+Development seeds: [20261201 20261202]
+Final seeds: [20261301 20261302 20261303 20261304 20261305 20261306 20261307 20261308]
+Output prefix: stage4a5
+Stage 4A.5 grid A_stage4a1_quick61 (61 points)
+  selected methods: M1=M1_M8_q750_K5_qs00, M2=M2_M8_q750_K3_qs00, M3=M3_M4_q750_K3_qs70
+Stage 4A.5 grid B_ofdm_active_subcarriers (1793 points)
+  selected methods: M1=M1_M8_q750_K5_qs00, M2=M2_M8_q750_K3_qs00, M3=M3_M4_q750_K3_qs80
+MATLAB warning: advanced graphics rendering was disabled and software OpenGL was used.
+Stage 4A.5 completed in 1252.996 s
+Stage 4A.5 run exit status: 0
+Total runner time: 1253.374 s

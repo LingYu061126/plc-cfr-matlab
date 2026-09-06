@@ -205,6 +205,7 @@ function run_tests()
     test_stage4a3_open_set_audit();
     test_stage4a3_1_statistical_open_set_audit();
     test_stage4a4_candidate_confirmation();
+    test_stage4a5_multiscale_confirmation();
 end
 
 function err = determinant_error(T)
