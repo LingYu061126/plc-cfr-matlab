@@ -210,6 +210,10 @@ function run_tests()
     test_stage4a6_parameter_optimization();
     test_stage4a6_domain_decision();
     test_stage4a6_protocol_isolation();
+    test_stage4a6_1_active_mask();
+    test_stage4a6_1_optimizer_stability();
+    test_stage4a6_1_profile_metrics();
+    test_stage4a6_1_protocol();
 end
 
 function err = determinant_error(T)

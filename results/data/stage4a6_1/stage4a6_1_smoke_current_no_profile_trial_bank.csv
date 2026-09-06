@@ -1,0 +1,12 @@
+sample_id,replicate_id,split,category,truth_topology_id,canonical_key,outlier_dimension,outlier_severity,parameter_domain_truth,seed
+final01_cal_G001_01,final01,stage4a6_final_calibration,parameter_in_domain,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",,,in_domain,20261901
+final01_cal_G002_01,final01,stage4a6_final_calibration,parameter_in_domain,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",,,in_domain,20261901
+final01_cal_G003_01,final01,stage4a6_final_calibration,parameter_in_domain,G003,"TX=TX|RX=RX|P=4|1:0,2:1,3:0",,,in_domain,20261901
+final01_cal_G004_01,final01,stage4a6_final_calibration,parameter_in_domain,G004,"TX=TX|RX=RX|P=4|1:0,2:1,3:1",,,in_domain,20261901
+final01_cal_G005_01,final01,stage4a6_final_calibration,parameter_in_domain,G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",,,in_domain,20261901
+final01_cal_G006_01,final01,stage4a6_final_calibration,parameter_in_domain,G006,"TX=TX|RX=RX|P=4|1:1,2:0,3:1",,,in_domain,20261901
+final01_cal_G007_01,final01,stage4a6_final_calibration,parameter_in_domain,G007,"TX=TX|RX=RX|P=4|1:1,2:1,3:0",,,in_domain,20261901
+final01_test_in_01,final01,stage4a6_final_test,parameter_in_domain,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",,,in_domain,20261932
+final01_test_in_02,final01,stage4a6_final_test,parameter_in_domain,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",,,in_domain,20261932
+final01_test_out_main_length_scale_near,final01,stage4a6_final_test,parameter_out_of_domain,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",main_length_scale,near,out_of_domain,20261932
+final01_test_out_branch_length_scale_medium,final01,stage4a6_final_test,parameter_out_of_domain,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",branch_length_scale,medium,out_of_domain,20261932

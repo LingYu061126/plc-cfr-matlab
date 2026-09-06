@@ -1,0 +1,2 @@
+grid_id,sample_count,candidate_count,parameter_template_count,elapsed_s,solver,use_parallel,num_workers,experiment_scientific_hash
+A_stage4a1_quick61,11,7,243,4.257259,lsqnonlin,0,1,ddcc533a338b31c9c6bc787b5c3d59f8817898069ba7998eb5fa6849325a0df6

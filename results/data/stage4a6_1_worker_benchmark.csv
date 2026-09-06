@@ -1,0 +1,3 @@
+workers,runtime_s,speedup,correctness,profile_enabled,sample_count,solver,peak_ram,swap
+1,1.592031,1,1,0,4,lsqnonlin,not_measured,not_measured
+4,13.839053,0.115039013146348,1,0,4,lsqnonlin,not_measured,not_measured

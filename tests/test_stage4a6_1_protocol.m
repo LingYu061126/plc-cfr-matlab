@@ -1,0 +1,4 @@
+function test_stage4a6_1_protocol()
+%TEST_STAGE4A6_1_PROTOCOL Protocol isolation and source-level truth ban.
+    root=fileparts(fileparts(mfilename('fullpath')));addpath(fullfile(root,'src'),fullfile(root,'config'));cfg=default_config(root);sc=stage4a6_1_optimizer_config(cfg,'development');b=generate_stage4a6_1_trial_bank(sc,'all');dev={b(startsWith({b.replicate_id},'dev')).sample_id};fin={b(startsWith({b.replicate_id},'final')).sample_id};assert(isempty(intersect(dev,fin)),'Development/final IDs overlap.');txt=fileread(which('apply_stage4a6_1_parameter_decision'));assert(isempty(regexp(txt,'truth_topology_id|coverage_status','once')),'Parameter decision references offline truth.');assert(strcmp(sc.output_prefix,'stage4a6_1_development'),'New stage output prefix is unstable.');fprintf('ALL STAGE 4A.6.1 PROTOCOL TESTS PASSED\n');
+end
