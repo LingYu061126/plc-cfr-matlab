@@ -1,6 +1,9 @@
 function out = apply_stage4a6_2_parameter_decision(topology_decision, member_evidence, model, method_id)
 %APPLY_STAGE4A6_2_PARAMETER_DECISION Aggregate independent member evidence.
 %   No truth label, coverage status or scenario label is accepted.
+%   M2 uses calibrated profile improvement (absolute OR relative). M3 adds
+%   absolute AND relative improvement, sensitivity and boundary/outward
+%   corroboration; partial evidence remains indeterminate.
 
     out = struct('topology_status',map_topology(getfield_default(topology_decision,'decision','reject_low_confidence')), ...
         'topology_set',getfield_default(topology_decision,'accepted_topology_set',''), ...
@@ -33,7 +36,8 @@ function out = apply_stage4a6_2_parameter_decision(topology_decision, member_evi
         end
         statuses(n).parameter_name=names{n};statuses(n).active=any(active);statuses(n).member_statuses=strjoin(vals,',');
         if ~statuses(n).active, statuses(n).profile_status='inactive';continue;end
-        if any(strcmp(vals,'optimizer_failed')) || any(strcmp(vals,'scan_unreliable')) || any(strcmp(vals,'not_computed'))
+        if any(strcmp(vals,'optimizer_failed')) || any(strcmp(vals,'scan_unreliable')) || ...
+                any(strcmp(vals,'scan_unreliable_critical_points_missing')) || any(strcmp(vals,'not_computed'))
             statuses(n).profile_status='indeterminate';statuses(n).reason='profile evidence incomplete';continue;
         end
         if any(strcmp(vals,'unidentifiable_flat'))
@@ -62,31 +66,103 @@ function out = apply_stage4a6_2_parameter_decision(topology_decision, member_evi
 end
 
 function p=member_parameter_evidence(e,name)
-    p=repmat(struct('parameter_name','','active',false,'profile_status','','in_domain_min_distance',NaN,'extended_min_distance',NaN,'absolute_improvement',NaN,'relative_improvement',NaN,'extended_optimum',NaN,'extended_optimum_outside',false,'boundary_behavior','','flatness_metric',NaN,'valid_point_fraction',0,'local_sensitivity',NaN,'profile_reliable',false,'reliability_reason',''),0,1);
-    for k=1:numel(e),q=e(k).parameter_evidence;j=find(strcmp({q.parameter_name},name),1);if ~isempty(j),p(end+1)=q(j);end,end
+    p=repmat(parameter_row_template(),0,1);
+    for k=1:numel(e)
+        q=e(k).parameter_evidence;j=find(strcmp({q.parameter_name},name),1);
+        if ~isempty(j),p(end+1)=normalize_parameter_row(q(j));end
+    end
+end
+function p=parameter_row_template()
+    p=struct('parameter_name','','active',false,'profile_status','','in_domain_min_distance',NaN,'extended_min_distance',NaN,'absolute_improvement',NaN,'relative_improvement',NaN,'extended_optimum',NaN,'extended_optimum_outside',false,'boundary_behavior','','outward_decrease',false,'flatness_metric',NaN,'relative_dynamic_range',NaN,'absolute_dynamic_range',NaN,'valid_point_fraction',0,'local_sensitivity',NaN,'multistart_evaluated',false,'multistart_consistent','not_applicable','profile_reliable',false,'reliability_reason','');
+end
+function p=normalize_parameter_row(q)
+    p=parameter_row_template();f=fieldnames(p);
+    for k=1:numel(f),if isfield(q,f{k}),p.(f{k})=q.(f{k});end,end
 end
 function mapped=map_parameter_status(p,method,t)
     mapped=cell(1,numel(p));
     for k=1:numel(p)
         q=p(k);
         if ~q.profile_reliable,mapped{k}=q.profile_status;continue;end
+        if ~threshold_calibrated(t,method)
+            mapped{k}='indeterminate_insufficient_calibration';
+            continue;
+        end
         switch method
             case 'A6_2_M1_boundary'
                 mapped{k}=ternary(strcmp(q.boundary_behavior,'lower_boundary')||strcmp(q.boundary_behavior,'upper_boundary'),'out_suspected','in_domain');
-            case {'A6_2_M2_profile','A6_2_M3_joint_diagnostic'}
-                out=q.extended_optimum_outside && (q.absolute_improvement>=t.absolute_improvement_threshold || q.relative_improvement>=t.relative_improvement_threshold);
-                mapped{k}=ternary(out,'out_suspected','in_domain');
+            case 'A6_2_M2_profile'
+                out=q.extended_optimum_outside && ...
+                    (q.absolute_improvement>=t.absolute_improvement_threshold || ...
+                     q.relative_improvement>=t.relative_improvement_threshold);
+                if out
+                    mapped{k}='out_suspected';
+                elseif q.extended_optimum_outside
+                    mapped{k}='indeterminate_conflicting_evidence';
+                else
+                    mapped{k}='in_domain';
+                end
+            case 'A6_2_M3_joint_diagnostic'
+                base=q.extended_optimum_outside && ...
+                    q.absolute_improvement>=t.absolute_improvement_threshold && ...
+                    q.relative_improvement>=t.relative_improvement_threshold && ...
+                    q.local_sensitivity>=t.sensitivity_floor;
+                corroborated=strcmp(q.boundary_behavior,'lower_boundary') || ...
+                    strcmp(q.boundary_behavior,'upper_boundary') || q.outward_decrease;
+                if base && corroborated
+                    mapped{k}='out_suspected';
+                elseif q.extended_optimum_outside
+                    mapped{k}='indeterminate_conflicting_evidence';
+                else
+                    mapped{k}='in_domain';
+                end
             otherwise
                 mapped{k}='indeterminate';
         end
     end
 end
-function s=aggregate_status(x),if any(strcmp(x,'out_suspected'))&&any(strcmp(x,'in_domain')),s='indeterminate';elseif any(strcmp(x,'out_suspected')),s='out_suspected';elseif all(strcmp(x,'in_domain')),s='in_domain';elseif any(strcmp(x,'indeterminate_unidentifiable')),s='indeterminate_unidentifiable';else,s='indeterminate';end,end
+function ok=threshold_calibrated(t,method)
+    if ~isfield(t,'status') || ~strcmp(t.status,'calibrated'),ok=false;return;end
+    required=isfinite(getfield_default(t,'absolute_improvement_threshold',NaN)) && ...
+        isfinite(getfield_default(t,'relative_improvement_threshold',NaN));
+    if strcmp(method,'A6_2_M3_joint_diagnostic')
+        required=required && isfinite(getfield_default(t,'sensitivity_floor',NaN));
+    end
+    ok=required;
+end
+function s=aggregate_status(x)
+    if any(strcmp(x,'out_suspected')) && any(strcmp(x,'in_domain'))
+        s='indeterminate_conflicting_evidence';
+    elseif any(strcmp(x,'indeterminate_conflicting_evidence'))
+        s='indeterminate_conflicting_evidence';
+    elseif any(strcmp(x,'indeterminate_insufficient_calibration'))
+        s='indeterminate_insufficient_calibration';
+    elseif any(strcmp(x,'out_suspected'))
+        s='out_suspected';
+    elseif all(strcmp(x,'in_domain'))
+        s='in_domain';
+    elseif any(strcmp(x,'indeterminate_unidentifiable'))
+        s='indeterminate_unidentifiable';
+    else
+        s='indeterminate';
+    end
+end
 function r=reason_for(x),r=strjoin(x,',');end
 function names=all_parameter_names(e),names={};for k=1:numel(e),q=e(k).parameter_evidence;if ~isempty(q),names=[names,{q.parameter_name}];end,end,names=unique(names,'stable');end
 function out=aggregate_parameter_statuses(e,names),if nargin<2||isempty(names),names=all_parameter_names(e);end;out=repmat(status_template(),numel(names),1);for k=1:numel(names),out(k).parameter_name=names{k};p=member_parameter_evidence(e,names{k});out(k).active=any([p.active]);if ~out(k).active,out(k).profile_status='inactive';else,out(k).profile_status='not_computed';end,end,end
 function s=status_template(),s=struct('parameter_name','','active',false,'profile_status','not_computed','member_statuses','','absolute_improvement',NaN,'relative_improvement',NaN,'valid_point_fraction',NaN,'reason','');end
-function t=threshold_for(m,name),t=struct('absolute_improvement_threshold',Inf,'relative_improvement_threshold',Inf);if isfield(m,'parameter_thresholds')&&~isempty(m.parameter_thresholds),j=find(strcmp({m.parameter_thresholds.parameter_name},name),1);if ~isempty(j),t=m.parameter_thresholds(j);end,end,end
+function t=threshold_for(m,name)
+    t=struct('parameter_name',name,'status','insufficient_calibration', ...
+        'absolute_improvement_threshold',NaN,'relative_improvement_threshold',NaN, ...
+        'sensitivity_floor',NaN);
+    if isfield(m,'parameter_thresholds')&&~isempty(m.parameter_thresholds)
+        j=find(strcmp({m.parameter_thresholds.parameter_name},name),1);
+        if ~isempty(j),t=m.parameter_thresholds(j);end
+    end
+    if isfield(m,'calibration_status') && ~strcmp(m.calibration_status,'calibrated')
+        t.status='insufficient_calibration';
+    end
+end
 function v=max_finite(x),x=x(isfinite(x));if isempty(x),v=NaN;else,v=max(x);end,end
 function v=min_finite(x),x=x(isfinite(x));if isempty(x),v=NaN;else,v=min(x);end,end
 function v=getfield_default(s,f,d),if isstruct(s)&&isfield(s,f),v=s.(f);else,v=d;end,end

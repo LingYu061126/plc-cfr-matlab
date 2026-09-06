@@ -219,6 +219,7 @@ function run_tests()
     test_stage4a6_2_flat_profile();
     test_stage4a6_2_member_aggregation();
     test_stage4a6_2_resume();
+    test_stage4a6_2_1_protocol_closure();
 end
 
 function err = determinant_error(T)

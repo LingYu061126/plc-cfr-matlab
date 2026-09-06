@@ -39,40 +39,51 @@ function profiles = compute_stage4a6_2_parameter_profile(observed_views, frequen
         ext_points = scan_values(ext_values, true, j, k);
         in_distances = [in_points.distance];
         ext_distances = [ext_points.distance];
-        in_valid = [in_points.point_valid];
-        ext_valid = [ext_points.point_valid];
-        [din, ii] = min_finite(in_distances);
-        [dext, ie] = min_finite(ext_distances);
+        in_valid = [in_points.point_valid] & isfinite(in_distances);
+        ext_valid = [ext_points.point_valid] & isfinite(ext_distances);
+        [din, ii] = min_finite(in_distances(in_valid));
+        [dext, ie] = min_finite(ext_distances(ext_valid));
+        in_valid_indices = find(in_valid);
+        ext_valid_indices = find(ext_valid);
+        if ~isnan(ii), ii = in_valid_indices(ii); end
+        if ~isnan(ie), ie = ext_valid_indices(ie); end
         if isnan(din), ii = 1; end
         if isnan(dext), ie = 1; end
         in_value = value_at(in_values, ii);
         ext_value = value_at(ext_values, ie);
-        all_dist = [in_distances(isfinite(in_distances)), ext_distances(isfinite(ext_distances))];
-        if isempty(all_dist)
-            flatness = NaN;
-        else
-            flatness = (max(all_dist)-min(all_dist))/max(abs(min(all_dist)), 1e-12);
-        end
-        flat = isfinite(flatness) && ...
-            flatness <= getopt(options, 'flatness_threshold', 0.05) && ...
-            (max(all_dist)-min(all_dist) <= getopt(options, 'minimum_absolute_dynamic_range', 1e-9) || ...
-             flatness <= getopt(options, 'flatness_threshold', 0.05));
+        all_dist = [in_distances(in_valid), ext_distances(ext_valid)];
+        [flat,relative_dynamic_range,absolute_dynamic_range]=stage4a6_2_flatness_rule(all_dist, ...
+            getopt(options,'flatness_threshold',0.05),getopt(options,'absolute_flatness_threshold', ...
+            getopt(options,'minimum_absolute_dynamic_range',1e-9)));
         valid_points = [in_points(in_valid), ext_points(ext_valid)];
         total_count = numel(in_points) + numel(ext_points);
         valid_count = numel(valid_points);
         valid_fraction = valid_count/max(total_count, 1);
-        scan_finite = valid_count == total_count && all(isfinite(all_dist));
-        scan_converged = valid_count == total_count && all([valid_points.optimizer_converged]);
-        scan_consistent = valid_count == total_count && all([valid_points.multistart_consistent]);
+        scan_finite = valid_count > 0 && all(isfinite(all_dist));
+        scan_converged = valid_count > 0 && all([valid_points.optimizer_converged]);
+        evaluated = [valid_points.multistart_evaluated];
+        if any(evaluated)
+            scan_consistent = all([valid_points(evaluated).multistart_consistent]);
+            multistart_summary = ternary(scan_consistent, true, false);
+        else
+            scan_consistent = true;
+            multistart_summary = 'not_applicable';
+        end
+        critical_valid = true;
+        if getopt(options, 'critical_points_required', true)
+            critical_valid = critical_scan_points_valid(in_points, ext_points, in_distances, ext_distances);
+        end
         computed = true;
         reliable = computed && valid_fraction >= getopt(options, 'minimum_valid_fraction', 0.80) && ...
             (~getopt(options, 'require_all_scan_points', false) || valid_count == total_count) && ...
-            scan_finite && scan_converged && scan_consistent && ~flat;
+            scan_finite && scan_converged && scan_consistent && critical_valid && ~flat;
         if ~computed
             status = 'not_computed'; reason = 'profile was not executed';
         elseif valid_fraction < getopt(options, 'minimum_valid_fraction', 0.80) || ...
                 (getopt(options, 'require_all_scan_points', false) && valid_count < total_count)
             status = 'scan_unreliable'; reason = 'insufficient valid scan points';
+        elseif ~critical_valid
+            status = 'scan_unreliable_critical_points_missing'; reason = 'required profile boundary or minimum points are invalid';
         elseif ~scan_finite || ~scan_converged || ~scan_consistent
             status = 'scan_unreliable'; reason = 'scan point solver state was not reliable';
         elseif flat
@@ -95,11 +106,14 @@ function profiles = compute_stage4a6_2_parameter_profile(observed_views, frequen
         profiles(k).lambda = din^2-dext^2;
         profiles(k).relative_improvement = (din-dext)/(din+1e-12);
         profiles(k).flat = flat;
-        profiles(k).flatness_metric = flatness;
+        profiles(k).flatness_metric = relative_dynamic_range;
+        profiles(k).relative_dynamic_range = relative_dynamic_range;
+        profiles(k).absolute_dynamic_range = absolute_dynamic_range;
         profiles(k).profile_computed = computed;
         profiles(k).profile_scan_finite = scan_finite;
         profiles(k).profile_scan_converged = scan_converged;
-        profiles(k).profile_multistart_consistent = scan_consistent;
+        profiles(k).profile_multistart_evaluated = any(evaluated);
+        profiles(k).profile_multistart_consistent = multistart_summary;
         profiles(k).profile_nonflat = ~flat;
         profiles(k).profile_parameter_identifiable = ~flat;
         profiles(k).profile_reliable = reliable;
@@ -148,17 +162,24 @@ function profiles = compute_stage4a6_2_parameter_profile(observed_views, frequen
                 point.distance = fit.distance;
                 point.optimizer_converged = getfield_default(fit, 'optimizer_converged', false);
                 point.residual_finite = getfield_default(fit, 'residual_finite', false) && isfinite(fit.distance);
-                point.multistart_consistent = getfield_default(fit, 'multistart_consistent', false);
+                requested_starts = max(1, round(getopt(options, 'profile_multi_start_count', 1)));
+                point.multistart_evaluated = requested_starts > 1;
+                if point.multistart_evaluated
+                    point.multistart_consistent = getfield_default(fit, 'multistart_consistent', false);
+                else
+                    point.multistart_consistent = 'not_applicable';
+                end
                 point.exitflag = getfield_default(fit, 'best_exitflag', best_exit_from_runs(fit));
                 point.iterations = best_output_from_runs(fit, 'iterations');
                 point.function_evaluations = best_output_from_runs(fit, 'function_evaluations');
                 point.boundary_hit = any(getfield_default(fit, 'near_lower', false) | getfield_default(fit, 'near_upper', false));
-                point.point_valid = point.residual_finite && point.optimizer_converged && point.multistart_consistent;
+                point.multistart_requirement_met = ~point.multistart_evaluated || point.multistart_consistent;
+                point.point_valid = point.residual_finite && point.optimizer_converged && point.multistart_requirement_met;
                 if ~point.residual_finite
                     point.failure_identifier = 'nonfinite_residual';
                 elseif ~point.optimizer_converged
                     point.failure_identifier = 'optimizer_not_converged';
-                elseif ~point.multistart_consistent
+                elseif ~point.multistart_requirement_met
                     point.failure_identifier = 'multistart_inconsistent';
                 else
                     point.failure_identifier = '';
@@ -196,16 +217,19 @@ function p = profile_template()
         'in_min_distance',NaN,'ext_min_distance',NaN,'in_min_value',NaN,'ext_min_value',NaN, ...
         'extended_min_outside',false,'lambda',NaN,'relative_improvement',NaN,'flat',false, ...
         'flatness_metric',NaN,'profile_computed',false,'profile_scan_finite',false, ...
-        'profile_scan_converged',false,'profile_multistart_consistent',false, ...
+        'profile_scan_converged',false,'profile_multistart_evaluated',false, ...
+        'profile_multistart_consistent','not_applicable', ...
         'profile_nonflat',false,'profile_parameter_identifiable',false,'profile_reliable',false, ...
         'profile_valid_point_count',0,'profile_total_point_count',0,'profile_valid_fraction',0, ...
+        'relative_dynamic_range',NaN,'absolute_dynamic_range',NaN, ...
         'profile_scan_status','not_computed','profile_status','not_computed', ...
         'reliability_reason','');
 end
 function p = point_template()
     p = struct('parameter_name','','fixed_value',NaN,'is_extended',false,'distance',Inf, ...
         'solver','','exitflag',NaN,'optimizer_converged',false,'residual_finite',false, ...
-        'multistart_consistent',false,'iterations',NaN,'function_evaluations',NaN, ...
+        'multistart_consistent','not_applicable','multistart_evaluated',false, ...
+        'multistart_requirement_met',false,'iterations',NaN,'function_evaluations',NaN, ...
         'boundary_hit',false,'runtime_s',NaN,'failure_identifier','', ...
         'warm_start_source','','point_valid',false,'started_at','','finished_at','');
 end
@@ -213,10 +237,26 @@ function values = make_grid(lo, hi, optimum, options, is_extended)
     n = getopt(options, 'initial_grid_points', 3);
     values = linspace(lo, hi, max(2, n));
     if isfinite(optimum), values = [values, optimum]; end
-    if getopt(options, 'max_refinement_rounds', 1) > 0 && numel(values) >= 3
+    strategy = getopt(options, 'grid_strategy', 'fixed_grid_with_midpoints');
+    if strcmp(strategy, 'fixed_grid_with_midpoints') && numel(values) >= 3
         values = [values, (values(1:end-1)+values(2:end))/2];
     end
     values = unique(min(max(values,lo),hi));
+end
+function ok = critical_scan_points_valid(in_points, ext_points, in_distances, ext_distances)
+    ok = true;
+    groups = {in_points, ext_points}; distances = {in_distances, ext_distances};
+    for g = 1:2
+        p = groups{g}; d = distances{g};
+        if isempty(p), ok = false; continue; end
+        indices = unique([1 numel(p)]);
+        finite_indices = find(isfinite(d));
+        if isempty(finite_indices), ok = false; continue; end
+        [~, local] = min(d(finite_indices));
+        indices(end+1) = finite_indices(local); %#ok<AGROW>
+        indices = unique(indices);
+        if any(~[p(indices).point_valid]), ok = false; end
+    end
 end
 function [v, i] = min_finite(x)
     y = x; y(~isfinite(y)) = Inf; [v,i] = min(y); if isinf(v), v=NaN; end

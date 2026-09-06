@@ -1,0 +1,67 @@
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 11)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 47)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 12)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 47)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 11)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 49)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 12)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 49)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 11)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 53)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+[Warning: Trust-region-reflective algorithm requires at least as many equations
+as variables; using Levenberg-Marquardt algorithm instead.] 
+[> In lsqncommon (line 94)
+In lsqnonlin (line 285)
+In optimize_stage4a6_1_parameters/solve_lsq (line 119)
+In optimize_stage4a6_1_parameters (line 37)
+In compute_stage4a6_2_member_evidence (line 12)
+In run_stage4a6_2_case (line 18)
+In run_stage4a6_2_batch (line 31)
+In test_stage4a6_2_1_protocol_closure>test_batch_resume (line 53)
+In test_stage4a6_2_1_protocol_closure (line 4)] 
+ALL STAGE-4A.6.2.1 PROTOCOL CLOSURE TESTS PASSED

@@ -27,6 +27,7 @@ function evidence = compute_stage4a6_2_member_evidence(observed_views, frequency
     if isempty(prof)
         profile_reliable = false;
     end
+    boundary = boundary_summary(rin,domain,active_names,candidate,cfg,observed_views,frequency_hz,options);
     parameter_evidence = repmat(parameter_template(), numel(names), 1);
     for k = 1:numel(names)
         parameter_evidence(k).parameter_name = names{k};
@@ -45,9 +46,14 @@ function evidence = compute_stage4a6_2_member_evidence(observed_views, frequency
         parameter_evidence(k).extended_optimum = p.ext_min_value;
         parameter_evidence(k).extended_optimum_outside = p.extended_min_outside;
         parameter_evidence(k).boundary_behavior = boundary_label(rin,domain,names{k});
+        parameter_evidence(k).outward_decrease = outward_decrease_for(names{k},active_names,boundary.outward_distance_change);
         parameter_evidence(k).flatness_metric = p.flatness_metric;
+        parameter_evidence(k).relative_dynamic_range = getfield_default(p,'relative_dynamic_range',p.flatness_metric);
+        parameter_evidence(k).absolute_dynamic_range = getfield_default(p,'absolute_dynamic_range',NaN);
         parameter_evidence(k).valid_point_fraction = p.profile_valid_fraction;
         parameter_evidence(k).local_sensitivity = sensitivity_for(names{k},active_names,ident.sensitivity_norms);
+        parameter_evidence(k).multistart_evaluated = getfield_default(p,'profile_multistart_evaluated',false);
+        parameter_evidence(k).multistart_consistent = getfield_default(p,'profile_multistart_consistent','not_applicable');
         parameter_evidence(k).profile_reliable = p.profile_reliable;
         parameter_evidence(k).reliability_reason = p.reliability_reason;
         if ~p.profile_computed
@@ -56,7 +62,6 @@ function evidence = compute_stage4a6_2_member_evidence(observed_views, frequency
             parameter_evidence(k).profile_status = 'indeterminate';
         end
     end
-    boundary = boundary_summary(rin,domain,active_names,candidate,cfg,observed_views,frequency_hz,options);
     evidence = struct( ...
         'topology_id',candidate.topology_id, ...
         'canonical_key',getfield_default(candidate,'canonical_key',''), ...
@@ -94,8 +99,10 @@ function p = parameter_template()
     p = struct('parameter_name','','active',false,'profile_status','not_computed', ...
         'in_domain_min_distance',NaN,'extended_min_distance',NaN, ...
         'absolute_improvement',NaN,'relative_improvement',NaN,'extended_optimum',NaN, ...
-        'extended_optimum_outside',false,'boundary_behavior','none','flatness_metric',NaN, ...
-        'valid_point_fraction',0,'local_sensitivity',NaN,'profile_reliable',false, ...
+        'extended_optimum_outside',false,'boundary_behavior','none','outward_decrease',false, ...
+        'flatness_metric',NaN,'relative_dynamic_range',NaN,'absolute_dynamic_range',NaN, ...
+        'valid_point_fraction',0,'local_sensitivity',NaN,'multistart_evaluated',false, ...
+        'multistart_consistent','not_applicable','profile_reliable',false, ...
         'reliability_reason','');
 end
 function label = boundary_label(r,domain,name)
@@ -104,6 +111,7 @@ function label = boundary_label(r,domain,name)
     if p<=0.05,label='lower_boundary';elseif p>=0.95,label='upper_boundary';else,label='interior';end
 end
 function s = sensitivity_for(name,names,v),k=find(strcmp(names,name),1);if isempty(k),s=NaN;else,s=v(k);end,end
+function v = outward_decrease_for(name,names,changes),k=find(strcmp(names,name),1);if isempty(k),v=false;else,v=isfinite(changes(k))&&changes(k)<0;end,end
 function v = min_or_nan(x),x=x(isfinite(x));if isempty(x),v=NaN;else,v=min(x);end,end
 function v=getfield_default(s,f,d),if isstruct(s)&&isfield(s,f),v=s.(f);else,v=d;end,end
 function v=getopt(s,n,d),if isfield(s,n)&&~isempty(s.(n)),v=s.(n);else,v=d;end,end

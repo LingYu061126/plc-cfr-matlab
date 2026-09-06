@@ -1,0 +1,18 @@
+                   mode: 'smoke'
+        frequency_count: 9
+             case_count: 2
+        attempted_count: 0
+        completed_count: 0
+          resumed_count: 2
+           failed_count: 0
+          pending_count: 0
+            retry_count: 0
+    hash_mismatch_count: 0
+    aggregate_completed: 2
+       aggregate_failed: 0
+              runtime_s: 0.1692
+                workers: 1
+      parallel_strategy: 'serial'
+        scientific_hash: '1da5e8159204a07c9ce5cd7693cea07838b35713bfa1896ce870b35f20691785'
+       source_tree_hash: '06a61bfb623a71fa2b6c68e8655712f1d9213d2571ac0e9b156cfa123591ef5f'
+
