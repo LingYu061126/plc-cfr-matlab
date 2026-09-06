@@ -26,6 +26,8 @@ function shard = run_stage4a6_2_case(case_spec, context)
         shard.status='completed';shard.exit_status=0;
     catch err
         shard.error_identifier=err.identifier;shard.error_message=err.message;
+        if isempty(shard.error_identifier), shard.error_identifier='stage4a6_2:UnhandledCaseFailure'; end
+        if isempty(shard.error_message), shard.error_message='Unhandled case failure; inspect MATLAB process log.'; end
     end
     shard.finished_at=datestr(now,30);shard.runtime_s=toc(started);
 end

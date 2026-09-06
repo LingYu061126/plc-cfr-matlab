@@ -1,0 +1,2 @@
+run_id,mode,initial_compute_runtime_s,resume_check_runtime_s,total_compute_runtime_s,case_count,attempted,completed,resumed,failed,pending,retry_count,hash_mismatch,solver,workers,scientific_hash,source_tree_hash
+final_9584b02a950b32f1,final,3.222494,0.004655,3.227149,1272,0,0,0,0,0,0,0,auto,1,9584b02a950b32f14cde9bc240e6db4714ea9c703fa8b5a8013ee45135d4e98a,93df76f79aff0be8961a032c99cd4d4ea9bde217de56c9341bedcf49e045d564

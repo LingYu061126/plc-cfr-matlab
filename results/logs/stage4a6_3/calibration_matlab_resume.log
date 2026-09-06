@@ -1,0 +1,11 @@
+{Subscripted assignment between dissimilar structures.
+
+Error in exp_stage4a6_3_parameter_domain_validation>calibration_evidence_only (line 124)
+        eligible(end+1)=evidence(q).profile_summary; %#ok<AGROW>
+
+Error in exp_stage4a6_3_parameter_domain_validation (line 39)
+        eligible=calibration_evidence_only(evidence,manifest,bank,tds);
+
+Error in run_stage4a6_3_parameter_domain_validation (line 6)
+    out=exp_stage4a6_3_parameter_domain_validation(root,mode);
+} 

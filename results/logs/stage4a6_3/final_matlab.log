@@ -1,0 +1,54 @@
+            total: 1272
+        attempted: 1228
+        completed: 1228
+           failed: 0
+          pending: 0
+          resumed: 44
+      retry_count: 0
+    hash_mismatch: 0
+          results: [1272x1 struct]
+
+                       run_id: 'final_8790870b9b8a7fb1'
+                         mode: 'final'
+    initial_compute_runtime_s: 1.8448e+03
+       resume_check_runtime_s: 0
+      total_compute_runtime_s: 1.8448e+03
+                   case_count: 1272
+                    attempted: 1228
+                    completed: 1228
+                      resumed: 44
+                       failed: 0
+                      pending: 0
+                  retry_count: 0
+                hash_mismatch: 0
+                       solver: 'auto'
+                      workers: 1
+              scientific_hash: '8790870b9b8a7fb1fd0aaff23ac571dda6734bafe8e1ba6a107d52da6cc4c143'
+             source_tree_hash: 'ef5e6aa1245fff5f77ba99e89b225c1d1064e1a8ad8d4f653763e161a5ac3af3'
+
+  1x16 struct array with fields:
+
+    method_id
+    category
+    sample_count
+    ood_out_numerator
+    ood_denominator
+    ood_recall
+    ood_ci_low
+    ood_ci_high
+    ood_false_accept_numerator
+    ood_false_accept_rate
+    in_domain_false_alarm_numerator
+    in_domain_denominator
+    in_domain_false_alarm_rate
+    in_domain_ci_low
+    in_domain_ci_high
+    indeterminate_numerator
+    indeterminate_rate
+    indeterminate_ci_low
+    indeterminate_ci_high
+    decision_coverage_numerator
+    decision_coverage
+    coverage_ci_low
+    coverage_ci_high
+

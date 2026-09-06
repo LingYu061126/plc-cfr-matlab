@@ -1,0 +1,2 @@
+run_id,case_count,completed,failed,pending,attempt_count_sum,retry_count_sum,sum_shard_runtime_s,shard_timestamp_span_s,scientific_hash,source_tree_hash,measurement_note
+final_9584b02a950b32f1,1272,1272,0,0,1272,0,2058.398585000,2758.304089393,9584b02a950b32f14cde9bc240e6db4714ea9c703fa8b5a8013ee45135d4e98a,93df76f79aff0be8961a032c99cd4d4ea9bde217de56c9341bedcf49e045d564,"sum_shard_runtime is solver/case time; timestamp span includes MATLAB restart and resume overhead"

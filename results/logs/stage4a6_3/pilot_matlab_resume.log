@@ -1,0 +1,28 @@
+            total: 28
+        attempted: 0
+        completed: 0
+           failed: 0
+          pending: 0
+          resumed: 28
+      retry_count: 0
+    hash_mismatch: 0
+          results: [28x1 struct]
+
+                       run_id: 'pilot_ffd55beb5cedc854'
+                         mode: 'pilot'
+    initial_compute_runtime_s: 34.8389
+       resume_check_runtime_s: 0.9187
+      total_compute_runtime_s: 35.7576
+                   case_count: 28
+                    attempted: 0
+                    completed: 0
+                      resumed: 28
+                       failed: 0
+                      pending: 0
+                  retry_count: 0
+                hash_mismatch: 0
+                       solver: 'auto'
+                      workers: 1
+              scientific_hash: 'ffd55beb5cedc854cdaea6890c9ef09579675bc24ad90ce28663eeae21fa6c11'
+             source_tree_hash: '39f41ff3f5bf272fa281c580663055b2581201a26da711242d133880e1f445da'
+

@@ -259,9 +259,18 @@ function ok = critical_scan_points_valid(in_points, ext_points, in_distances, ex
     end
 end
 function [v, i] = min_finite(x)
-    y = x; y(~isfinite(y)) = Inf; [v,i] = min(y); if isinf(v), v=NaN; end
+    % Profile curves are logically one-dimensional; flatten them before
+    % taking the minimum so a row/column shape cannot leak a vector into a
+    % scalar boundary or improvement decision.
+    y = x(:);
+    if isempty(y), v=NaN; i=NaN; return; end
+    y(~isfinite(y)) = Inf; [v,i] = min(y); if isinf(v), v=NaN; end
 end
-function v = value_at(x, i), if isempty(x), v=NaN; else, v=x(min(max(i,1),numel(x))); end, end
+function v = value_at(x, i)
+    if isempty(x), v=NaN; return; end
+    y=x(:); if isempty(i) || ~isfinite(i), i=1; end
+    v=y(min(max(round(i),1),numel(y)));
+end
 function v = getfield_default(s, f, d), if isstruct(s)&&isfield(s,f), v=s.(f); else, v=d; end, end
 function v = best_exit_from_runs(fit)
     v = NaN; if isfield(fit,'runs')&&~isempty(fit.runs), [~,i]=min([fit.runs.final_distance]); v=fit.runs(i).exitflag; end

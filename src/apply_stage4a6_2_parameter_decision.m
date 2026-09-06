@@ -21,7 +21,7 @@ function out = apply_stage4a6_2_parameter_decision(topology_decision, member_evi
     out.member_profile_reliable_count = sum([member_evidence.profile_reliable]);
     out.profile_computed = any([member_evidence.profile_computed]);
     out.profile_reliable = all([member_evidence.profile_reliable]);
-    if strcmp(method_id,'A6_2_M0_topology_only') || ~out.profile_computed
+    if ismember(method_id,{'A6_2_M0_topology_only','A6_3_M0_topology_only'}) || ~out.profile_computed
         if ~out.profile_computed, out.parameter_domain_status='parameter_not_evaluated'; end
         out.parameter_statuses = aggregate_parameter_statuses(member_evidence, []);
         return;
@@ -89,9 +89,9 @@ function mapped=map_parameter_status(p,method,t)
             continue;
         end
         switch method
-            case 'A6_2_M1_boundary'
+            case {'A6_2_M1_boundary','A6_3_M1_boundary'}
                 mapped{k}=ternary(strcmp(q.boundary_behavior,'lower_boundary')||strcmp(q.boundary_behavior,'upper_boundary'),'out_suspected','in_domain');
-            case 'A6_2_M2_profile'
+            case {'A6_2_M2_profile','A6_3_M2_profile'}
                 out=q.extended_optimum_outside && ...
                     (q.absolute_improvement>=t.absolute_improvement_threshold || ...
                      q.relative_improvement>=t.relative_improvement_threshold);
@@ -102,7 +102,7 @@ function mapped=map_parameter_status(p,method,t)
                 else
                     mapped{k}='in_domain';
                 end
-            case 'A6_2_M3_joint_diagnostic'
+            case {'A6_2_M3_joint_diagnostic','A6_3_M3_joint_diagnostic'}
                 base=q.extended_optimum_outside && ...
                     q.absolute_improvement>=t.absolute_improvement_threshold && ...
                     q.relative_improvement>=t.relative_improvement_threshold && ...
@@ -125,7 +125,7 @@ function ok=threshold_calibrated(t,method)
     if ~isfield(t,'status') || ~strcmp(t.status,'calibrated'),ok=false;return;end
     required=isfinite(getfield_default(t,'absolute_improvement_threshold',NaN)) && ...
         isfinite(getfield_default(t,'relative_improvement_threshold',NaN));
-    if strcmp(method,'A6_2_M3_joint_diagnostic')
+    if ismember(method,{'A6_2_M3_joint_diagnostic','A6_3_M3_joint_diagnostic'})
         required=required && isfinite(getfield_default(t,'sensitivity_floor',NaN));
     end
     ok=required;

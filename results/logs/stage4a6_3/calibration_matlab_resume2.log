@@ -1,0 +1,38 @@
+            total: 70
+        attempted: 0
+        completed: 0
+           failed: 0
+          pending: 0
+          resumed: 70
+      retry_count: 0
+    hash_mismatch: 0
+          results: [70x1 struct]
+
+                       run_id: 'calibration_a2a3b909089ebf82'
+                         mode: 'calibration'
+    initial_compute_runtime_s: 69.9478
+       resume_check_runtime_s: 2.1886
+      total_compute_runtime_s: 72.1365
+                   case_count: 70
+                    attempted: 0
+                    completed: 0
+                      resumed: 70
+                       failed: 0
+                      pending: 0
+                  retry_count: 0
+                hash_mismatch: 0
+                       solver: 'auto'
+                      workers: 1
+              scientific_hash: 'a2a3b909089ebf82a0d440350ce1d9e61e50f0175147b9bd11e45df7ba0cffe2'
+             source_tree_hash: 'ef5e6aa1245fff5f77ba99e89b225c1d1064e1a8ad8d4f653763e161a5ac3af3'
+
+calibrated
+  1x5 struct array with fields:
+
+    parameter_name
+    reliable_sample_count
+    absolute_improvement_threshold
+    relative_improvement_threshold
+    sensitivity_floor
+    status
+

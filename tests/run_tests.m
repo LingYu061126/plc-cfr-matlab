@@ -220,6 +220,10 @@ function run_tests()
     test_stage4a6_2_member_aggregation();
     test_stage4a6_2_resume();
     test_stage4a6_2_1_protocol_closure();
+    test_stage4a6_3_trial_bank_isolation();
+    test_stage4a6_3_metric_denominators();
+    test_stage4a6_3_no_truth_leakage();
+    test_stage4a6_3_frozen_config();
 end
 
 function err = determinant_error(T)
