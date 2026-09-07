@@ -1,0 +1,5 @@
+workers,parallel_enabled,cases,pool_startup_time_s,cache_load_time_s,materialization_time_s,topology_calibration_scoring_time_s,parameter_calibration_profile_time_s,pilot_scoring_time_s,pilot_profile_time_s,equivalence_audit_time_s,save_time_s,total_runtime_s,speedup_vs_1,parallel_efficiency,peak_rss_mb,swap_used_mb,cache_status,correctness_status,benchmark_status,notes
+1,0,49,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN,61.895233,1,1,NaN,NaN,validated,serial_reference,completed,"R.2 serial Pilot; final source-tree identity-aligned run"
+4,1,49,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_started,not_evaluable,skipped,"parpool Processes/4 failed with ApplicationService client-v1 before benchmark"
+6,1,49,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_started,not_evaluable,skipped,"parpool Processes/6 failed after the 4-worker prerequisite failed"
+8,1,49,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_started,not_evaluable,skipped,"not launched after 4/6 worker pool startup failure; no memory claim made"

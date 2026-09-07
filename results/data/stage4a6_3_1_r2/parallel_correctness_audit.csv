@@ -1,0 +1,5 @@
+workers,sample_count,decision_mismatch_count,topology_set_mismatch_count,parameter_status_mismatch_count,seed_mismatch_count,parameter_hash_mismatch_count,cfr_hash_mismatch_count,calibration_hash_mismatch_count,metric_mismatch_count,max_float_absolute_difference,max_float_relative_difference,correctness_status,notes
+1,35,0,0,0,0,0,0,0,0,0,0,serial_reference,"No parallel output was available for comparison"
+4,35,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_evaluable,"Parallel pool did not start"
+6,35,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_evaluable,"Parallel pool did not start"
+8,35,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,not_evaluable,"Benchmark skipped after lower-worker startup failure"

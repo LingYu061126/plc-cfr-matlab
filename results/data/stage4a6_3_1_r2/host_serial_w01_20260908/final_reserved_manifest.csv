@@ -1,0 +1,8 @@
+sample_id,split,seed,truth_topology_id,canonical_key,physical_scenario_id,category
+reserved_G001_01,final_reserved,20276023,G001,"TX=TX|RX=RX|P=4|1:0,2:0,3:0",final_reserved_reserved_G001_01,reserved_not_executed
+reserved_G002_01,final_reserved,20276036,G002,"TX=TX|RX=RX|P=4|1:0,2:0,3:1",final_reserved_reserved_G002_01,reserved_not_executed
+reserved_G003_01,final_reserved,20276049,G003,"TX=TX|RX=RX|P=4|1:0,2:1,3:0",final_reserved_reserved_G003_01,reserved_not_executed
+reserved_G004_01,final_reserved,20276062,G004,"TX=TX|RX=RX|P=4|1:0,2:1,3:1",final_reserved_reserved_G004_01,reserved_not_executed
+reserved_G005_01,final_reserved,20276075,G005,"TX=TX|RX=RX|P=4|1:1,2:0,3:0",final_reserved_reserved_G005_01,reserved_not_executed
+reserved_G006_01,final_reserved,20276088,G006,"TX=TX|RX=RX|P=4|1:1,2:0,3:1",final_reserved_reserved_G006_01,reserved_not_executed
+reserved_G007_01,final_reserved,20276101,G007,"TX=TX|RX=RX|P=4|1:1,2:1,3:0",final_reserved_reserved_G007_01,reserved_not_executed

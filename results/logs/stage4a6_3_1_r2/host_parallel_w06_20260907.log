@@ -1,0 +1,5 @@
+Starting parallel pool (parpool) using the 'processes' profile ...
+Connected to parallel pool with 6 workers.
+R2_W6_DONE_CAL=14
+R2_W6_DONE_PILOT=35
+Parallel pool using the 'processes' profile is shutting down.

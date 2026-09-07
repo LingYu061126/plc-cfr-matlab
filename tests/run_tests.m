@@ -226,6 +226,7 @@ function run_tests()
     test_stage4a6_3_frozen_config();
     test_stage4a6_3_1_protocol_pilot();
     test_stage4a6_3_1_r1_metrics_and_identity();
+    test_stage4a6_3_1_r2_equivalence_parallel();
 end
 
 function err = determinant_error(T)

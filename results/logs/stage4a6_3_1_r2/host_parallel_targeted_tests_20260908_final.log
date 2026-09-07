@@ -1,0 +1,3 @@
+PASS R.2 metric denominators, split seeds and parallel config
+ALL STAGE 4A.6.3.1-R.2 TARGETED TESTS PASSED
+R2_TARGETED_OK
