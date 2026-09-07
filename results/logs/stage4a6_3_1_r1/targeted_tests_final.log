@@ -1,0 +1,5 @@
+ALL STAGE 4A.6.3.1-R.1 METRIC/IDENTITY TESTS PASSED
+      name: 'test_stage4a6_3_1_r1_metrics_and_identity'
+    status: 'passed'
+
+R1_TARGETED_RUNTIME_S=0.269796

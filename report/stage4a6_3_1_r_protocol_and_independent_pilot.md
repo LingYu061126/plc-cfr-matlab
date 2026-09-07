@@ -38,11 +38,11 @@ R 版确认流程为：
 
 ## 4. 复现缺口与处理
 
-上一轮 Stage 4A.6.3.1 的若干 profile MAT、Pilot MAT、配置和源码在本地存在但未被 Git 跟踪。其用途、大小、SHA-256、是否可重建和处理建议见：
+上一轮 Stage 4A.6.3.1 的若干 profile MAT、Pilot MAT、配置和源码在历史审计时未被 Git 跟踪。其用途、大小、SHA-256、是否可重建和处理建议见：
 
 `report/stage4a6_3_1_r_reproducibility_audit.md`。[代码静态核对]
 
-R 版不把这些历史 MAT 作为必要输入，而是通过已提交的配置、候选生成器、缓存构建器、场景生成器和独立入口重新生成小型 Pilot。大型历史 profile 目录不直接纳入本阶段提交范围；若要归档，应另行采用 Git LFS 或外部对象存储，并保存清单与哈希。[模型内推断]
+R 版不把这些历史 MAT 作为必要输入，而是通过已提交的配置、候选生成器、缓存构建器、场景生成器和独立入口重新生成小型 Pilot。大型历史 profile 目录不直接纳入本阶段提交范围；若要归档，应另行采用 Git LFS 或外部对象存储，并保存清单与哈希。[模型内推断] R 版当前状态以对应提交的 Git 跟踪信息为准。
 
 ## 5. 轻量检查与 MATLAB 状态
 
@@ -74,6 +74,8 @@ Pilot 日志：
 R 版指标函数保留 nominal row count、physical scenario 去重后的 effective denominator、duplicate observation count、topology set accuracy、strict unique accuracy、false-unique、OOD recall、OOD false acceptance、in-domain false alarm、indeterminate rate、coverage 和 selective risk，并为二项比例提供 Wilson 区间。重复 `physical_scenario_id` 不扩大统计分母。[代码静态核对]
 
 本次 Pilot 产生 35 个独立物理场景，其中 26 个进入参数 profile，9 个因拓扑拒判未执行参数 profile。独立性审计中 calibration 14/14、Pilot 各类别 7/7 的参数哈希和 CFR 哈希均唯一，未发现重复物理场景或重复观测。[本次运行]
+
+R.1 修正版另存于 `results/data/stage4a6_3_1_r1/`，不改写 R 版历史结果。R.1 的指标定义、校准身份和独立统计说明见 `report/stage4a6_3_1_r1_metric_and_calibration_closure.md`。[本次运行]
 
 Pilot 拓扑决策计数为：`unique_topology=11`、`equivalence_class=15`、`reject_model_mismatch=1`、`reject_subband_mismatch=4`、`reject_low_stability=1`、`reject_neighborhood_mismatch=3`。[本次运行]
 

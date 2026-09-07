@@ -225,6 +225,7 @@ function run_tests()
     test_stage4a6_3_no_truth_leakage();
     test_stage4a6_3_frozen_config();
     test_stage4a6_3_1_protocol_pilot();
+    test_stage4a6_3_1_r1_metrics_and_identity();
 end
 
 function err = determinant_error(T)

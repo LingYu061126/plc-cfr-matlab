@@ -2,7 +2,7 @@
 
 ## 结论摘要
 
-本审计把 Stage 4A.6.3.1 的历史闭环结果与本阶段 R 版独立 Pilot 的复现依赖分开。历史闭环目录中存在若干未被 Git 跟踪的 MAT、CSV、配置和源码；这些文件不能被新实验静默当作公开依赖。R 版入口已在 MATLAB R2024a 中重新生成 A 网格候选缓存、校准场景和 Pilot 场景，结果写入 `results/data/stage4a6_3_1_r/`，因此不依赖历史 Pilot MAT 才能重建核心流程。[本次运行]
+本审计把 Stage 4A.6.3.1 的历史闭环结果与 Stage 4A.6.3.1-R 独立 Pilot 的复现依赖分开。历史闭环目录中存在若干未被 Git 跟踪的 MAT、CSV、配置和源码；这些文件不能被新实验静默当作公开依赖。R 版入口已在 MATLAB R2024a 中重新生成 A 网格候选缓存、校准场景和 Pilot 场景，结果写入 `results/data/stage4a6_3_1_r/`，因此不依赖历史 Pilot MAT 才能重建核心流程。[本次运行]
 
 路径均以仓库根目录为基准；绝对路径只用于本次审计，不进入科学配置哈希。SHA-256 由审计运行时计算，未把未跟踪的大型历史结果自动加入本阶段提交范围。[代码静态核对]
 
@@ -63,7 +63,13 @@
 - `results/logs/stage4a6_3_1_r/matlab_protocol_tests_final.log`
 - `results/logs/stage4a6_3_1_r/full_regression_after_pilot.log`
 
-这些文件当前仍是工作区新增内容，尚未提交 Git；大型 MAT 是否进入远程仓库应在提交前单独审查。[本次运行]
+上述内容是 R 版历史运行证据。其紧凑 CSV、配置、报告和源码是否纳入远程仓库，以对应提交的 Git 状态为准；大型 MAT 不作为公开克隆的必要输入。[历史结果]
+
+## R.1 状态说明
+
+Stage 4A.6.3.1-R.1 的修正结果另存于 `results/data/stage4a6_3_1_r1/`，不覆盖 R 版历史目录。R.1 分离了拓扑校准哈希与参数校准哈希，修正了 false-unique 和拓扑/参数选择性风险定义，并对不可靠 profile 实施硬门控；详见 `report/stage4a6_3_1_r1_metric_and_calibration_closure.md`。[本次运行]
+
+本报告中“未跟踪”仅指历史审计时的本地大型文件或旧阶段依赖，不表示当前已纳入提交的 R 版源码、报告或紧凑结果仍未被 Git 跟踪。当前工作区和远端的实际跟踪状态应以 `git ls-files` 与提交记录核对。[代码静态核对]
 
 ## 限制
 

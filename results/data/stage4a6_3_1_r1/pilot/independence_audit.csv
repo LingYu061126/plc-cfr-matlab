@@ -1,0 +1,4 @@
+split_a,split_b,row_count_a,row_count_b,cross_split_physical_id_duplicate_count,cross_split_parameter_hash_duplicate_count,cross_split_cfr_hash_duplicate_count,cross_split_observation_hash_duplicate_count,cross_split_numerical_equivalence_count,cfr_status
+calibration,pilot,14,35,0,0,0,0,0,exact_hash_only
+calibration,final_reserved,14,7,0,0,NaN,NaN,NaN,not_evaluated_final_reserved
+pilot,final_reserved,35,7,0,0,NaN,NaN,NaN,not_evaluated_final_reserved
