@@ -1,0 +1,4 @@
+function out=stage4a6_3_1_r_aggregate_class_evidence(confirmation,member_evidence,parameter_model,method_id)
+%STAGE4A6_3_1_R_AGGREGATE_CLASS_EVIDENCE Conservative class aggregation.
+    out=aggregate_stage4a6_3_1_member_evidence(confirmation,member_evidence,parameter_model,method_id);if out.accepted_member_count~=out.evaluated_member_count,out.parameter_domain_status='parameter_domain_indeterminate';out.parameter_evidence='incomplete accepted-member evidence';end
+end

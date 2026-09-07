@@ -1,0 +1,9 @@
+    name = test_stage4a6_3_1_r_protocol
+    status = passed
+    sample_count = 35
+    name = test_stage4a6_3_1_r_independence
+    status = passed
+    sample_count = 35
+    name = test_stage4a6_3_1_r_equivalence_members
+    status = passed
+error: ignoring const execution_exception& while preparing to exit

@@ -1,0 +1,5 @@
+function out=run_stage4a6_3_1_r_independent_pilot()
+    root=fileparts(mfilename('fullpath'));
+    addpath(fullfile(root,'src'),fullfile(root,'config'),fullfile(root,'experiments'));
+    out=exp_stage4a6_3_1_r_independent_pilot(root);
+end

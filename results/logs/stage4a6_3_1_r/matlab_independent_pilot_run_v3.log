@@ -1,0 +1,10 @@
+24.1.0.2537033 (R2024a)
+{Error using vertcat
+Dimensions of arrays being concatenated are not consistent.
+
+Error in exp_stage4a6_3_1_r_independent_pilot (line 58)
+                cal_member_rows=[cal_member_rows;member_rows(calbank(k),pe)]; %#ok<AGROW>
+
+Error in run_stage4a6_3_1_r_independent_pilot (line 4)
+    out=exp_stage4a6_3_1_r_independent_pilot(root);
+} 

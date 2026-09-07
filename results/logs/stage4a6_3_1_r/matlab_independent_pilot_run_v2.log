@@ -1,0 +1,14 @@
+24.1.0.2537033 (R2024a)
+{Error using struct2table (line 97)
+Input structure is a scalar, but its fields have different numbers of rows. If
+you intended to create a table with one row, set 'AsArray' to true.
+
+Error in exp_stage4a6_3_1_r_independent_pilot>write_rows (line 164)
+function write_rows(x,p),if isempty(x),return;end,ensure_dir(fileparts(p));writetable(struct2table(x(:)),p);end
+
+Error in exp_stage4a6_3_1_r_independent_pilot (line 46)
+    write_rows(threshold_rows(calmodel,compat_hash,source_hash),fullfile(caldir,'topology_confirmation_thresholds.csv'));
+
+Error in run_stage4a6_3_1_r_independent_pilot (line 4)
+    out=exp_stage4a6_3_1_r_independent_pilot(root);
+} 

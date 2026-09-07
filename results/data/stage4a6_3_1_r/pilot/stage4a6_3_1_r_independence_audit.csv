@@ -1,0 +1,7 @@
+split,category,row_count,unique_physical_scenario_count,unique_parameter_hash_count,unique_cfr_hash_count,duplicate_parameter_count,duplicate_cfr_count,cross_split_duplicate_count,equivalent_observation_count
+calibration,in_domain_interior,14,14,14,14,0,0,0,0
+pilot,in_domain_boundary,7,7,7,7,0,0,0,0
+pilot,in_domain_interior,7,7,7,7,0,0,0,0
+pilot,out_of_domain_far,7,7,7,7,0,0,0,0
+pilot,out_of_domain_medium,7,7,7,7,0,0,0,0
+pilot,out_of_domain_near,7,7,7,7,0,0,0,0

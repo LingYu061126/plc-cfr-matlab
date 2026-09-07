@@ -1,0 +1,9 @@
+24.1.0.2537033 (R2024a)
+{Error using horzcat
+Number of fields in structure arrays being concatenated do not match.
+Concatenation of structure arrays requires that these arrays have the same set
+of fields.
+
+Error in run_stage4a6_3_1_r_tests (line 4)
+    out=[test_stage4a6_3_1_r_protocol(root),test_stage4a6_3_1_r_independence(root), ...
+} 

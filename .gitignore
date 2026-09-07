@@ -5,6 +5,10 @@ results/data/stage4a4_cache/*.mat
 results/data/stage4a5_1_cache/*.mat
 results/data/stage4a6_3/*.mat
 results/data/stage4a6_3/runs/
+results/data/stage4a6_3_1_r/cache/
+results/data/stage4a6_3_1_r/*.mat
+results/data/stage4a6_3_1_r/calibration/*.mat
+results/data/stage4a6_3_1_r/pilot/*.mat
 results/logs/stage4a6_3/final_batch_*.log
 results/logs/stage4a6_3/final_resume_*.log
 results/logs/stage4a6_3/failure_*.log
