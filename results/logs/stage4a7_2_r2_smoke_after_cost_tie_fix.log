@@ -1,0 +1,4 @@
+[Warning: p_min=0.166667 exceeds alpha=0.05.]
+[> In exp_stage4a7_2_r2_candidate_coverage_validity (line 43)
+In run_stage4a7_2_r2_candidate_coverage_validity (line 5)]
+Stage 4A.7.2-R.2 smoke completed: engineering=131 compatible=53 scored=53 cal=265 pilot=53 ref_rank=1 in 29.915 s.

@@ -1,0 +1,2 @@
+selected_method,selected_for_execution,scientifically_unique_winner,tied_methods,selection_rule,selected_hyperparameters,compatibility_hash,frozen_method_hash,status
+absolute,absolute,0,"absolute,scaled,ratio,margin,absolute_I","development coverage gate; lexicographic coverage, set size, singleton, empty with tie tolerance",,7518fd9fd9e4bf2300880b6a55b332685a75b714c5fb08e018e618ef6f10a289,97ce9be09d34254217b200cc5037b230519b4bca526716cd1cbb6ccb758c4063,no_unique_winner

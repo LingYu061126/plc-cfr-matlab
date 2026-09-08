@@ -231,6 +231,7 @@ function run_tests()
     test_stage4a7_1_candidate_confirmation();
     test_stage4a7_2_candidate_closure();
     test_stage4a7_2_r1_data_driven_closure();
+    test_stage4a7_2_r2_candidate_coverage();
 end
 
 function err = determinant_error(T)

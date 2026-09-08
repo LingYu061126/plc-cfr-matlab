@@ -24,7 +24,7 @@ function [candidates, audit] = generate_topk_topology_candidates(spec, top_k)
     queue=initial; candidates=repmat(make_empty_candidate(),1,0); seen_complete={}; stats=stats_template(); stats.states_pushed=1; stats.peak_queue_size=1;
     while ~isempty(queue)
         [s,queue]=pop_queue(queue); stats.states_popped=stats.states_popped+1;
-        if numel(candidates)>=top_k && s.lower_bound>candidates(end).prior_cost
+        if numel(candidates)>=top_k && cost_greater(s.lower_bound,candidates(end).prior_cost)
             stats.bound_pruned=stats.bound_pruned+1; break;
         end
         stats.states_expanded=stats.states_expanded+1;
@@ -57,7 +57,7 @@ function [candidates, audit] = generate_topk_topology_candidates(spec, top_k)
         end
         stats.peak_queue_size=max(stats.peak_queue_size,numel(queue));
     end
-    exhausted=isempty(queue) || (numel(candidates)>=top_k && queue_min_bound(queue)>candidates(end).prior_cost);
+    exhausted=isempty(queue) || (numel(candidates)>=top_k && cost_greater(queue_min_bound(queue),candidates(end).prior_cost));
     audit=base_audit(spec,top_k); audit=merge_audit(audit,stats); audit.returned_count=numel(candidates); audit.exhausted=exhausted; audit.topk_key_set={candidates.canonical_graph_key}; audit.prototype_status='lazy_best_first_branch_and_bound_prior_cost_v1';
 end
 
@@ -99,8 +99,25 @@ function c=pack_candidate(edges,s,spec)
 end
 function c=make_empty_candidate(),c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}},'canonical_graph_key','','graph_candidate_id','','source_node_id','','receiver_node_id','','generation_route','','generation_trace',struct(),'satisfied_constraints',{{}},'prior_cost',NaN,'prior_source','','prior_config_hash','','forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);end
 function c=candidate_order(c)
-    if numel(c)<2,return;end;order=1:numel(c);for i=2:numel(order),x=order(i);j=i-1;while j>=1&&(c(x).prior_cost<c(order(j)).prior_cost||(c(x).prior_cost==c(order(j)).prior_cost&&strcmp(c(x).canonical_graph_key,c(order(j)).canonical_graph_key)<0)),order(j+1)=order(j);j=j-1;end;order(j+1)=x;end;c=c(order);
+    if numel(c)<2,return;end
+    order=1:numel(c);
+    for i=2:numel(order)
+        x=order(i);j=i-1;
+        while j>=1 && (cost_less(c(x).prior_cost,c(order(j)).prior_cost) || ...
+                (cost_equal(c(x).prior_cost,c(order(j)).prior_cost) && ...
+                lex_less(c(x).canonical_graph_key,c(order(j)).canonical_graph_key)))
+            order(j+1)=order(j);j=j-1;
+        end
+        order(j+1)=x;
+    end
+    c=c(order);
 end
+function tf=lex_less(a,b)
+    z=sort({a,b});tf=strcmp(z{1},a)&&~strcmp(a,b);
+end
+function tf=cost_equal(a,b),tf=abs(a-b)<=1e-12*max([1 abs(a) abs(b)]);end
+function tf=cost_less(a,b),tf=(a<b)&&~cost_equal(a,b);end
+function tf=cost_greater(a,b),tf=(a>b)&&~cost_equal(a,b);end
 function a=base_audit(spec,k),a=struct('allowed_edge_count',numel(spec.allowed_edges),'theoretical_edge_subset_count',safe_nchoosek(numel(spec.allowed_edges),numel(spec.node_ids)-1),'candidate_count',0,'duplicate_count',spec.duplicate_count,'top_k',k,'returned_count',0,'no_good_cut_count',0,'states_pushed',0,'states_popped',0,'states_expanded',0,'complete_candidates',0,'cycle_pruned',0,'degree_pruned',0,'required_forbidden_pruned',0,'connectivity_pruned',0,'bound_pruned',0,'duplicate_pruned',0,'edge_count_pruned',0,'peak_queue_size',0,'runtime_seconds',NaN,'exhausted',false,'exact_key_set',{{}},'topk_key_set',{{}},'prototype_status','');end
 function a=merge_audit(a,s),names=fieldnames(s);for k=1:numel(names),a.(names{k})=s.(names{k});end,end
 function s=stats_template(),s=struct('states_pushed',0,'states_popped',0,'states_expanded',0,'complete_candidates',0,'cycle_pruned',0,'degree_pruned',0,'required_forbidden_pruned',0,'connectivity_pruned',0,'bound_pruned',0,'duplicate_pruned',0,'edge_count_pruned',0,'peak_queue_size',0);end

@@ -1,0 +1,2 @@
+status,requested_count,unique_count,duplicate_count,equivalent_pair_count,candidate_count,equivalence_tolerance,definition,scientific_hash,final_reserved_status
+no_same_theta_equivalent_pair,20,20,0,0,53,1e-10,"same-theta CFR equivalence under fixed model, frequency grid and tolerance",7a1cc7631a6c2f570ca503d29dbdb04c2769b173807ee9ef6fcc27007d9bb1a8,manifest_only_not_materialized
