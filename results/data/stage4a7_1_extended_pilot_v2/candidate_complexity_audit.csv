@@ -1,0 +1,8 @@
+candidate_id,parameter_dimension,template_count,mean_pilot_residual,minimum_pilot_residual,complexity_audit_status
+G001,3,243,0.237709090664821,0,reported_without_AIC_BIC
+G002,5,243,0.146246258597813,0,reported_without_AIC_BIC
+G003,5,243,0.164296544115535,0,reported_without_AIC_BIC
+G004,5,243,0.139834841198282,0,reported_without_AIC_BIC
+G005,5,243,0.14625571632181,0,reported_without_AIC_BIC
+G006,5,243,0.143026688603954,0,reported_without_AIC_BIC
+G007,5,243,0.139838735218946,0,reported_without_AIC_BIC

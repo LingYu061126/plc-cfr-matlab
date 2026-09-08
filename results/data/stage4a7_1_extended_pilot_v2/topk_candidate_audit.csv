@@ -1,0 +1,5 @@
+candidate_id,canonical_graph_key,prior_cost,forward_model_compatible,generation_route,feasible_count,theoretical_edge_subset_count,search_node_count,cycle_pruned,connectivity_pruned,degree_pruned
+EC0003,"V=A,B,C,D|E=A--B[line],A--D[line],B--C[line]",3,0,optimization_topk_prototype,4,20,NaN,1,1,0
+EC0001,"V=A,B,C,D|E=A--B[line],A--C[line],A--D[line]",4,0,optimization_topk_prototype,4,20,NaN,1,1,0
+EC0004,"V=A,B,C,D|E=A--B[line],B--C[line],B--D[line]",6,0,optimization_topk_prototype,4,20,NaN,1,1,0
+EC0002,"V=A,B,C,D|E=A--B[line],A--C[line],B--D[line]",7,0,optimization_topk_prototype,4,20,NaN,1,1,0

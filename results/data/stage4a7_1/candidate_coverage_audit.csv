@@ -1,0 +1,4 @@
+case_id,engineering_candidate_count,forward_compatible_candidate_count,scored_candidate_count,truth_topology_id,truth_in_engineering_space,truth_forward_model_compatible,truth_in_scored_library,coverage_failure_reason
+covered_truth,7,7,7,G003,1,1,1,covered
+stale_prior_removes_truth,7,7,6,G003,1,1,0,truth_excluded_from_scored_library
+engineering_feasible_forward_incompatible,4,0,0,EC0001,1,0,0,truth_forward_model_incompatible

@@ -1,0 +1,23 @@
+24.1.0.2537033 (R2024a)
+Stage 4A.7.1 controlled Pilot completed in 19.173 s; calibration=700, Pilot=500, conditional false-unique denominator=4.
+                              stage_name: 'Stage 4A.7.1'
+                                  status: 'completed_controlled_pilot_not_final'
+                  legacy_candidate_count: 7
+             engineering_candidate_count: 4
+         forward_compatible_legacy_count: 7
+                     scored_legacy_count: 7
+                    topk_candidate_count: 4
+                 exact_vs_topk_key_match: 1
+              topology_calibration_count: 700
+      topology_calibration_per_candidate: 100
+                    pilot_scenario_count: 500
+             parameter_calibration_count: 0
+                    candidate_set_status: 'calibrated'
+                    minimum_attainable_p: 0.0099
+    conditional_false_unique_denominator: 4
+                         scientific_hash: '0a7ad136906bcc694e9cdc57485e98b3b14f59e1c377a526b9098a8d631e77f1'
+                        source_tree_hash: '1141cb13c2e374847868383474ff86613e2d208f6174d54251de1e327054a705'
+                               runtime_s: 19.1726
+                   final_reserved_status: 'manifest_only_not_materialized'
+                         stage4b_started: 0
+

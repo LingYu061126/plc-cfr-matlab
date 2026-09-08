@@ -1,0 +1,9 @@
+phase,runtime_s,workers,parallel_used,cache_status
+candidate_generation,0.141987,1,0,not_applicable
+cache,1.470365,1,0,rebuilt
+scenario_materialization,4.25575,1,0,not_applicable
+calibration_scoring,6.771848,1,0,not_applicable
+pilot_scoring,4.750134,1,0,not_applicable
+calibration_models,0.083922,1,0,not_applicable
+decision_and_metrics,0.439645,1,0,not_applicable
+total,18.614487,1,0,not_applicable

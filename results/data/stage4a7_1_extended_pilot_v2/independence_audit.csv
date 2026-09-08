@@ -1,0 +1,4 @@
+split,row_count,unique_physical_scenario_count,unique_parameter_hash_count,unique_cfr_hash_count,duplicate_parameter_count,duplicate_cfr_count,cross_split_parameter_duplicate_count,cross_split_cfr_duplicate_count,status
+calibration,700,700,700,700,0,0,0,0,evaluated
+pilot,500,500,494,500,6,0,0,0,evaluated
+final_reserved,0,0,0,NaN,0,NaN,NaN,NaN,manifest_only_not_materialized

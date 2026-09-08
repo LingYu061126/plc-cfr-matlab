@@ -1,0 +1,13 @@
+24.1.0.2537033 (R2024a)
+  PASS legacy restricted grammar strict adapter preservation
+  PASS required/forbidden, pruning, order invariance and candidate cap
+  PASS exact/Top-K prototype and no-good identity
+  PASS engineering/model compatibility layer and Route-C gate
+  PASS independent calibration/Pilot identities and unconsumed final reserve
+  PASS frozen 700+500 extended Pilot design and active OOD dimensions
+  PASS Stage-4A.7.1 scientific source-tree hash coverage
+  PASS weighted residual, dimension validation and covariance regularization
+  PASS calibrated candidate-set p-values, ties and insufficiency
+  PASS calibrated indistinguishability graph and offline false-unique separation
+  PASS vectorized scoring is exact relative to direct residual evaluation
+  PASS independent-scenario denominators and Wilson metric records
