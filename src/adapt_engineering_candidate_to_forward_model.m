@@ -21,6 +21,7 @@ function [candidate, report] = adapt_engineering_candidate_to_forward_model(cand
         main_lengths(k)=e.length_m; main_types(k)=e.cable_type;
     end
     branches=struct('node',{},'length',{},'cable_type',{},'load',{});
+    branch_metadata=struct('attach_node_id',{},'leaf_node_id',{},'length_m',{},'cable_type',{},'load',{});
     path_index=containers.Map(path_nodes,1:numel(path_nodes));
     for q=find(~used)
         e=edges(q); [attach,leaf]=off_path_edge(e,path_nodes);
@@ -30,9 +31,21 @@ function [candidate, report] = adapt_engineering_candidate_to_forward_model(cand
         if isempty(e.load)||~isscalar(e.load)||~(isfinite(e.load)||isinf(e.load)), report=fail(report,'missing_terminal_load','A branch terminal load is missing.'); return; end
         p=path_index(attach); if p<=1 || p>=numel(path_nodes), report=fail(report,'unsupported_component','A branch must attach to an internal main-path node.'); return; end
         branches(end+1)=struct('node',p-1,'length',e.length_m,'cable_type',e.cable_type,'load',e.load); %#ok<AGROW>
+        branch_metadata(end+1)=struct('attach_node_id',attach,'leaf_node_id',leaf, ...
+            'length_m',e.length_m,'cable_type',e.cable_type,'load',e.load); %#ok<AGROW>
         if ~any(strcmp(nodes,leaf)), report=fail(report,'unsupported_component','Branch leaf is not in the graph node set.'); return; end
     end
-    net=struct('main_lengths',main_lengths,'main_cable_type',main_types,'branches',branches);
+    path_edge_ids=cell(1,numel(path_edges));
+    for k=1:numel(path_edges),path_edge_ids{k}=edges(path_edges(k)).id;end
+    % The metadata is part of the forward-model adapter contract.  It gives
+    % the stable network representation enough labels to reconstruct an
+    % engineering graph without reading candidate.edges during the audit.
+    adapter_metadata=struct('schema_version','stage4a7_2_adapter_metadata_v2', ...
+        'source_node_id',source_id,'receiver_node_id',receiver_id, ...
+        'path_node_ids',{path_nodes},'path_edge_ids',{path_edge_ids}, ...
+        'branch_edges',branch_metadata);
+    net=struct('main_lengths',main_lengths,'main_cable_type',main_types, ...
+        'branches',branches,'adapter_metadata',adapter_metadata);
     candidate.network=net; candidate.forward_model_compatible=true; candidate.compatibility_reason='stable_single_path_first_level_branch'; candidate.scored_library_included=true;
     report.forward_model_compatible=true; report.reason_code='compatible'; report.reason='stable single-path with first-level leaf branches';
     report.adapter_hash=stage4a4_scientific_config_hash(struct('adapter','stage4a7_2_engineering_adapter_v1','cfg',safe_cfg(cfg))); candidate.adapter_hash=report.adapter_hash;
@@ -73,9 +86,74 @@ function [attach,leaf]=off_path_edge(e,path_nodes)
     a=ismember(e.from,path_nodes);b=ismember(e.to,path_nodes);attach='';leaf='';if xor(a,b),if a,attach=e.from;leaf=e.to;else,attach=e.to;leaf=e.from;end,end
 end
 function [ok,rep]=round_trip_audit(c,nodes,path_nodes,s,r)
-    rep=struct('path_nodes',{path_nodes},'source_node',s,'receiver_node',r,'edge_count',numel(c.edges));
-    [~,e2,~,~]=graph_fields(c); % The adapter retains the original engineering graph.
-    rep.recovered_edge_count=numel(e2);ok=numel(e2)==numel(c.edges)&&is_tree(nodes,e2);
+    rep=struct('path_nodes',{path_nodes},'source_node',s,'receiver_node',r, ...
+        'edge_count',numel(c.edges),'reconstruction_source','forward_network_and_adapter_metadata', ...
+        'reconstructed_edges',struct([]),'attribute_mismatch_count',NaN);
+    if ~isfield(c,'network')||~isfield(c.network,'adapter_metadata')
+        rep.failure_reason='missing_adapter_metadata';ok=false;return;
+    end
+    [nodes2,edges2,s2,r2,ok_meta]=recover_engineering_graph(c.network);
+    rep.recovered_edge_count=numel(edges2);
+    rep.recovered_nodes=nodes2;
+    rep.recovered_source=s2;rep.recovered_receiver=r2;
+    if ~ok_meta
+        rep.failure_reason='incomplete_adapter_metadata';ok=false;return;
+    end
+    input_keys=canonical_keys(c.edges);output_keys=canonical_keys(edges2);
+    [~,ia]=sort(input_keys);[~,ib]=sort(output_keys);
+    key_ok=numel(input_keys)==numel(output_keys)&&all(strcmp(input_keys(ia),output_keys(ib)));
+    attr_mismatch=0;
+    if key_ok
+        for k=1:numel(c.edges)
+            j=find(strcmp(output_keys,input_keys{k}),1);
+            main_edge = any(strcmp(main_path_keys(path_nodes),input_keys{k}));
+            load_mismatch = ~main_edge && ~same_load(c.edges(k).load,edges2(j).load);
+            if isempty(j)||abs(c.edges(k).length_m-edges2(j).length_m)>1e-12|| ...
+                    ~isequal(c.edges(k).cable_type,edges2(j).cable_type) || load_mismatch
+                attr_mismatch=attr_mismatch+1;
+            end
+        end
+    end
+    rep.attribute_mismatch_count=attr_mismatch;rep.reconstructed_edges=edges2;
+    ok=key_ok&&attr_mismatch==0&&strcmp(s2,s)&&strcmp(r2,r)&& ...
+        is_tree(nodes2,edges2)&&isequal(sort(nodes2),sort(nodes));
+    if ~ok,rep.failure_reason='graph_or_attribute_mismatch';end
+end
+function [nodes,edges,s,r,ok]=recover_engineering_graph(network)
+    md=network.adapter_metadata;ok=isfield(md,'path_node_ids')&&isfield(md,'source_node_id')&& ...
+        isfield(md,'receiver_node_id')&&isfield(md,'branch_edges');
+    nodes={};edges=struct('id',{},'from',{},'to',{},'length_m',{},'cable_type',{},'load',{});s='';r='';
+    if ~ok,return;end
+    nodes=stage4a7_1_cellstr(md.path_node_ids);s=char(md.source_node_id);r=char(md.receiver_node_id);
+    nseg=numel(network.main_lengths);
+    if numel(nodes)~=nseg+1||numel(network.main_cable_type)~=nseg,ok=false;return;end
+    for k=1:nseg
+        edges(end+1)=struct('id',sprintf('main_%s_%s',nodes{k},nodes{k+1}), ...
+            'from',nodes{k},'to',nodes{k+1},'length_m',network.main_lengths(k), ...
+            'cable_type',network.main_cable_type(k),'load',NaN); %#ok<AGROW>
+    end
+    for k=1:numel(md.branch_edges)
+        b=md.branch_edges(k);
+        edges(end+1)=struct('id',sprintf('branch_%s_%s',b.attach_node_id,b.leaf_node_id), ...
+            'from',char(b.attach_node_id),'to',char(b.leaf_node_id), ...
+            'length_m',b.length_m,'cable_type',b.cable_type,'load',b.load); %#ok<AGROW>
+        if ~any(strcmp(nodes,char(b.leaf_node_id))),nodes{end+1}=char(b.leaf_node_id);end %#ok<AGROW>
+    end
+end
+function keys=canonical_keys(edges)
+    keys=cell(1,numel(edges));
+    for k=1:numel(edges)
+        p=sort({char(edges(k).from),char(edges(k).to)});keys{k}=[p{1} '--' p{2}];
+    end
+end
+function keys=main_path_keys(path_nodes)
+    keys=cell(1,max(0,numel(path_nodes)-1));
+    for k=1:numel(keys)
+        p=sort({char(path_nodes{k}),char(path_nodes{k+1})});keys{k}=[p{1} '--' p{2}];
+    end
+end
+function tf=same_load(a,b)
+    if isinf(a)&&isinf(b),tf=true;elseif isnan(a)&&isnan(b),tf=true;else,tf=isequal(a,b);end
 end
 function r=fail(r,code,msg),r.forward_model_compatible=false;r.reason_code=code;r.reason=msg;end
 function x=safe_cfg(cfg),x=struct('kG',getf(cfg,'kG',1),'Zs',getf(cfg,'Zs',50),'Zr',getf(cfg,'Zr',50),'port_reference_ohm',getf(cfg,'port_reference_ohm',50));end

@@ -1,0 +1,8 @@
+function rows=stage4a7_2_r1_build_coverage_audit(candidates,scored_ids,reference_candidate_id,hash,varargin)
+%STAGE4A7_2_R1_BUILD_COVERAGE_AUDIT Separate prior/model/scoring coverage.
+    ids=arrayfun(@candidate_id,candidates,'UniformOutput',false);compatible=arrayfun(@(c)getb(c,'forward_model_compatible',false),candidates);scored=ismember(ids,scored_ids);ref_key='';if ~isempty(varargin),ref_key=char(varargin{1});end;keys={candidates.canonical_graph_key};if isempty(ref_key),in_eng=any(strcmp(ids,reference_candidate_id));in_forward=any(strcmp(ids(compatible),reference_candidate_id));in_scored=any(strcmp(ids(scored),reference_candidate_id));else,in_eng=any(strcmp(keys,ref_key));in_forward=any(strcmp(keys(compatible),ref_key));in_scored=any(strcmp(keys(scored),ref_key));end
+    reason='covered';if ~in_eng,reason='truth_outside_engineering_edge_universe';elseif ~in_forward,reason='truth_engineering_but_forward_model_incompatible';elseif ~in_scored,reason='truth_in_engineering_and_forward_but_topk_truncated';end
+    rows=struct('truth_candidate_id',reference_candidate_id,'truth_reference_graph_key',ref_key,'engineering_candidate_count',numel(candidates),'forward_compatible_candidate_count',nnz(compatible),'scored_candidate_count',nnz(scored),'truth_in_engineering_space',in_eng,'truth_forward_model_compatible',in_forward,'truth_in_scored_library',in_scored,'coverage_failure_reason',reason,'scientific_hash',hash);
+end
+function id=candidate_id(c),if isfield(c,'topology_id')&&~isempty(c.topology_id),id=char(c.topology_id);else,id=char(c.graph_candidate_id);end,end
+function x=getb(s,n,d),if isfield(s,n),x=logical(s.(n));else,x=d;end,end

@@ -1,0 +1,35 @@
+MATLAB=24.1.0.2537033 (R2024a)
+R1 progress: engineering candidates=131.
+R1 progress: topk=7 scored=6.
+R1 progress: profile cache ready in 1.402 s.
+R1 progress: development=12 calibration=12.
+R1 progress: pilot=6 decisions=6.
+R1 progress: nonunique 10/100.
+R1 progress: nonunique 20/100.
+R1 progress: nonunique 30/100.
+R1 progress: nonunique 40/100.
+R1 progress: nonunique 50/100.
+R1 progress: nonunique 60/100.
+R1 progress: nonunique 70/100.
+R1 progress: nonunique 80/100.
+R1 progress: nonunique 90/100.
+R1 progress: nonunique 100/100.
+R1 progress: nonunique=100 near=50.
+Stage 4A.7.2-R.1 pilot completed: eng=131 forward=53 scored=6 dev=12 cal=12 pilot=6 in 11.479 s.
+                            stage_name: 'Stage 4A.7.2-R.1'
+                                  mode: 'pilot'
+                                status: 'completed_controlled_pilot'
+           engineering_candidate_count: 131
+    forward_compatible_candidate_count: 53
+                scored_candidate_count: 6
+                     development_count: 12
+                     calibration_count: 12
+                           pilot_count: 6
+                       selected_method: 'absolute'
+                       nonunique_count: 100
+    nonunique_false_unique_denominator: 100
+                      source_tree_hash: '969d8b016ac82f8ff581601b984073620297d51b20e602c805b5b0fbda7876e9'
+                       scientific_hash: '291bc432a3363a3c39d7b58362e891ed0fe4b68e98257d70f61a781ac722c002'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0
+

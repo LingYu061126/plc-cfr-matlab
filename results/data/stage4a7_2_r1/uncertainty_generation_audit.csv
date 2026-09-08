@@ -1,0 +1,2 @@
+shared_ledger,ledger_count,reference_edge_count,synthetic_ambiguity_count,required_count,status
+1,13,7,6,2,controlled_uncertain_prior_ready

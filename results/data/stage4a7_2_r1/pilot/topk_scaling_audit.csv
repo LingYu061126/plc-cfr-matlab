@@ -1,0 +1,5 @@
+top_k,total_feasible_candidates,states_pushed,states_popped,states_expanded,complete_candidates,cycle_pruned,degree_pruned,connectivity_pruned,bound_pruned,peak_queue_size,runtime_seconds,exhaustive_runtime_seconds,speedup,returned_count,key_consistent_with_exhaustive,prototype_status
+1,2376,32,18,17,1,0,0,0,1,16,0.026709,3.627709,135.823467744955,1,1,lazy_best_first_branch_and_bound_prior_cost_v1
+5,2376,109,66,65,6,5,0,0,1,45,0.033062,3.627709,109.724426834432,5,1,lazy_best_first_branch_and_bound_prior_cost_v1
+10,2376,174,106,105,10,7,0,0,1,70,0.031759,3.627709,114.226172108694,10,1,lazy_best_first_branch_and_bound_prior_cost_v1
+20,2376,370,242,241,20,41,1,0,1,130,0.08902,3.627709,40.7516176140193,20,1,lazy_best_first_branch_and_bound_prior_cost_v1

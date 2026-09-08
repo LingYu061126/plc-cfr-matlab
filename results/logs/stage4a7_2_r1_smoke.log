@@ -1,0 +1,19 @@
+MATLAB=24.1.0.2537033 (R2024a)
+Stage 4A.7.2-R.1 smoke completed: eng=131 forward=53 scored=3 dev=3 cal=3 pilot=3 in 16.534 s.
+                            stage_name: 'Stage 4A.7.2-R.1'
+                                  mode: 'smoke'
+                                status: 'completed_controlled_pilot'
+           engineering_candidate_count: 131
+    forward_compatible_candidate_count: 53
+                scored_candidate_count: 3
+                     development_count: 3
+                     calibration_count: 3
+                           pilot_count: 3
+                       selected_method: 'absolute'
+                       nonunique_count: 10
+    nonunique_false_unique_denominator: 10
+                      source_tree_hash: 'f9b93c6ba42d905151f2f185ed2afc59b9b59e02df26274d66ef76ad5194f76b'
+                       scientific_hash: 'bb8afde970ceeed4fdaf401f77859fafcd5abf8f6138100d6b80db9d0fc54a6e'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0
+

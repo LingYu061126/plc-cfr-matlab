@@ -1,0 +1,6 @@
+method_id,truth_set_coverage,coverage_num,coverage_den,mean_set_size,singleton_correct_rate,empty_set_rate,gate_pass,rejection_reason
+absolute,1,12,12,6,0,0,1,
+scaled,1,12,12,6,0,0,1,
+ratio,1,12,12,6,0,0,1,
+margin,1,12,12,6,0,0,1,
+absolute_I,1,12,12,6,0,0,1,

@@ -1,0 +1,2 @@
+truth_candidate_id,truth_reference_graph_key,engineering_candidate_count,forward_compatible_candidate_count,scored_candidate_count,truth_in_engineering_space,truth_forward_model_compatible,truth_in_scored_library,coverage_failure_reason,scientific_hash
+ENWL13E_001,"V=32,33,34,35,36,37,38,39|E=32--33[line],33--34[line],34--35[line],35--36[line],36--37[line],36--38[line],37--39[line]",131,53,0,1,1,0,truth_in_engineering_and_forward_but_topk_truncated,120347c6ff1589e0182b75880916e8d674ee9c9bb76f1d563d7b7d916d346deb

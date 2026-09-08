@@ -1,0 +1,2 @@
+selected_method,selection_rule,alpha,top_k,compatibility_hash,frozen_method_hash,status
+absolute,development coverage gate; then mean set size; then singleton accuracy; then empty-set rate,0.05,4,bb8afde970ceeed4fdaf401f77859fafcd5abf8f6138100d6b80db9d0fc54a6e,e471a94c3ca121cdea8c49c30006187e824ff1aecd94a791093828e0cbb1c2f1,frozen_from_development_only

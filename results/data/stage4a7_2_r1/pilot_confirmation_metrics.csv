@@ -1,0 +1,4 @@
+metric_id,numerator,denominator,rate,ci_low,ci_high,scientific_hash
+truth_set_coverage,3,3,1,0.438502968244955,1,bb8afde970ceeed4fdaf401f77859fafcd5abf8f6138100d6b80db9d0fc54a6e
+singleton_rate,0,3,0,5.55111512312578e-17,0.561497031755045,bb8afde970ceeed4fdaf401f77859fafcd5abf8f6138100d6b80db9d0fc54a6e
+empty_set_rate,0,3,0,5.55111512312578e-17,0.561497031755045,bb8afde970ceeed4fdaf401f77859fafcd5abf8f6138100d6b80db9d0fc54a6e

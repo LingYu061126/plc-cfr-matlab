@@ -1,0 +1,8 @@
+source_dataset,source_network_id,source_feeder_id,source_record_id,from_node,to_node,length_m,source_cable_type,model_cable_type,reference_edge_status
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE32,32,33,0.54836,3c_300_SAC_ASN,0,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE33,33,34,0.20681,3c_300_SAC_ASN,0,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE34,34,35,0.36077,3c_300_SAC_ASN,0,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE35,35,36,2.4804,3c_300_SAC_ASN,0,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE36,36,37,0.14859,3c_95_SAC_ASN,1,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE38,37,39,0.24517,3c_95_SAC_ASN,1,reference
+ENWL_LVNS_processed_OpenDSS,network_13,Feeder_3,LINE37,36,38,0.032447,3c_300_SAC_ASN,0,reference
