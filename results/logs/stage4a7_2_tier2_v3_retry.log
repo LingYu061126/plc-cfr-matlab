@@ -1,0 +1,27 @@
+24.1.0.2537033 (R2024a)
+MATLAB_LICENSE=1
+  PASS Stage 4A.7.2 exact lazy Top-K identity and uniqueness
+  PASS Stage 4A.7.2 Wilson denominator semantics
+  PASS Stage 4A.7.2 score-family calibration and frozen application
+  PASS Stage 4A.7.2 non-unique same-theta cluster audit
+  PASS Stage 4A.7.2 symmetry-preserving and symmetry-breaking audit
+  PASS Stage 4A.7.2 canonical engineering identity audit
+Stage 4A.7.2 tier2_v3 completed: dev=70 cal=140 pilot=49 nonunique=100 in 2.516 s.
+                            stage_name: 'Stage 4A.7.2'
+                                  mode: 'tier2_v3'
+                                status: 'completed_controlled_pilot'
+           engineering_candidate_count: 7
+    forward_compatible_candidate_count: 7
+                scored_candidate_count: 7
+                     development_count: 70
+                     calibration_count: 140
+                           pilot_count: 49
+               nonunique_cluster_count: 100
+      profile_equivalent_cluster_count: 100
+               near_symmetry_row_count: 50
+      candidate_set_calibration_status: 'calibrated'
+            minimum_attainable_p_value: 0.0476
+                       scientific_hash: '4529de112934e19ea28be655771be49c9cd29ea926db1579ae209314d662025d'
+                      source_tree_hash: '214831f3fdcee34805e2630b6bac9b61b00d627295297f5938c3a9ffc2156033'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0

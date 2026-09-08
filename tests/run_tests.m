@@ -229,6 +229,7 @@ function run_tests()
     test_stage4a6_3_1_r2_equivalence_parallel();
     test_stage4a7_1_candidate_generation();
     test_stage4a7_1_candidate_confirmation();
+    test_stage4a7_2_candidate_closure();
 end
 
 function err = determinant_error(T)

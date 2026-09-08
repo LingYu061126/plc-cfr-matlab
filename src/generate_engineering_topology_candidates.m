@@ -5,7 +5,7 @@ function [candidates, audit] = generate_engineering_topology_candidates(spec)
 %   remaining-edge pruning; it never enumerates the full edge power set.
 %   The output is an engineering candidate layer.  Forward-model support is
 %   assessed separately by check_forward_model_compatibility.
-    spec = normalize_spec(spec);
+    spec = normalize_engineering_candidate_spec(spec);
     n = numel(spec.node_ids); m = numel(spec.allowed_edges); target = n-1;
     if n < 1, error('stage4a7_1:EmptyNodeSet','At least one node is required.'); end
     if target == 0
@@ -13,7 +13,7 @@ function [candidates, audit] = generate_engineering_topology_candidates(spec)
         audit = finalize_audit(spec,0,0,stats_template(),candidates); return;
     end
     keys = endpoint_keys(spec.allowed_edges);
-    [~,ord] = sort(keys); spec.allowed_edges = spec.allowed_edges(ord); keys=keys(ord);
+    [~,ord] = sort(keys); spec.allowed_edges = spec.allowed_edges(ord); spec.edge_prior_cost = spec.edge_prior_cost(ord); keys=keys(ord);
     req_keys = endpoint_keys(spec.required_edges); forb_keys=endpoint_keys(spec.forbidden_edges);
     if ~isempty(intersect(req_keys,forb_keys))
         error('stage4a7_1:RequiredForbiddenConflict','Required and forbidden edges overlap.');
@@ -30,19 +30,20 @@ function [candidates, audit] = generate_engineering_topology_candidates(spec)
     if numel(selected) > target
         error('stage4a7_1:TooManyRequiredEdges','Required edges exceed spanning-tree size.');
     end
-    stats = stats_template(); stats.theoretical_edge_subset_count = safe_nchoosek(m,target);
+    stats = stats_template(); stats.theoretical_edge_subset_count = safe_nchoosek(m,target); stats.duplicate_count=spec.duplicate_count;
     candidates = repmat(empty_candidate(),1,0);
     walk(1,selected,parent,degree);
     if isempty(candidates) && spec.require_connected
         % Keep a deterministic empty result; the audit explains why.
     end
     if ~isempty(candidates)
-        [~,o]=sort({candidates.canonical_graph_key}); candidates=candidates(o);
+        candidates=candidate_order(candidates);
         for k=1:numel(candidates), candidates(k).graph_candidate_id=sprintf('EC%04d',k); end
     end
     audit = finalize_audit(spec,m,target,stats,candidates);
 
     function walk(pos, selected_edges, p, deg)
+        stats.search_node_count=stats.search_node_count+1;
         need = target-numel(selected_edges); remaining = numel(optional)-pos+1;
         if need < 0 || need > remaining, stats.remaining_edge_pruned=stats.remaining_edge_pruned+1; return; end
         if any(deg>spec.maximum_degree), stats.degree_pruned=stats.degree_pruned+1; return; end
@@ -54,7 +55,7 @@ function [candidates, audit] = generate_engineering_topology_candidates(spec)
                 stats.connectivity_pruned=stats.connectivity_pruned+1; return;
             end
             stats.feasible_tree_count=stats.feasible_tree_count+1;
-            meta=struct('graph_candidate_id','','generation_route','engineering_edge_universe', ...
+            meta=struct('graph_candidate_id','','source_node_id',getf(spec,'source_node_id',''),'receiver_node_id',getf(spec,'receiver_node_id',''),'generation_route','engineering_edge_universe', ...
                 'generation_trace',stats,'satisfied_constraints',{{'radial','connected','required_edges','degree_bound'}}, ...
                 'prior_cost',edge_cost(selected_edges,spec),'prior_source',spec.prior_source, ...
                 'prior_config_hash',spec.prior_config_hash);
@@ -67,8 +68,14 @@ function [candidates, audit] = generate_engineering_topology_candidates(spec)
         end
         if pos>numel(optional), return; end
         e=optional(pos);
-        [can,p2,d2]=try_add(e,selected_edges,p,deg,spec);
-        if can, walk(pos+1,[selected_edges e],p2,d2); else, stats.cycle_pruned=stats.cycle_pruned+1; end
+        [can,p2,d2,reason]=try_add(e,selected_edges,p,deg,spec);
+        if can
+            walk(pos+1,[selected_edges e],p2,d2);
+        elseif strcmp(reason,'degree')
+            stats.degree_pruned=stats.degree_pruned+1;
+        else
+            stats.cycle_pruned=stats.cycle_pruned+1;
+        end
         walk(pos+1,selected_edges,p,deg);
     end
 end
@@ -103,11 +110,12 @@ function [selected,parent,degree]=add_required(required,spec)
     end
     %#ok<NASGU>
 end
-function [ok,p2,d2]=try_add(e,selected,p,d,spec)
-    ids=spec.node_ids; i=find(strcmp(ids,e.from),1);j=find(strcmp(ids,e.to),1);p2=p;d2=d;ok=false;
-    if isempty(i)||isempty(j)||i==j||d(i)>=spec.maximum_degree||d(j)>=spec.maximum_degree,return;end
-    ri=find_root(p,i);rj=find_root(p,j);if ri==rj,return;end
-    p2(ri)=rj;d2(i)=d2(i)+1;d2(j)=d2(j)+1;ok=true;
+function [ok,p2,d2,reason]=try_add(e,selected,p,d,spec)
+    ids=spec.node_ids; i=find(strcmp(ids,e.from),1);j=find(strcmp(ids,e.to),1);p2=p;d2=d;ok=false;reason='cycle';
+    if isempty(i)||isempty(j)||i==j,reason='invalid';return;end
+    if d(i)>=spec.maximum_degree||d(j)>=spec.maximum_degree,reason='degree';return;end
+    ri=find_root(p,i);rj=find_root(p,j);if ri==rj,reason='cycle';return;end
+    p2(ri)=rj;d2(i)=d2(i)+1;d2(j)=d2(j)+1;ok=true;reason='ok';
 end
 function r=find_root(p,i),r=i;while p(r)~=r,r=p(r);end,end
 function tf=is_connected(edges,ids)
@@ -118,33 +126,47 @@ function tf=is_connected(edges,ids)
 end
 function tf=potentially_connected(selected,remaining,ids),tf=is_connected([selected remaining],ids);end
 function candidates=make_candidates(spec,edges,trace)
-    meta=struct('generation_route','engineering_edge_universe','generation_trace',trace,'prior_cost',0,'prior_source',spec.prior_source,'prior_config_hash',spec.prior_config_hash);
+    meta=struct('source_node_id',getf(spec,'source_node_id',''),'receiver_node_id',getf(spec,'receiver_node_id',''),'generation_route','engineering_edge_universe','generation_trace',trace,'prior_cost',0,'prior_source',spec.prior_source,'prior_config_hash',spec.prior_config_hash);
     g=canonicalize_asset_graph(spec.node_ids,edges,meta); candidates=pack_candidate(g,edges,meta); candidates.graph_candidate_id='EC0001';
 end
 function c=pack_candidate(g,edges,meta)
-    c=g;c.edges=edges;c.graph_candidate_id=g.graph_candidate_id;c.generation_route=meta.generation_route;c.generation_trace=meta.generation_trace;c.satisfied_constraints=meta.satisfied_constraints;c.prior_cost=meta.prior_cost;c.prior_source=meta.prior_source;c.prior_config_hash=meta.prior_config_hash;c.forward_model_compatible=NaN;c.compatibility_reason='not_checked';c.adapter_hash='';c.scored_library_included=false;
+    c=g;c.edges=edges;c.graph_candidate_id=g.graph_candidate_id;c.source_node_id=getf(meta,'source_node_id','');c.receiver_node_id=getf(meta,'receiver_node_id','');c.generation_route=meta.generation_route;c.generation_trace=meta.generation_trace;c.satisfied_constraints=meta.satisfied_constraints;c.prior_cost=meta.prior_cost;c.prior_source=meta.prior_source;c.prior_config_hash=meta.prior_config_hash;c.forward_model_compatible=NaN;c.compatibility_reason='not_checked';c.adapter_hash='';c.scored_library_included=false;
+    c.node_count=numel(g.node_ids); c.edge_count=numel(edges);
 end
 function a=finalize_audit(spec,m,target,stats,candidates)
     if isstruct(m), stats0=m; else, stats0=stats; end
     a=struct('allowed_edge_count',numel(spec.allowed_edges),'theoretical_edge_subset_count',getf(stats0,'theoretical_edge_subset_count',safe_nchoosek(numel(spec.allowed_edges),target)), ...
         'feasible_radial_candidate_count',getf(stats0,'feasible_tree_count',numel(candidates)), ...
-        'candidate_count',numel(candidates),'duplicate_count',0,'cycle_pruned_branch_count',getf(stats0,'cycle_pruned',0), ...
+        'candidate_count',numel(candidates),'duplicate_count',getf(stats0,'duplicate_count',getf(spec,'duplicate_count',0)),'search_node_count',getf(stats0,'search_node_count',0),'cycle_pruned_branch_count',getf(stats0,'cycle_pruned',0), ...
         'degree_pruned_branch_count',getf(stats0,'degree_pruned',0),'connectivity_pruned_branch_count',getf(stats0,'connectivity_pruned',0), ...
         'required_edge_pruned_count',getf(stats0,'required_edge_pruned',0),'remaining_edge_pruned_count',getf(stats0,'remaining_edge_pruned',0), ...
         'maximum_candidate_count',spec.maximum_candidate_count,'prior_source',spec.prior_source,'prior_config_hash',spec.prior_config_hash);
 end
-function s=stats_template(),s=struct('theoretical_edge_subset_count',0,'feasible_tree_count',0,'cycle_pruned',0,'degree_pruned',0,'connectivity_pruned',0,'required_edge_pruned',0,'remaining_edge_pruned',0);end
+function s=stats_template(),s=struct('theoretical_edge_subset_count',0,'feasible_tree_count',0,'cycle_pruned',0,'degree_pruned',0,'connectivity_pruned',0,'required_edge_pruned',0,'remaining_edge_pruned',0,'search_node_count',0,'duplicate_count',0);end
 function x=getf(s,n,d),if isstruct(s)&&isfield(s,n),x=s.(n);else,x=d;end,end
 function k=endpoint_keys(edges)
     k=cell(1,numel(edges));for i=1:numel(edges),pair=sort({edges(i).from,edges(i).to});k{i}=sprintf('%s--%s',pair{1},pair{2});end
 end
 function n=safe_nchoosek(m,k),if k<0||k>m,n=0;elseif m>60,n=Inf;else,n=nchoosek(m,k);end,end
-function c=edge_template(),c=struct('id','','from','','to','','kind','line','length_m',NaN,'cable_type',[],'load',NaN);end
+function c=edge_template(),c=struct('id','','from','','to','','kind','line','length_m',NaN,'cable_type',[],'load',NaN,'prior_cost',NaN);end
 function c=empty_candidate()
-    c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}}, ...
+    c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}},'node_count',0,'edge_count',0,'source_node_id','','receiver_node_id','', ...
         'canonical_graph_key','','graph_candidate_id','','generation_route','','generation_trace',struct(), ...
         'satisfied_constraints',{{}},'prior_cost',NaN,'prior_source','','prior_config_hash','', ...
         'forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);
+end
+function c=candidate_order(c)
+    if numel(c)<2, return; end
+    order=1:numel(c);
+    for i=2:numel(order)
+        x=order(i); j=i-1;
+        while j>=1 && (c(x).prior_cost<c(order(j)).prior_cost || ...
+                (c(x).prior_cost==c(order(j)).prior_cost && strcmp(c(x).canonical_graph_key,c(order(j)).canonical_graph_key)<0))
+            order(j+1)=order(j); j=j-1;
+        end
+        order(j+1)=x;
+    end
+    c=c(order);
 end
 function e=normalize_edges(edges)
     if isempty(edges),e=repmat(edge_template(),1,0);return;end

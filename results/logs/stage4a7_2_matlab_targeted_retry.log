@@ -1,0 +1,8 @@
+24.1.0.2537033 (R2024a)
+MATLAB_LICENSE=1
+  PASS Stage 4A.7.2 exact lazy Top-K identity and uniqueness
+  PASS Stage 4A.7.2 Wilson denominator semantics
+  PASS Stage 4A.7.2 score-family calibration and frozen application
+  PASS Stage 4A.7.2 non-unique same-theta cluster audit
+  PASS Stage 4A.7.2 symmetry-preserving and symmetry-breaking audit
+  PASS Stage 4A.7.2 canonical engineering identity audit

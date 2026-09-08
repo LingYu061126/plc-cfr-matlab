@@ -12,6 +12,6 @@ function audit = build_candidate_coverage_audit(engineering_candidates, scored_i
         'scored_candidate_count',nnz(scored),'truth_topology_id',truth_id,'truth_in_engineering_space',in_eng, ...
         'truth_forward_model_compatible',in_forward,'truth_in_scored_library',in_scored,'coverage_failure_reason',reason);
 end
-function x=get_id(c),if isfield(c,'graph_candidate_id'),x=c.graph_candidate_id;elseif isfield(c,'topology_id'),x=c.topology_id;else,x='';end,end
+function x=get_id(c),if isfield(c,'id')&&~isempty(c.id),x=c.id;elseif isfield(c,'graph_candidate_id'),x=c.graph_candidate_id;elseif isfield(c,'topology_id'),x=c.topology_id;else,x='';end,end
 function x=get_bool(s,n,d),if isfield(s,n),x=logical(s.(n));else,x=d;end,end
 function x=getf(s,n,d),if isstruct(s)&&isfield(s,n),x=s.(n);else,x=d;end,end

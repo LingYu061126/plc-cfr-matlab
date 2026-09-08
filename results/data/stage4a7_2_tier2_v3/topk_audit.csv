@@ -1,0 +1,2 @@
+mode,top_k_requested,returned_count_at_requested_k,full_candidate_count,returned_count_at_full_k,key_set_equal_when_k_full,topk_unique_at_requested_k,states_pushed,states_popped,states_expanded,complete_candidates,cycle_pruned,bound_pruned,duplicate_pruned,peak_queue_size,exhausted_at_full_k,theoretical_edge_subset_count,scientific_hash
+tier2_v3,3,3,4,4,1,1,12,12,11,3,2,1,0,4,1,20,4529de112934e19ea28be655771be49c9cd29ea926db1579ae209314d662025d

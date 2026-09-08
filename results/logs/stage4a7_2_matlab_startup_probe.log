@@ -1,0 +1,31 @@
+Stage: Stage 4A.7.2
+Purpose: isolated MATLAB startup diagnostic; no project experiment was executed.
+Timestamp: 2026-09-08 Asia/Shanghai
+Command class: /home/chidan/Matlab/bin/matlab -batch "disp(version); disp(license('test','matlab'));"
+Isolation: MATLAB_PREFDIR=/tmp/matlab-pref-stage4a7-2; MW_SPF_USER_STORAGE_ROOT=/tmp/mwspf-stage4a7-2; XDG_CONFIG_HOME=/tmp/xdg-stage4a7-2; QT_QPA_PLATFORM=xcb
+Expected: MATLAB version and license test output.
+Observed: repeated `Command client-v1 threw an exception` and `Error locking mutex: Operation not permitted`.
+Exit status: timeout/124; MATLAB did not reach project code.
+Interpretation: startup/environment failure; this is not a MATLAB unit-test or experiment result.
+Safety: no repository result was overwritten; no MATLAB process remained after the probe.
+
+Additional exact-wrapper probe:
+Command: MATLAB_PREFDIR=/tmp/matlab-pref-plc-verify /home/chidan/.local/bin/matlab -batch "disp(version); disp(['MATLAB_LICENSE=' num2str(license('test','matlab'))]);"
+Observed: six repeated `Unable to load ApplicationService for command client-v1` lines; no version/license output before timeout.
+Interpretation: the previously successful launcher recipe did not reach MATLAB command execution in the current environment.
+
+Authorized native test probe:
+Command: MATLAB_PREFDIR=/tmp/matlab-pref-stage4a7-2-escalated-test with native R2024a `-nodisplay -nosplash -softwareopengl -batch`, targeted test `test_stage4a7_2_candidate_closure`.
+Observed: no console output, no diary file, and no residual MATLAB process after timeout.
+Interpretation: the authorized environment did not produce evidence that project MATLAB code executed; no test result is counted.
+
+Recovery verification (2026-09-08):
+Launcher: /home/chidan/.local/bin/matlab
+Isolation: fresh MATLAB_PREFDIR under /tmp; compatibility library already configured by launcher; serial execution.
+Observation: MATLAB reached project code after a long startup delay; repeated client-v1 warnings remained visible but did not prevent execution.
+MATLAB: 24.1.0.2537033 (R2024a)
+License test: 1
+Targeted test: test_stage4a7_2_candidate_closure, all 6 checks passed, exit status 0.
+Full regression: run_tests, historical and Stage 4A.7.2 checks passed, exit status 0.
+Controlled experiment: run_stage4a7_2_candidate_closure('tier2_v3'), exit status 0.
+Conclusion: startup is usable with the repaired launcher, but slow and noisy under the current ServiceHost environment; client-v1 warnings are retained as an environment limitation, not counted as MATLAB test failures.
