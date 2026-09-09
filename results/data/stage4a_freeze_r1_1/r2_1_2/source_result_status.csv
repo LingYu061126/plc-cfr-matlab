@@ -1,0 +1,5 @@
+relative_path,result_label,archive_status,reanalysis_role,exists
+/home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/stage4a_freeze_r1_1_clean_final6/results/data/stage4a7_2_r2,R2_historical,read_only_preserved,read_only_not_reused,1
+/home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/stage4a_freeze_r1_1_clean_final6/results/data/stage4a7_2_r2_1,R2_1_historical,read_only_preserved,read_only_not_reused,1
+/home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/stage4a_freeze_r1_1_clean_final6/results/data/stage4a7_2_r2_1_1/final_source_v2,R2_1_1_v2_historical,read_only_preserved,read_only_not_reused,1
+/home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作集/stage4a_freeze_r1_1_clean_final6/results/data/stage4a7_2_r2_1_1/final_source_v3,R2_1_1_v3_canonical,read_only_preserved,canonical_reanalysis_source,1

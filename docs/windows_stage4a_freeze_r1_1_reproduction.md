@@ -9,13 +9,18 @@
 ```powershell
 $Repo = "D:\Research\plc-cfr-matlab"
 $Repro = "D:\Research\plc-cfr-reproduce-$(Get-Date -Format yyyyMMdd-HHmmss)"
+$CanonicalSourceCommit = "54868370cc6c426f417681146caace79de782e91"
 
 Set-Location $Repo
 git status --short
 git config core.autocrlf false
 git fetch origin --prune
 git pull --ff-only origin main
-git worktree add --detach $Repro origin/main
+# Use the clean canonical source commit. After it is published to origin/main,
+# origin/main may be used instead; the explicit hash is the reproducibility
+# identity recorded by the canonical formal run.
+git cat-file -e "$CanonicalSourceCommit^{commit}"
+git worktree add --detach $Repro $CanonicalSourceCommit
 Set-Location $Repro
 git rev-parse HEAD
 git status --short
@@ -58,9 +63,11 @@ Get-Content results\data\stage4a_freeze_r1_1\freeze_summary_formal.csv
 - `results/data/stage4a_freeze_r1_1/stage4a7_3/formal/` 为 canonical formal；
 - `source_identity_manifest.csv` 中每个文件均存在、由 Git 跟踪且 SHA256 匹配；
 - 根 `canonical_manifest.csv` 中每个 artifact 均存在且 SHA256 匹配；
+- `source_inventory_count=411`，缺失、未跟踪和 hash mismatch 均为 0；
 - `git_dirty_at_run=false`、`canonical_eligible=true`；
 - Rule A 的 `selected_method=profile_relative_distance`；
 - Rule B sensitivity 的 `selected_method=profile_min_distance`；
+- formal 的 `source_tree_hash=5d45c12526dc205642d9cf9cb3e8be34605f529179904872fda52e75396dc353`；
 - `final_reserved_status=manifest_only_not_materialized`；
 - `stage4b_started=false`。
 

@@ -1,0 +1,5 @@
+relative_path,status,notes
+results/data/stage4a_freeze_r1,historical_superseded_by_clean_source_r1_1,Preserved historical evidence; not overwritten.
+results/data/stage4a7_3/formal,historical_superseded_by_clean_source_r1_1,Preserved historical evidence; not overwritten.
+results/data/stage4a7_3/formal_preselection_semantic_fix,historical_superseded_by_clean_source_r1_1,Preserved historical evidence; not overwritten.
+results/data/stage4a7_3/smoke,historical_superseded_by_clean_source_r1_1,Preserved historical evidence; not overwritten.

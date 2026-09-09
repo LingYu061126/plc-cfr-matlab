@@ -1,0 +1,22 @@
+Stage 4A.7.2-R.2.1.2 completed: selected=margin unique=0 in 5.037 s.
+Stage 4A.7.3 formal completed: candidates=87 pilot=783 nonunique=120 in 259.010 s.
+                                  stage: 'Stage 4A Freeze-R.1.1'
+                                 status: 'formal_completed'
+                                   mode: 'formal'
+                   canonical_output_dir: 'results/data/stage4a_freeze_r1_1/stage4a7_3/formal'
+                         r2_archive_dir: 'results/data/stage4a_freeze_r1_1/r2_1_2'
+                        experiment_hash: 'c2d0af7d0e3c27645cb195528b00ed9cf9844838d9e6eb543da1588eb888cc96'
+                       source_tree_hash: '5d45c12526dc205642d9cf9cb3e8be34605f529179904872fda52e75396dc353'
+                     configuration_hash: '5b3c9a914e70cd1472a611ad784ca51d2af269f307ec4c3c53cc40c7f4d2931b'
+               runtime_environment_hash: '8313f3a14914316354fa22dbe4ec3d546eb572e0092c5305b62000dfdd90c16f'
+                        git_head_at_run: '54868370cc6c426f417681146caace79de782e91'
+                      git_branch_at_run: '(detached)'
+                       git_dirty_at_run: 0
+                     canonical_eligible: 1
+                 source_inventory_count: 411
+          source_manifest_missing_count: 0
+        source_manifest_untracked_count: 0
+    source_manifest_hash_mismatch_count: 0
+                  windows_native_tested: 0
+                  final_reserved_status: 'manifest_only_not_materialized'
+                        stage4b_started: 0

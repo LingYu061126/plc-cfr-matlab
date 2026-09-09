@@ -1,0 +1,17 @@
+Stage 4A.7.2-R.2.1.2 completed: selected=margin unique=0 in 5.270 s.
+{Error using stage4a_freeze_r1_stamp_identity (line 19)
+Run identity field domain_calibration_hash conflicts with a scientific result
+field.
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation>stamp_rows (line 176)
+    rows=stage4a_freeze_r1_stamp_identity(rows,id);
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation (line 39)
+    write_rows(fullfile(out,'development_method_selection.csv'),stamp_rows(method_rows,identity));
+
+Error in exp_stage4a_freeze_r1_1 (line 14)
+    exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode,sc.output_root,domain_source,run_command,sc.results_logs);
+
+Error in run_stage4_freeze_r1_1 (line 8)
+    summary=exp_stage4a_freeze_r1_1(root,mode,freeze_root_override,source_override);
+}
