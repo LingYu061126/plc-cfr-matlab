@@ -4,7 +4,11 @@ function id=stage4a_freeze_r1_runtime_identity(root,sc,mode,start_time_utc,run_c
     id=struct();
     if isfield(sc,'stage_name'),id.stage=sc.stage_name;else,id.stage='Stage 4A Freeze-R.1';end
     id.git_head_at_run=git_value(root,'rev-parse HEAD');
-    id.git_branch_at_run=git_value(root,'branch --show-current');
+    [branch_status,branch_value]=run_git(root,'branch --show-current');
+    if branch_status~=0
+        error('stage4a_freeze_r1:GitIdentityFailed','Git branch command failed.');
+    end
+    id.git_branch_at_run=strtrim(branch_value);
     if isempty(id.git_branch_at_run),id.git_branch_at_run='(detached)';end
     [status,dirty]=run_git(root,'status --porcelain');
     if status~=0,error('stage4a_freeze_r1:GitStatusFailed','Unable to read Git working-tree status.');end
