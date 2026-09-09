@@ -10,7 +10,8 @@ function summary=exp_stage4a_freeze_r1_1(root,mode,freeze_root_override,source_o
     if nargin>=4&&~isempty(source_override),source_dir=char(source_override);else,source_dir=sc.source_formal_dir;end
     r2out=fullfile(sc.freeze_root,'r2_1_2');
     exp_stage4a7_2_r2_1_2_statistics_archive(root,r2out,source_dir);
-    exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode,sc.output_root,source_dir,run_command,sc.results_logs);
+    domain_source=fullfile(source_dir,'formal');
+    exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode,sc.output_root,domain_source,run_command,sc.results_logs);
     stage_dir=fullfile(sc.output_root,mode);z=load(fullfile(stage_dir,'stage4a7_3_summary.mat'),'identity','summary');id=z.identity;
     assert(strcmp(id.git_head_at_run,pre_id.git_head_at_run),'stage4a_freeze_r1_1:IdentityChanged','Git HEAD changed during the canonical run.');
     if strcmpi(mode,'formal'),assert(id.canonical_eligible && ~id.git_dirty_at_run,'stage4a_freeze_r1_1:FormalNotCanonical','Formal run did not meet clean-source eligibility.');end
