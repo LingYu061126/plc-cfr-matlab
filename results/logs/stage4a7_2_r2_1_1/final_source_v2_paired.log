@@ -1,0 +1,22 @@
+R2.1.1 paired 10/87 candidates, 120/1044 rows.
+R2.1.1 paired 20/87 candidates, 240/1044 rows.
+R2.1.1 paired 30/87 candidates, 360/1044 rows.
+R2.1.1 paired 40/87 candidates, 480/1044 rows.
+R2.1.1 paired 50/87 candidates, 600/1044 rows.
+R2.1.1 paired 60/87 candidates, 720/1044 rows.
+R2.1.1 paired 70/87 candidates, 840/1044 rows.
+R2.1.1 paired 80/87 candidates, 960/1044 rows.
+R2.1.1 paired 87/87 candidates, 1044/1044 rows.
+                    stage_name: 'Stage 4A.7.2-R.2.1.1'
+                        status: 'paired_completed'
+                scenario_count: 1044
+               candidate_count: 87
+                category_count: 6
+               replicate_count: 2
+               selected_method: 'margin'
+        formal_experiment_hash: '3b9ed00d84a04030715fa8f9f9faaec8d752fd24d920e803e11545fd433dbd71'
+               experiment_hash: 'e2e85a4953ce8601322d85d9190def7c5f511f7a823cf7fa81be5594f51fce97'
+    parameter_calibration_hash: '1535f33c75884c347c812f61aa056635072181ac37a47ce44ebfb1afc16ea87b'
+         final_reserved_status: 'manifest_only_not_materialized'
+               stage4b_started: 0
+                     elapsed_s: 77.7114

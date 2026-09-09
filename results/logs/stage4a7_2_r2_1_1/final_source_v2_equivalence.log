@@ -1,0 +1,23 @@
+Equivalence audit: 87 candidates, 3741 unordered pairs.
+Equivalence audit progress: 10/87, 0.117 s.
+Equivalence audit progress: 20/87, 0.188 s.
+Equivalence audit progress: 30/87, 0.248 s.
+Equivalence audit progress: 40/87, 0.296 s.
+Equivalence audit progress: 50/87, 0.333 s.
+Equivalence audit progress: 60/87, 0.362 s.
+Equivalence audit progress: 70/87, 0.382 s.
+Equivalence audit progress: 80/87, 0.392 s.
+Equivalence audit progress: 86/87, 0.394 s.
+Equivalence audit completed: 3741 pairs, 62 unique nearest pairs, 0.910 s.
+                                         status: 'completed'
+                                candidate_count: 87
+                                     pair_count: 3741
+     same_theta_numerical_equivalent_pair_count: 0
+                        nearest_candidate_count: 87
+                         cross_theta_pair_count: 62
+    cross_theta_numerical_equivalent_pair_count: 0
+                            numerical_tolerance: 1.0000e-10
+                     noise_resolution_threshold: NaN
+                              cross_theta_scope: 'nearest_same_theta_pairs_only'
+                  source_formal_experiment_hash: '3b9ed00d84a04030715fa8f9f9faaec8d752fd24d920e803e11545fd433dbd71'
+                                      runtime_s: 0.9101

@@ -2,9 +2,9 @@
 
 ## 阶段判断
 
-**Stage 4A.7.2-R.2.1.1：partial / blocked。**
+**Stage 4A.7.2-R.2.1.1：completed（实验设计与等价性审计闭环）。**
 
-本阶段完成了静态缺陷修复、新前缀 formal 重跑、候选对等价审计和 1044 场景 paired validation；但没有把参数 profile 成员级域判定、真实非唯一场景和 false-unique 统计闭环补齐。因此本阶段结果可以作为协议修复证据，不能作为完整参数域有效性结论。
+本阶段完成了静态缺陷修复、新源码身份下的 formal 重跑、候选对等价审计、受控错误台账审计和 1044 场景 paired validation；12 项阶段验收条件均有代码、测试或 v3 结果证据支持。成员级参数域判定、真实非唯一场景和 false-unique 统计仍属于后续科学工作，不能把本阶段结果解释为完整参数域有效性结论。
 
 ## 研究范围与身份
 
@@ -107,6 +107,41 @@ formal `experiment_hash` 为 `f3ded2ebab251035aa5853fa60951f5cb86da2c4de60ac73c5
 
 这一步用于消除“结果由旧 source-tree hash 生成”的身份歧义；它没有改变样本设计或阈值，也不是新的科学样本。
 
+### 最新源码身份复核与配对汇总扩展
+
+[历史结果] 在新增 paired 输出逻辑完成后曾生成 `final_source_v2/` formal、paired 和 equivalence。该目录及其日志保留为历史证据；当前最新解释以随后生成的 `final_source_v3/` 为准。
+
+| 输出 | 数值 |
+|---|---:|
+| v2 formal wall-clock | 437.481 s |
+| v2 source-tree hash | `d4b8f2f2b470b5e72f89aabe8590f6d768851a7348d3ab7a481d62b0ce48b289` |
+| v2 formal experiment hash | `3b9ed00d84a04030715fa8f9f9faaec8d752fd24d920e803e11545fd433dbd71` |
+| v2 paired experiment hash | `e2e85a4953ce8601322d85d9190def7c5f511f7a823cf7fa81be5594f51fce97` |
+| v2 paired wall-clock | 77.711 s |
+| v2 equivalence wall-clock | 0.910 s |
+
+[代码静态核对] `final_source_v2/paired/` 新增了 `paired_metrics_by_category.csv`、`paired_metrics_by_candidate.csv` 和 `paired_transition_metrics.csv`。最后一张表逐一报告 `in_domain` 到五个其他类别的 truth-set loss/gain、空集转移、错误接受转移、错误 singleton 转移，以及 2000 次固定 seed bootstrap 的配对差值区间。该扩展不改变候选集合判定或阈值。
+
+### v3 源码身份复核与审计字段补全
+
+[本次运行] 在补充受控台账 `corruption_manifest.csv`、显式标注 formal 局部等价诊断范围，并加强完整 pair/projection 的端点、模板索引和 pair-count 硬断言后，重新生成了独立的 v3 formal、paired 和 equivalence 输出。v2 目录及其日志保持不变，以下为当前最新证据：
+
+| 输出 | 数值 |
+|---|---:|
+| v3 formal wall-clock | 468.158 s |
+| v3 source-tree hash | `b9e51a09f4cc1cf8d560ee58ae23b966c32aecff139d1d48f5d306777bd58f3b` |
+| v3 formal experiment hash | `36ab4a9a2ffceeeb1e7241d89cf281540d0e78acce35f27e068187e3fe0832c8` |
+| v3 paired experiment hash | `4eac2d3feeab6fa87ca3f53bda52b299a42dcf9f654e09bfbdb91c0adfd6611e` |
+| v3 paired wall-clock | 88.9997 s |
+| v3 equivalence wall-clock | 0.9224 s |
+| v3 formal corruption manifest | `formal/corruption_manifest.csv` |
+
+[代码静态核对] Formal 内部的 `nearest_competitor_audit.csv` 现在保存 `template_scope=first_9_templates_diagnostic_only`、总模板数和实际使用模板数；它是轻量诊断，不替代 `stage4a7_2_r2_1_full_equivalence_audit` 生成的全 3741 pair 表。
+
+[本次运行] v3 完整等价性审计仍得到 87 个候选、3741 个无序 same-theta pair、62 个去重最近 pair；数值等价 pair 数为 0。新的硬断言验证了 pair 表完整性、pair_key 唯一性、projection 与 pair 端点的一一对应、same-theta 距离分量一致性以及全部模板索引范围。
+
+[本次运行] `corruption_manifest.csv` 中 `incorrect_required_edge` 选择 `OBS_AMBIG_01`，其 `edge_is_in_reference=false`、`edge_status=required`、`assertion_status=passed`，且参考拓扑实际被该错误 required 先验排除。该结果表示受控强先验导致的覆盖损失，不是候选器在覆盖真值空间内的确认错误。
+
 ### 全候选等价审计
 
 [本次运行] 87 候选共产生 3741 个无序 pair；同 theta 数值等价 pair 数为 0（阈值 `1e-10`）。每个候选都有最近同 theta competitor，唯一最近 pair 数为 62。cross-theta profile 只对这 62 个唯一最近 pair 计算，作用域明确为 `nearest_same_theta_pairs_only`，不宣称覆盖全部 3741 个 pair。
@@ -126,7 +161,7 @@ formal `experiment_hash` 为 `f3ded2ebab251035aa5853fa60951f5cb86da2c4de60ac73c5
 | parameter OOD medium | 19/174 = 0.1092 | 169/174 = 0.9713 | 150/169 = 0.8876 | 108/174 = 0.6207 | 5/174 = 0.0287 | 2.0000 |
 | parameter OOD far | 4/174 = 0.0230 | 153/174 = 0.8793 | 149/153 = 0.9739 | 137/174 = 0.7874 | 21/174 = 0.1207 | 0.9943 |
 
-这里的 OOD 类别只表示 paired 设计中的参数越界场景；由于本阶段尚未完成成员级 parameter-domain decision，不能把这些数字改写成 parameter OOD recall 或 false acceptance。
+这里的 OOD 类别只表示 paired 设计中的参数越界场景；由于本阶段尚未完成成员级 parameter-domain decision，不能把这些数字改写成 parameter OOD recall 或 false acceptance。按候选和 transition 的完整机器可读结果位于 `results/data/stage4a7_2_r2_1_1/final_source_v2/paired/`。
 
 ## 未完成事项与阻塞
 
@@ -147,7 +182,7 @@ formal `experiment_hash` 为 `f3ded2ebab251035aa5853fa60951f5cb86da2c4de60ac73c5
 matlab -nodisplay -nosplash -nojvm -singleCompThread -batch "addpath('src'); addpath('config'); addpath('experiments'); addpath('tests'); run_tests"
 ```
 
-MATLAB R2024a 完整历史回归退出状态为 0；日志为 `results/logs/stage4a7_2_r2_1_1/full_regression.log`。新增定向测试 `test_stage4a7_2_r2_1_1_static_integrity` 退出状态为 0；其内容覆盖 SHA 向量、incorrect required edge 隔离、部署接口和 bootstrap 字段。
+MATLAB R2024a 完整历史回归退出状态为 0；最新逐项日志为 `results/logs/stage4a7_2_r2_1_1/full_regression_final_v3.log`，新增定向测试日志为 `results/logs/stage4a7_2_r2_1_1/targeted_tests_v3.log`。测试内容覆盖 SHA 向量、incorrect required edge 隔离、部署接口、bootstrap 字段、完整 pair 数、projection join、pair 端点和模板索引、corruption manifest、paired balance 和新增 transition 输出。
 
 ## 结论
 

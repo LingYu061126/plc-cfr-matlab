@@ -59,7 +59,9 @@ function [ledger,audit] = stage4a7_2_r2_1_build_benchmark_ledger(reference,sc,co
     keep=~strcmp({ledger.edge_status},'missing');ledger=ledger(keep);
     audit=struct('corruption',corruption,'seed',seed,'reference_used_offline_only',true, ...
         'truth_edges',numel(ref),'observed_edges',numel(ledger),'status','benchmark_ledger_ready', ...
-        'incorrect_required_edge_is_reference',false,'incorrect_required_edge_id','');
+        'incorrect_required_edge_is_reference',false,'incorrect_required_edge_id','', ...
+        'selected_edge_id','','selected_from_node','','selected_to_node','', ...
+        'selected_edge_status','','selected_edge_is_in_reference',false);
     if strcmp(corruption,'incorrect_required_edge')
         ix=find(strcmp({ledger.edge_confidence},'independently_observed_required_but_incorrect'),1);
         if ~isempty(ix)
@@ -69,6 +71,12 @@ function [ledger,audit] = stage4a7_2_r2_1_build_benchmark_ledger(reference,sc,co
                 error('stage4a7_2_r2_1:ReferenceEdgeRequiredCorruption','Incorrect required edge unexpectedly references truth edge.');
             end
         end
+    end
+    selected=select_audit_edge(ledger,ref,corruption);
+    if ~isempty(selected)
+        audit.selected_edge_id=selected.edge_id;audit.selected_from_node=selected.from_node;
+        audit.selected_to_node=selected.to_node;audit.selected_edge_status=selected.edge_status;
+        audit.selected_edge_is_in_reference=any(strcmp({ref.id},selected.edge_id));
     end
 end
 function r=make_row(e,ref,sc,status,cost)
@@ -96,4 +104,22 @@ function tf=has_endpoint_pair(rows,a,b)
         p=sort({char(rows(k).from_node),char(rows(k).to_node)});
         if strcmp(p{1},target{1}) && strcmp(p{2},target{2}),tf=true;return;end
     end
+end
+function r=select_audit_edge(ledger,ref,corruption)
+    r=[];
+    if strcmp(corruption,'incorrect_required_edge')
+        ix=find(strcmp({ledger.edge_confidence},'independently_observed_required_but_incorrect'),1);
+    elseif ismember(corruption,{'false_edge','confidence_inversion','mixed_corruption'})
+        ix=find(startsWith({ledger.edge_id},'OFFLINE_FALSE_'),1);
+    elseif strcmp(corruption,'missing_edge')
+        ids={ledger.edge_id};ix=find(~ismember({ref.id},ids),1);
+        if ~isempty(ix)
+            e=ref(ix);r=struct('edge_id',char(e.id),'from_node',char(e.from),'to_node',char(e.to),'edge_status','missing');return;
+        end
+    elseif strcmp(corruption,'missing_switch_state')
+        ix=find(strcmp({ledger.edge_confidence},'switch_state_missing'),1);
+    else
+        ix=[];
+    end
+    if ~isempty(ix),r=ledger(ix);end
 end

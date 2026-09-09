@@ -1,0 +1,8 @@
+{Error using assert
+Required artifact is missing: /home/chidan/文档/PLC/Code_08_19_Matlab/第一版工作
+集/matlab_plc_cfr_publish/results/data/stage4a7_2_r2_1_1/final_source_v3/formal/formal/summary.csv
+
+Error in test_stage4a7_2_r2_1_1_static_integrity (line 40)
+    for k=1:numel(required_files),assert(exist(required_files{k},'file')==2,'Required artifact is missing: %s',required_files{k});end
+}
+  PASS Stage 4A.7.2-R.2.1.1 static integrity, SHA vectors, ledger isolation, comparator and method bootstrap

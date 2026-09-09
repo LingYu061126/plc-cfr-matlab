@@ -1,0 +1,2 @@
+scope,row_count,unique_physical_scenario_count,unique_parameter_hash_count,unique_cfr_hash_count,unique_observation_hash_count,duplicate_parameter_hash_count,duplicate_cfr_hash_count,duplicate_observation_hash_count,status
+paired,1044,1044,1044,1044,1044,0,0,0,unique_hashes

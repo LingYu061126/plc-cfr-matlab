@@ -25,7 +25,11 @@ function summary = stage4a7_2_r2_1_full_equivalence_audit(root,formal_dir,out_di
         end
         if mod(i,10)==0 || i==n-1, fprintf('Equivalence audit progress: %d/%d, %.3f s.\n',i,n,toc(t0)); end
     end
-    assert_unique_pair_keys(pair_rows); write_rows(fullfile(out_dir,'same_theta_equivalence_pairs.csv'),pair_rows);
+    assert_unique_pair_keys(pair_rows);
+    if numel(pair_rows) ~= n*(n-1)/2
+        error('stage4a7_2_r2_1:IncompleteSameThetaPairs','Expected %d unordered pairs, got %d.',n*(n-1)/2,numel(pair_rows));
+    end
+    write_rows(fullfile(out_dir,'same_theta_equivalence_pairs.csv'),pair_rows);
 
     projection=repmat(projection_template(),n,1); nearest_keys=cell(n,1);
     for i=1:n
@@ -57,7 +61,8 @@ function summary = stage4a7_2_r2_1_full_equivalence_audit(root,formal_dir,out_di
         r.cross_theta_scope='nearest_same_theta_pairs_only'; r.source_formal_experiment_hash=z.ids.experiment_hash;
         cross_rows(end+1)=r; %#ok<AGROW>
     end
-    assert_unique_pair_keys(cross_rows); write_rows(fullfile(out_dir,'cross_theta_nearest_pair_audit.csv'),cross_rows);
+    assert_unique_pair_keys(cross_rows); assert_cross_pair_endpoints(cross_rows,pair_rows);
+    write_rows(fullfile(out_dir,'cross_theta_nearest_pair_audit.csv'),cross_rows);
     for i=1:n
         q=find(strcmp({cross_rows.pair_key},projection(i).nearest_pair_key),1);
         if isempty(q), error('stage4a7_2_r2_1:MissingPairProjection','Missing cross pair for %s.',projection(i).candidate_id); end
@@ -68,7 +73,7 @@ function summary = stage4a7_2_r2_1_full_equivalence_audit(root,formal_dir,out_di
         projection(i).cross_theta_magnitude_distance=r.cross_theta_magnitude_distance; projection(i).cross_theta_phase_distance_rad=r.cross_theta_phase_distance_rad;
         projection(i).cross_theta_numerically_equivalent=r.cross_theta_numerically_equivalent;
     end
-    assert_projection(projection,pair_rows,cross_rows); write_rows(fullfile(out_dir,'candidate_nearest_competitor_projection.csv'),projection);
+    assert_projection(projection,pair_rows,cross_rows,n,size(cache.H{1},1)); write_rows(fullfile(out_dir,'candidate_nearest_competitor_projection.csv'),projection);
     summary=struct('status','completed','candidate_count',n,'pair_count',numel(pair_rows), ...
         'same_theta_numerical_equivalent_pair_count',nnz([pair_rows.same_theta_numerically_equivalent]), ...
         'nearest_candidate_count',n,'cross_theta_pair_count',numel(cross_rows), ...
@@ -93,11 +98,32 @@ function [cd,md,pd]=distance_components(x,y),x=x(:);y=y(:);cd=sqrt(mean(abs(x-y)
 function k=pair_key(a,b),z=sort({char(a),char(b)});k=[z{1} '|' z{2}];end
 function id=other_id(r,current),if strcmp(r.candidate_i,current),id=r.candidate_j;else,id=r.candidate_i;end,end
 function assert_unique_pair_keys(rows),keys={rows.pair_key};if numel(unique(keys))~=numel(keys),error('stage4a7_2_r2_1:DuplicatePairKey','Pair table contains duplicate pair keys.');end,end
-function assert_projection(pairs,all_pairs,cross_pairs)
+function assert_projection(pairs,all_pairs,cross_pairs,candidate_count,template_count)
+    if numel(pairs)~=candidate_count,error('stage4a7_2_r2_1:ProjectionCandidateCount','Projection candidate count mismatch.');end
+    ids={pairs.candidate_id};if numel(unique(ids))~=candidate_count,error('stage4a7_2_r2_1:DuplicateProjectionCandidate','Projection must contain one row per candidate.');end
     for k=1:numel(pairs)
-        assert(any(strcmp({all_pairs.pair_key},pairs(k).nearest_pair_key)),'Projection references an absent same-theta pair.');
-        assert(any(strcmp({cross_pairs.pair_key},pairs(k).nearest_pair_key)),'Projection references an absent cross-theta pair.');
+        ia=find(strcmp({all_pairs.pair_key},pairs(k).nearest_pair_key),1);ic=find(strcmp({cross_pairs.pair_key},pairs(k).nearest_pair_key),1);
+        assert(~isempty(ia),'Projection references an absent same-theta pair.');
+        assert(~isempty(ic),'Projection references an absent cross-theta pair.');
+        a=all_pairs(ia);c=cross_pairs(ic);
+        assert(strcmp(c.pair_key,a.pair_key),'Projection pair key does not join same/cross pair tables.');
+        assert((strcmp(pairs(k).candidate_id,a.candidate_i)&&strcmp(pairs(k).same_theta_nearest_candidate,a.candidate_j)) || ...
+            (strcmp(pairs(k).candidate_id,a.candidate_j)&&strcmp(pairs(k).same_theta_nearest_candidate,a.candidate_i)), ...
+            'Projection candidate endpoints do not match pair key.');
+        assert(abs(pairs(k).same_theta_distance-a.same_theta_distance)<=1e-12,'Projection same-theta distance does not join pair table.');
+        assert(abs(c.same_theta_distance-c.same_theta_complex_distance)<=1e-12,'Same-theta scalar and complex distances disagree.');
+        assert(all([a.same_theta_template_i a.same_theta_template_j]>=1)&&all([a.same_theta_template_i a.same_theta_template_j]<=template_count),'Same-theta template index out of range.');
+        assert(all([c.same_theta_template_i c.same_theta_template_j c.cross_theta_template_i c.cross_theta_template_j]>=1)&&all([c.same_theta_template_i c.same_theta_template_j c.cross_theta_template_i c.cross_theta_template_j]<=template_count),'Cross-theta template index out of range.');
         assert(isfinite(pairs(k).same_theta_distance)&&isfinite(pairs(k).cross_theta_profile_distance),'Projection has nonfinite pair distances.');
+    end
+end
+function assert_cross_pair_endpoints(cross_rows,all_rows)
+    for k=1:numel(cross_rows)
+        ix=find(strcmp({all_rows.pair_key},cross_rows(k).pair_key),1);
+        if isempty(ix),error('stage4a7_2_r2_1:CrossPairMissingSamePair','Cross pair has no same-theta pair.');end
+        if ~strcmp(cross_rows(k).candidate_i,all_rows(ix).candidate_i) || ~strcmp(cross_rows(k).candidate_j,all_rows(ix).candidate_j)
+            error('stage4a7_2_r2_1:CrossPairEndpointMismatch','Cross pair endpoints do not match pair key.');
+        end
     end
 end
 function r=pair_template(),r=struct('pair_key','','candidate_i','','candidate_j','','same_theta_distance',NaN,'same_theta_template_i',0,'same_theta_template_j',0,'numerical_tolerance',NaN,'noise_resolution_threshold',NaN,'same_theta_numerically_equivalent',false,'cross_theta_scope','','source_formal_experiment_hash','');end

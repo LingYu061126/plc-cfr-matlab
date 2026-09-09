@@ -1,0 +1,2 @@
+status,candidate_pair_count,equivalent_pair_count,numerical_tolerance,measurement_resolution,template_scope,template_count_total,template_count_used
+completed_nearest_competitors,86,0,1e-10,not_calibrated,first_9_templates_diagnostic_only,243,9

@@ -1,0 +1,8 @@
+corruption_id,selected_edge_id,from_node,to_node,edge_status,edge_is_in_reference,expected_truth_coverage,actual_truth_coverage,assertion_status,failure_reason
+nominal,,,,,0,not_forced,1,recorded,
+missing_edge,LINE32,32,33,missing,1,may_be_excluded_by_missing_edge,0,recorded,prior_exclusion_or_candidate_gap
+false_edge,OFFLINE_FALSE_3,35,38,synthetic_ambiguity,0,not_forced,1,recorded,
+confidence_inversion,OFFLINE_FALSE_4,37,38,synthetic_ambiguity,0,not_forced,1,recorded,
+incorrect_required_edge,OBS_AMBIG_01,33,35,required,0,false_due_to_corrupted_required_prior,0,passed,prior_exclusion_or_candidate_gap
+missing_switch_state,LINE32,32,33,unknown_switch,1,not_forced,1,recorded,
+mixed_corruption,OFFLINE_FALSE_7,33,35,synthetic_ambiguity,0,not_guaranteed_under_mixed_corruption,0,recorded,prior_exclusion_or_candidate_gap

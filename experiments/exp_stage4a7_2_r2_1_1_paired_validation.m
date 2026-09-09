@@ -30,7 +30,12 @@ function summary=exp_stage4a7_2_r2_1_1_paired_validation(root,formal_dir,outdir)
     end
     assert(ix==n,'Paired row count mismatch.');
     write_rows(fullfile(outdir,'paired_scenario_manifest.csv'),manifest_rows(rows));write_rows(fullfile(outdir,'paired_decisions.csv'),decision_rows(rows));
-    write_rows(fullfile(outdir,'paired_metrics.csv'),metrics(rows,sc,paired_hash,model.calibration_hash));write_rows(fullfile(outdir,'paired_balance_audit.csv'),balance(rows));
+    category_metrics=metrics(rows,sc,paired_hash,model.calibration_hash);
+    write_rows(fullfile(outdir,'paired_metrics.csv'),category_metrics);
+    write_rows(fullfile(outdir,'paired_metrics_by_category.csv'),category_metrics);
+    write_rows(fullfile(outdir,'paired_metrics_by_candidate.csv'),metrics_by_candidate(rows,paired_hash,model.calibration_hash));
+    write_rows(fullfile(outdir,'paired_transition_metrics.csv'),transition_metrics(rows,sc,paired_hash,model.calibration_hash));
+    write_rows(fullfile(outdir,'paired_balance_audit.csv'),balance(rows));
     write_rows(fullfile(outdir,'independence_audit.csv'),independence(rows));
     cfgrow=struct('stage_name','Stage 4A.7.2-R.2.1.1','status','paired_completed','candidate_count',numel(candidates),'category_count',numel(cats),'replicate_count',reps,'scenario_count',n,'target_parameter',sc.paired.target_parameter,'master_seed',sc.paired.master_seed,'noise_snr_db',sc.noise.snr_db,'selected_method',model.method_id,'source_tree_hash',ids.source_tree_hash,'data_provenance_hash',ids.data_provenance_hash,'candidate_library_hash',ids.candidate_library_hash,'configuration_hash',ids.configuration_hash,'template_cache_hash',ids.template_cache_hash,'formal_experiment_hash',ids.experiment_hash,'experiment_hash',paired_hash,'parameter_calibration_hash',model.calibration_hash,'final_reserved_status',sc.final_reserved.status,'stage4b_started',false);
     write_rows(fullfile(outdir,'configuration_manifest.csv'),cfgrow);runtime=struct('status','paired_completed','scenario_count',n,'candidate_count',numel(candidates),'runtime_s',toc(t0),'worker_count',1,'use_parallel',false,'formal_experiment_hash',ids.experiment_hash,'experiment_hash',paired_hash,'parameter_calibration_hash',model.calibration_hash);write_rows(fullfile(outdir,'runtime_summary.csv'),runtime);
@@ -49,11 +54,58 @@ end
 function rows=metrics(s,sc,eh,ch),cats=unique({s.category},'stable');rows=repmat(metric_template(),0,1);for k=1:numel(cats),x=s(strcmp({s.category},cats{k}));n=numel(x);acc=~[x.empty];hit=[x.hit];wrong=acc&~hit;sizes=[x.set_size];rows(end+1)=metric_row(cats{k},'truth_set_coverage',nnz(hit),n,eh,ch);rows(end+1)=metric_row(cats{k},'topology_acceptance_coverage',nnz(acc),n,eh,ch);rows(end+1)=metric_row(cats{k},'topology_selective_risk',nnz(wrong),nnz(acc),eh,ch);rows(end+1)=metric_row(cats{k},'singleton_rate',nnz(sizes==1),n,eh,ch);rows(end+1)=metric_row(cats{k},'empty_set_rate',nnz(~acc),n,eh,ch);r=metric_template();r.category=cats{k};r.metric_id='mean_set_size';r.numerator=sum(sizes);r.denominator=n;r.rate=mean(sizes);r.evaluable_count=n;r.mean_set_size=mean(sizes);r.median_set_size=median(sizes);r.experiment_hash=eh;r.calibration_hash=ch;rows(end+1)=r;end,end
 function r=metric_row(c,m,a,b,eh,ch),r=metric_template();r.category=c;r.metric_id=m;r.numerator=a;r.denominator=b;r.rate=ratio(a,b);r.evaluable_count=b;if b>0,[r.ci_low,r.ci_high]=stage4a7_2_wilson_interval(a,b);end;r.experiment_hash=eh;r.calibration_hash=ch;end
 function r=metric_template(),r=struct('category','','metric_id','','numerator',0,'denominator',0,'rate',NaN,'ci_low',NaN,'ci_high',NaN,'evaluable_count',0,'mean_set_size',NaN,'median_set_size',NaN,'experiment_hash','','calibration_hash','');end
+function rows=metrics_by_candidate(s,eh,ch)
+    ids=unique({s.candidate_id},'stable');cats=unique({s.category},'stable');rows=repmat(candidate_metric_template(),0,1);
+    for i=1:numel(ids)
+        for j=1:numel(cats)
+            x=s(strcmp({s.candidate_id},ids{i}) & strcmp({s.category},cats{j}));if isempty(x),continue;end
+            acc=~[x.empty];hit=[x.hit];wrong=acc&~hit;sizes=[x.set_size];r=candidate_metric_template();
+            r.candidate_id=ids{i};r.category=cats{j};r.replicate_count=numel(x);
+            r.truth_set_coverage_num=nnz(hit);r.truth_set_coverage_den=numel(x);r.truth_set_coverage=ratio(nnz(hit),numel(x));
+            r.topology_acceptance_num=nnz(acc);r.topology_acceptance_den=numel(x);r.topology_acceptance_rate=ratio(nnz(acc),numel(x));
+            r.topology_selective_risk_num=nnz(wrong);r.topology_selective_risk_den=nnz(acc);r.topology_selective_risk=ratio(nnz(wrong),nnz(acc));
+            r.singleton_num=nnz(sizes==1);r.singleton_den=numel(x);r.singleton_rate=ratio(r.singleton_num,r.singleton_den);
+            r.empty_num=nnz(~acc);r.empty_den=numel(x);r.empty_rate=ratio(r.empty_num,r.empty_den);
+            r.mean_set_size=mean(sizes);r.median_set_size=median(sizes);r.experiment_hash=eh;r.calibration_hash=ch;rows(end+1)=r; %#ok<AGROW>
+        end
+    end
+end
+function r=candidate_metric_template()
+    r=struct('candidate_id','','category','','replicate_count',0,'truth_set_coverage_num',0,'truth_set_coverage_den',0,'truth_set_coverage',NaN, ...
+        'topology_acceptance_num',0,'topology_acceptance_den',0,'topology_acceptance_rate',NaN,'topology_selective_risk_num',0,'topology_selective_risk_den',0,'topology_selective_risk',NaN, ...
+        'singleton_num',0,'singleton_den',0,'singleton_rate',NaN,'empty_num',0,'empty_den',0,'empty_rate',NaN,'mean_set_size',NaN,'median_set_size',NaN,'experiment_hash','','calibration_hash','');
+end
+function rows=transition_metrics(s,sc,eh,ch)
+    cats=unique({s.category},'stable');base='in_domain';targets=cats(~strcmp(cats,base));cases=unique({s.paired_case_id},'stable');rows=repmat(transition_template(),0,1);
+    B=getf(sc.paired,'transition_bootstrap_replicates',2000);seed0=getf(sc.paired,'transition_bootstrap_seed',20262962);
+    for j=1:numel(targets)
+        target=targets{j};bd=false(1,numel(cases));td=bd;be=bd;te=bd;bs=bd;ts=bd;bw=bd;tw=bd;szd=NaN(1,numel(cases));
+        used=false(1,numel(cases));
+        for k=1:numel(cases)
+            ib=find(strcmp({s.paired_case_id},cases{k}) & strcmp({s.category},base),1);it=find(strcmp({s.paired_case_id},cases{k}) & strcmp({s.category},target),1);
+            if isempty(ib)||isempty(it),continue;end;used(k)=true;b=s(ib);t=s(it);bd(k)=b.hit;td(k)=t.hit;be(k)=b.empty;te(k)=t.empty;bs(k)=b.set_size==1;ts(k)=t.set_size==1;bw(k)=(~b.empty)&&~b.hit;tw(k)=(~t.empty)&&~t.hit;szd(k)=t.set_size-b.set_size;
+        end
+        bd=bd(used);td=td(used);be=be(used);te=te(used);bs=bs(used);ts=ts(used);bw=bw(used);tw=tw(used);szd=szd(used);n=numel(szd);hitd=double(td)-double(bd);emptyd=double(te)-double(be);wrongd=double(tw)-double(bw);
+        [hlo,hhi]=bootstrap_mean_ci(hitd,B,seed0+j-1);[slo,shi]=bootstrap_mean_ci(szd,B,seed0+20+j-1);[elo,ehi]=bootstrap_mean_ci(emptyd,B,seed0+40+j-1);[wlo,whi]=bootstrap_mean_ci(wrongd,B,seed0+60+j-1);
+        r=transition_template();r.transition_id=[base '_to_' target];r.baseline_category=base;r.target_category=target;r.paired_case_count=n;
+        r.baseline_hit_num=nnz(bd);r.target_hit_num=nnz(td);r.baseline_hit_rate=ratio(nnz(bd),n);r.target_hit_rate=ratio(nnz(td),n);r.truth_membership_loss_num=nnz(bd&~td);r.truth_membership_loss_den=n;r.truth_membership_loss_rate=ratio(r.truth_membership_loss_num,n);r.truth_membership_gain_num=nnz(~bd&td);
+        r.baseline_empty_num=nnz(be);r.target_empty_num=nnz(te);r.empty_transition_num=nnz(~be&te);r.empty_transition_rate=ratio(r.empty_transition_num,n);r.baseline_wrong_acceptance_num=nnz(bw);r.target_wrong_acceptance_num=nnz(tw);r.wrong_acceptance_transition_num=nnz(~bw&tw);r.wrong_acceptance_transition_rate=ratio(r.wrong_acceptance_transition_num,n);
+        r.singleton_to_wrong_singleton_num=nnz(bs&ts&~td);r.singleton_to_wrong_singleton_den=n;r.singleton_to_wrong_singleton_rate=ratio(r.singleton_to_wrong_singleton_num,n);r.mean_set_size_difference=mean(szd);r.mean_set_size_ci_low=slo;r.mean_set_size_ci_high=shi;r.truth_hit_difference=mean(hitd);r.truth_hit_ci_low=hlo;r.truth_hit_ci_high=hhi;r.empty_difference=mean(emptyd);r.empty_difference_ci_low=elo;r.empty_difference_ci_high=ehi;r.wrong_acceptance_difference=mean(wrongd);r.wrong_acceptance_difference_ci_low=wlo;r.wrong_acceptance_difference_ci_high=whi;r.bootstrap_replicates=B;r.bootstrap_seed=seed0+j-1;r.experiment_hash=eh;r.calibration_hash=ch;rows(end+1)=r; %#ok<AGROW>
+    end
+end
+function [lo,hi]=bootstrap_mean_ci(v,B,seed)
+    v=v(isfinite(v));if isempty(v),lo=NaN;hi=NaN;return;end;n=numel(v);rs=RandStream('mt19937ar','Seed',seed);z=zeros(B,1);
+    for k=1:B,z(k)=mean(v(randi(rs,n,n,1)));end;z=sort(z);lo=z(max(1,min(B,round(1+.025*(B-1)))));hi=z(max(1,min(B,round(1+.975*(B-1)))));
+end
+function r=transition_template()
+    r=struct('transition_id','','baseline_category','','target_category','','paired_case_count',0,'baseline_hit_num',0,'target_hit_num',0,'baseline_hit_rate',NaN,'target_hit_rate',NaN,'truth_membership_loss_num',0,'truth_membership_loss_den',0,'truth_membership_loss_rate',NaN,'truth_membership_gain_num',0,'baseline_empty_num',0,'target_empty_num',0,'empty_transition_num',0,'empty_transition_rate',NaN,'baseline_wrong_acceptance_num',0,'target_wrong_acceptance_num',0,'wrong_acceptance_transition_num',0,'wrong_acceptance_transition_rate',NaN,'singleton_to_wrong_singleton_num',0,'singleton_to_wrong_singleton_den',0,'singleton_to_wrong_singleton_rate',NaN,'mean_set_size_difference',NaN,'mean_set_size_ci_low',NaN,'mean_set_size_ci_high',NaN,'truth_hit_difference',NaN,'truth_hit_ci_low',NaN,'truth_hit_ci_high',NaN,'empty_difference',NaN,'empty_difference_ci_low',NaN,'empty_difference_ci_high',NaN,'wrong_acceptance_difference',NaN,'wrong_acceptance_difference_ci_low',NaN,'wrong_acceptance_difference_ci_high',NaN,'bootstrap_replicates',0,'bootstrap_seed',0,'experiment_hash','','calibration_hash','');
+end
 function rows=balance(s),cats=unique({s.category},'stable');rows=repmat(struct('category','','candidate_count',0,'replicate_count',0,'row_count',0,'unique_paired_case_count',0,'status',''),numel(cats),1);for k=1:numel(cats),x=s(strcmp({s.category},cats{k}));rows(k).category=cats{k};rows(k).candidate_count=numel(unique({x.candidate_id}));rows(k).replicate_count=numel(unique([x.replicate]));rows(k).row_count=numel(x);rows(k).unique_paired_case_count=numel(unique({x.paired_case_id}));rows(k).status=ternary(rows(k).row_count==rows(k).candidate_count*rows(k).replicate_count,'balanced','invalid');end,end
 function r=independence(s),p={s.parameter_vector_hash};c={s.noiseless_cfr_hash};o={s.observation_hash};r=struct('scope','paired','row_count',numel(s),'unique_physical_scenario_count',numel(unique({s.sample_id})),'unique_parameter_hash_count',numel(unique(p)),'unique_cfr_hash_count',numel(unique(c)),'unique_observation_hash_count',numel(unique(o)),'duplicate_parameter_hash_count',numel(s)-numel(unique(p)),'duplicate_cfr_hash_count',numel(s)-numel(unique(c)),'duplicate_observation_hash_count',numel(s)-numel(unique(o)),'status',ternary(numel(unique(p))==numel(s)&&numel(unique(c))==numel(s),'unique_hashes','duplicates_detected'));end
 function r=row_template(),r=struct('sample_id','','paired_case_id','','category','','replicate',0,'candidate_id','','case_seed',0,'nuisance_seed',0,'noise_base_hash','','truth_theta',struct(),'truth_topology_id','','accepted_set','','set_size',0,'hit',false,'empty',false,'parameter_domain_truth','','main_length_scale',NaN,'parameter_vector_hash','','noiseless_cfr_hash','','observation_hash','','calibration_hash','','experiment_hash','');end
 function id=getid(c),if isfield(c,'topology_id')&&~isempty(c.topology_id),id=char(c.topology_id);else,id=char(c.graph_candidate_id);end,end
 function x=ratio(a,b),if b<=0,x=NaN;else,x=a/b;end,end
 function x=ternary(tf,a,b),if tf,x=a;else,x=b;end,end
+function x=getf(s,n,d),if isstruct(s)&&isfield(s,n)&&~isempty(s.(n)),x=s.(n);else,x=d;end,end
 function ensure_dir(p),if ~exist(p,'dir'),mkdir(p);end,end
 function write_rows(p,x),writetable(struct2table(x),p);end

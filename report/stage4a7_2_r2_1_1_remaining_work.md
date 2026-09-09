@@ -1,6 +1,6 @@
 # Stage 4A.7.2-R.2.1.1 剩余工作清单
 
-当前状态：**partial / blocked**。
+R2.1.1 状态：**completed（实验设计与等价性审计闭环）**。以下是进入后续参数域科学验证前仍需完成的工作，不构成对本阶段验收结果的否定。
 
 已完成：
 
@@ -10,6 +10,8 @@
 - candidate-pair 等价审计改为 pair-key 连接；
 - development 方法并列增加 paired bootstrap 语义；
 - 87 候选 fresh formal 与 1044 场景 paired validation；
+- 最新源码身份下重新生成 formal、paired 和 equivalence，并补充按候选指标与 transition bootstrap 表；
+- 在再次冻结源码身份后生成 `final_source_v3/`，补充 `corruption_manifest.csv`、formal 局部等价诊断范围字段，以及 pair/projection 端点、模板索引和完整 pair-count 硬断言；v3 formal、paired、equivalence 和完整回归均退出状态为 0；
 - 完整历史回归通过。
 
 仍未完成：
