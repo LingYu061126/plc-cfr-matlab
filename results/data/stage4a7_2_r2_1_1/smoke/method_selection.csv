@@ -1,0 +1,6 @@
+method_id,coverage_num,coverage_den,coverage,mean_set_size,median_set_size,singleton_correct_num,singleton_correct_den,singleton_correct_rate,empty_set_num,empty_set_den,empty_set_rate,selective_risk_num,selective_risk_den,selective_risk,gate_pass,rejection_reason,deterministic_development_winner,statistically_distinguishable_winner,scientifically_unique_winner,selection_status,tied_methods
+absolute,174,174,1,87,87,0,174,0,0,174,0,0,174,0,1,,0,0,0,no_unique_winner,"absolute,scaled,ratio,margin,absolute_I"
+scaled,174,174,1,87,87,0,174,0,0,174,0,0,174,0,1,,0,0,0,no_unique_winner,"absolute,scaled,ratio,margin,absolute_I"
+ratio,174,174,1,87,87,0,174,0,0,174,0,0,174,0,1,,0,0,0,no_unique_winner,"absolute,scaled,ratio,margin,absolute_I"
+margin,174,174,1,87,87,0,174,0,0,174,0,0,174,0,1,,0,0,0,no_unique_winner,"absolute,scaled,ratio,margin,absolute_I"
+absolute_I,174,174,1,87,87,0,174,0,0,174,0,0,174,0,1,,0,0,0,no_unique_winner,"absolute,scaled,ratio,margin,absolute_I"

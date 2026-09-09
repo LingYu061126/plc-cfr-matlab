@@ -233,6 +233,7 @@ function run_tests()
     test_stage4a7_2_r1_data_driven_closure();
     test_stage4a7_2_r2_candidate_coverage();
     test_stage4a7_2_r2_1_static_integrity();
+    test_stage4a7_2_r2_1_1_static_integrity();
 end
 
 function err = determinant_error(T)

@@ -1,0 +1,2 @@
+input_kind,truth_input_received,allowed_edge_count,required_edge_count,forbidden_edge_count,prior_config_hash,status
+observed_engineering_ledger_only,0,13,0,0,e81ea11834df6a423d50ba1d11899c95434f0e4c8bb52c7b5be431bd4d46e1f7,deployment_spec_ready

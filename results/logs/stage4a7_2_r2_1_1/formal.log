@@ -1,0 +1,67 @@
+{Unrecognized function or variable 'exp_stage4a7_2_r2_1_1_formal_validation'.
+}
+R2.1 formal: generated engineering=204 compatible=87
+R2.1 formal: template cache candidates=87 templates_per_candidate=243 total_templates=21141
+R2.1 formal: materialize development nper=3
+R2.1 development materialize 1/261
+R2.1 development materialize 100/261
+R2.1 development materialize 200/261
+R2.1 development materialize 261/261
+R2.1 formal: materialize calibration nper=40
+R2.1 calibration materialize 1/3480
+R2.1 calibration materialize 100/3480
+R2.1 calibration materialize 200/3480
+R2.1 calibration materialize 300/3480
+R2.1 calibration materialize 400/3480
+R2.1 calibration materialize 500/3480
+R2.1 calibration materialize 600/3480
+R2.1 calibration materialize 700/3480
+R2.1 calibration materialize 800/3480
+R2.1 calibration materialize 900/3480
+R2.1 calibration materialize 1000/3480
+R2.1 calibration materialize 1100/3480
+R2.1 calibration materialize 1200/3480
+R2.1 calibration materialize 1300/3480
+R2.1 calibration materialize 1400/3480
+R2.1 calibration materialize 1500/3480
+R2.1 calibration materialize 1600/3480
+R2.1 calibration materialize 1700/3480
+R2.1 calibration materialize 1800/3480
+R2.1 calibration materialize 1900/3480
+R2.1 calibration materialize 2000/3480
+R2.1 calibration materialize 2100/3480
+R2.1 calibration materialize 2200/3480
+R2.1 calibration materialize 2300/3480
+R2.1 calibration materialize 2400/3480
+R2.1 calibration materialize 2500/3480
+R2.1 calibration materialize 2600/3480
+R2.1 calibration materialize 2700/3480
+R2.1 calibration materialize 2800/3480
+R2.1 calibration materialize 2900/3480
+R2.1 calibration materialize 3000/3480
+R2.1 calibration materialize 3100/3480
+R2.1 calibration materialize 3200/3480
+R2.1 calibration materialize 3300/3480
+R2.1 calibration materialize 3400/3480
+R2.1 calibration materialize 3480/3480
+R2.1 formal: materialize pilot nper=2
+R2.1 pilot materialize 1/174
+R2.1 pilot materialize 100/174
+R2.1 pilot materialize 174/174
+Stage 4A.7.2-R.2.1 formal completed: engineering=204 compatible=87 scored=87 calibration=3480 pilot=174 method=margin in 427.399 s.
+                            stage_name: 'Stage 4A.7.2-R.2.1.1'
+                                  mode: 'formal'
+                                status: 'formal_completed'
+           engineering_candidate_count: 204
+    forward_compatible_candidate_count: 87
+        profile_scored_candidate_count: 87
+                     development_count: 261
+                     calibration_count: 3480
+                           pilot_count: 174
+                       selected_method: 'margin'
+          scientifically_unique_winner: 0
+                       experiment_hash: 'f3ded2ebab251035aa5853fa60951f5cb86da2c4de60ac73c55ef5d2fbbcedd0'
+                      source_tree_hash: '62e69e4f1f42429ef07b292e005f942c9ec874e2a30ca638c2ff8eff7120fc84'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0
+                             elapsed_s: 427.2869

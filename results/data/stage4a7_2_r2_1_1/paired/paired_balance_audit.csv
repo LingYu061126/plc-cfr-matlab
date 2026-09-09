@@ -1,0 +1,7 @@
+category,candidate_count,replicate_count,row_count,unique_paired_case_count,status
+in_domain,87,2,174,174,balanced
+boundary_lower,87,2,174,174,balanced
+boundary_upper,87,2,174,174,balanced
+parameter_ood_near,87,2,174,174,balanced
+parameter_ood_medium,87,2,174,174,balanced
+parameter_ood_far,87,2,174,174,balanced

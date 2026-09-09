@@ -1,8 +1,10 @@
-function summary=exp_stage4a7_2_r2_1_independent_validation(root,mode)
+function summary=exp_stage4a7_2_r2_1_independent_validation(root,mode,output_root,stage_name)
 %EXP_STAGE4A7_2_R2_1_INDEPENDENT_VALIDATION Off-grid/noisy independent splits.
     if nargin<1||isempty(root),root=fileparts(fileparts(mfilename('fullpath')));end
     if nargin<2||isempty(mode),mode='smoke';end
-    addpath(fullfile(root,'src'),fullfile(root,'config'));base=default_config(root);sc=stage4a7_2_r2_1_protocol_config(base,mode);
+    addpath(fullfile(root,'src'),fullfile(root,'config'));base=default_config(root);
+    if nargin<3,output_root=[];end;if nargin<4,stage_name=[];end
+    sc=stage4a7_2_r2_1_protocol_config(base,mode,output_root,stage_name);
     ensure_dir(sc.results_data);ensure_dir(sc.results_logs);t0=tic;
     [reference,~]=read_stage4a7_2_r1_public_subnetwork(sc.derived_subnetwork);
     manifest=stage4a7_2_r2_external_manifest(root,sc.derived_subnetwork);
@@ -36,6 +38,7 @@ function summary=exp_stage4a7_2_r2_1_independent_validation(root,mode)
     [cov,corrupt]=coverage_audit(reference,sc,base);
     all_scenarios=[dev cal pilot];
     write_rows(fullfile(sc.results_data,'external_data_manifest.csv'),manifest);write_rows(fullfile(sc.results_data,'deployment_audit.csv'),deploy_audit);write_rows(fullfile(sc.results_data,'candidate_generation_audit.csv'),eng_audit);write_rows(fullfile(sc.results_data,'candidate_coverage_audit.csv'),cov);write_rows(fullfile(sc.results_data,'ledger_corruption_audit.csv'),corrupt);write_rows(fullfile(sc.results_data,'nearest_competitor_audit.csv'),nearest);write_rows(fullfile(sc.results_data,'scenario_equivalence_audit.csv'),eqsummary);write_rows(fullfile(sc.results_data,'pilot_decisions.csv'),decisions);write_rows(fullfile(sc.results_data,'method_selection.csv'),sel_rows);write_rows(fullfile(sc.results_data,'identity_manifest.csv'),identity_rows(ids));
+    if isfield(sel_manifest,'bootstrap_comparisons'),write_rows(fullfile(sc.results_data,'method_selection_bootstrap.csv'),sel_manifest.bootstrap_comparisons);end
     write_rows(fullfile(sc.results_data,'scenario_manifest.csv'),scenario_manifest_rows(all_scenarios));
     write_rows(fullfile(sc.results_data,'independence_audit.csv'),independence_rows(all_scenarios));
     write_rows(fullfile(sc.results_data,'parameter_calibration_thresholds.csv'),calibration_rows(method_models,sc.method_selection.method_ids,ids));

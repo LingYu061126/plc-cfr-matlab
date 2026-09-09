@@ -1,0 +1,37 @@
+R2.1 smoke: generated engineering=204 compatible=87
+R2.1 smoke: template cache candidates=87 templates_per_candidate=243 total_templates=21141
+R2.1 smoke: materialize development nper=2
+R2.1 development materialize 1/174
+R2.1 development materialize 100/174
+R2.1 development materialize 174/174
+R2.1 smoke: materialize calibration nper=10
+R2.1 calibration materialize 1/870
+R2.1 calibration materialize 100/870
+R2.1 calibration materialize 200/870
+R2.1 calibration materialize 300/870
+R2.1 calibration materialize 400/870
+R2.1 calibration materialize 500/870
+R2.1 calibration materialize 600/870
+R2.1 calibration materialize 700/870
+R2.1 calibration materialize 800/870
+R2.1 calibration materialize 870/870
+R2.1 smoke: materialize pilot nper=1
+R2.1 pilot materialize 1/87
+R2.1 pilot materialize 87/87
+Stage 4A.7.2-R.2.1 smoke completed: engineering=204 compatible=87 scored=87 calibration=870 pilot=87 method=absolute in 246.032 s.
+                            stage_name: 'Stage 4A.7.2-R.2.1.1'
+                                  mode: 'smoke'
+                                status: 'smoke_completed'
+           engineering_candidate_count: 204
+    forward_compatible_candidate_count: 87
+        profile_scored_candidate_count: 87
+                     development_count: 174
+                     calibration_count: 870
+                           pilot_count: 87
+                       selected_method: 'absolute'
+          scientifically_unique_winner: 0
+                       experiment_hash: '24f76753ff8763db5048f060e04a1ee75cd88e07bdda0ca2b7450fce129b40c1'
+                      source_tree_hash: '1756177c4ae6d496af84803e634a25c13a76ef2f1557a6eaf8b904a5d7af70c7'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0
+                             elapsed_s: 245.9933

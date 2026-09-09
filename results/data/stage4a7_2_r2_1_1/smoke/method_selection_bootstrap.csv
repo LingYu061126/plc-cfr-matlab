@@ -1,0 +1,2 @@
+method_a,method_b,sample_count,bootstrap_replicates,bootstrap_seed,coverage_difference,coverage_ci_low,coverage_ci_high,mean_set_size_difference,mean_set_size_ci_low,mean_set_size_ci_high,selective_risk_difference,selective_risk_ci_low,selective_risk_ci_high,statistically_distinguishable,definition_version
+margin,ratio,174,2000,20262941,0,0,0,0,0,0,0,0,0,0,paired_bootstrap_percentile_ci_v1

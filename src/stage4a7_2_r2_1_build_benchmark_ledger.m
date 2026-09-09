@@ -35,8 +35,21 @@ function [ledger,audit] = stage4a7_2_r2_1_build_benchmark_ledger(reference,sc,co
     if ismember(corruption,{'confidence_inversion','mixed_corruption'}) && ~isempty(ledger)
         ledger(1).prior_cost=2.0;ledger(1).edge_confidence='low';
     end
-    if strcmp(corruption,'incorrect_required_edge') && numel(ledger)>=1
-        ledger(1).edge_status='required';ledger(1).edge_confidence='independently_observed_required';
+    if strcmp(corruption,'incorrect_required_edge')
+        % The required edge must be an intentionally wrong observed edge,
+        % never a reference edge.  If the selected ambiguity row was already
+        % present, select it by provenance; otherwise create one explicitly.
+        ix_false=find(strcmp({ledger.uncertainty_mechanism},'controlled_observed_ledger_ambiguity'),1);
+        if isempty(ix_false)
+            pairs=getf(sc,'synthetic_ambiguity_edges',{});
+            if isempty(pairs), error('stage4a7_2_r2_1:NoFalseEdgeForCorruption','Cannot construct incorrect required edge without an ambiguity edge.'); end
+            e=ref(1);e.id=['OFFLINE_REQUIRED_FALSE_' num2str(seed)];e.from=char(pairs{1,1});e.to=char(pairs{1,2});e.length_m=median([ref.length_m]);e.cable_type=0;
+            ledger(end+1)=make_row(e,reference,sc,'synthetic_ambiguity',1.0); %#ok<AGROW>
+            ledger(end).uncertainty_mechanism='controlled_observed_ledger_ambiguity';
+            ledger(end).evidence_level='controlled_benchmark_input_not_truth';
+            ix_false=numel(ledger);
+        end
+        ledger(ix_false).edge_status='required';ledger(ix_false).edge_confidence='independently_observed_required_but_incorrect';
     elseif strcmp(corruption,'missing_switch_state') && numel(ledger)>=1
         ledger(1).edge_status='unknown_switch';ledger(1).edge_confidence='switch_state_missing';
     end
@@ -45,7 +58,18 @@ function [ledger,audit] = stage4a7_2_r2_1_build_benchmark_ledger(reference,sc,co
     end
     keep=~strcmp({ledger.edge_status},'missing');ledger=ledger(keep);
     audit=struct('corruption',corruption,'seed',seed,'reference_used_offline_only',true, ...
-        'truth_edges',numel(ref),'observed_edges',numel(ledger),'status','benchmark_ledger_ready');
+        'truth_edges',numel(ref),'observed_edges',numel(ledger),'status','benchmark_ledger_ready', ...
+        'incorrect_required_edge_is_reference',false,'incorrect_required_edge_id','');
+    if strcmp(corruption,'incorrect_required_edge')
+        ix=find(strcmp({ledger.edge_confidence},'independently_observed_required_but_incorrect'),1);
+        if ~isempty(ix)
+            audit.incorrect_required_edge_id=ledger(ix).edge_id;
+            audit.incorrect_required_edge_is_reference=any(strcmp({ref.id},ledger(ix).edge_id));
+            if audit.incorrect_required_edge_is_reference
+                error('stage4a7_2_r2_1:ReferenceEdgeRequiredCorruption','Incorrect required edge unexpectedly references truth edge.');
+            end
+        end
+    end
 end
 function r=make_row(e,ref,sc,status,cost)
     r=ledger_template();r.node_id=char(e.from);r.source_node_id=char(ref.source_node_id);r.receiver_node_id=char(ref.receiver_node_id);

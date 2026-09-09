@@ -1,0 +1,7 @@
+scope,split_a,split_b,row_count,unique_physical_scenario_count,unique_parameter_hash_count,unique_cfr_hash_count,unique_observation_hash_count,duplicate_physical_id_count,duplicate_parameter_hash_count,duplicate_cfr_hash_count,duplicate_observation_hash_count,cross_split_physical_id_duplicate_count,cross_split_parameter_hash_duplicate_count,cross_split_cfr_hash_duplicate_count,cross_split_observation_hash_duplicate_count,status
+split,development,,174,174,174,174,174,0,0,0,0,NaN,NaN,NaN,NaN,unique_ids
+split,calibration,,870,870,870,870,870,0,0,0,0,NaN,NaN,NaN,NaN,unique_ids
+split,pilot,,87,87,87,87,87,0,0,0,0,NaN,NaN,NaN,NaN,unique_ids
+cross_split,development,calibration,1044,1044,1044,1044,1044,0,0,0,0,0,0,0,0,independent_in_materialized_splits
+cross_split,development,pilot,261,261,261,261,261,0,0,0,0,0,0,0,0,independent_in_materialized_splits
+cross_split,calibration,pilot,957,957,957,957,957,0,0,0,0,0,0,0,0,independent_in_materialized_splits
