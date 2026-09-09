@@ -1,4 +1,4 @@
-function summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode,output_override)
+function summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode,output_override,source_override,run_command,logs_override)
 %EXP_STAGE4A7_3_DOMAIN_REJECTION_AND_NONUNIQUE_VALIDATION Frozen-domain test.
 %   Candidate confirmation is imported as a frozen, truth-free model from
 %   R2.1.1.  This experiment calibrates only a separate parameter-domain
@@ -7,13 +7,17 @@ function summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,m
     if nargin<2||isempty(mode),mode='formal';end
     addpath(fullfile(root,'src'),fullfile(root,'config')); base=default_config(root);sc=stage4a7_3_domain_validation_config(base,mode);
     if nargin>=3&&~isempty(output_override),sc.output_root=output_override;end
+    if nargin>=4&&~isempty(source_override),sc.source_formal_dir=source_override;end
+    if nargin>=6&&~isempty(logs_override),sc.results_logs=logs_override;end
     out=fullfile(sc.output_root,mode);ensure_dir(out);ensure_dir(sc.results_logs);t0=tic;
     required={fullfile(sc.source_formal_dir,'summary.mat'),fullfile(sc.source_formal_dir,'checkpoint_identity.mat')};
     for k=1:numel(required),assert(exist(required{k},'file')==2,'stage4a7_3:MissingFrozenInput','Missing frozen input %s.',required{k});end
     z=load(fullfile(sc.source_formal_dir,'summary.mat'),'selected_model','ids');q=load(fullfile(sc.source_formal_dir,'checkpoint_identity.mat'),'cache','scored','ids');
     frozen_model=z.selected_model;cache=q.cache;candidates=q.scored;ids=q.ids;
     assert(numel(cache.candidates)==numel(candidates),'stage4a7_3:CacheCandidateMismatch','Frozen cache and candidates disagree.');
-    start_time_utc=utc_now();identity=stage4a_freeze_r1_runtime_identity(root,sc,mode,start_time_utc,getenv_default('STAGE4A_RUN_COMMAND',sprintf('run_stage4_freeze_r1(pwd,''%s'')',mode)));
+    start_time_utc=utc_now();
+    if nargin>=5&&~isempty(run_command),default_run_command=run_command;else,default_run_command=sprintf('run_stage4_freeze_r1(pwd,''%s'')',mode);end
+    identity=stage4a_freeze_r1_runtime_identity(root,sc,mode,start_time_utc,getenv_default('STAGE4A_RUN_COMMAND',default_run_command));
     experiment_hash=stage4a4_scientific_config_hash(struct('stage',sc.stage_name,'mode',mode,'configuration_hash',identity.configuration_hash,'source_tree_hash',identity.source_tree_hash,'frozen_experiment_hash',ids.experiment_hash,'frozen_parameter_calibration_hash',frozen_model.calibration_hash));
     % Development compares two predeclared, monotone profile-domain scores.
     dev=materialize_domain('development',sc.scenario_design.development_per_candidate,sc.seeds.development, ...
@@ -169,17 +173,20 @@ function rows=selection_sensitivity(method_rows,pilot,sc)
 end
 function r=rows_template_sensitivity(),r=struct('rule_id','','selected_method','','category','','sample_count',0,'accepted_count',0,'acceptance_rate',NaN,'rejection_rate',NaN,'threshold',NaN,'pilot_used_for_selection',false,'scientifically_unique_winner',false);end
 function rows=stamp_rows(rows,id)
-    if isempty(rows),return;end
-    f=fieldnames(id);for k=1:numel(rows),for j=1:numel(f),rows(k).(f{j})=id.(f{j});end,end
+    rows=stage4a_freeze_r1_stamp_identity(rows,id);
 end
 function rows=identity_source_rows(root,id)
-    dirs={'config','src','experiments','tests'};rows=repmat(struct('relative_path','','file_sha256','','source_tree_hash',''),0,1);
-    for d=1:numel(dirs),f=dir(fullfile(root,dirs{d},'*.m'));for k=1:numel(f),p=fullfile(f(k).folder,f(k).name);rows(end+1)=struct('relative_path',strrep(strrep(p,[root filesep],''),filesep,'/'),'file_sha256',stage4a7_2_r2_sha256_file(p),'source_tree_hash',id.source_tree_hash);end,end %#ok<AGROW>
-    f=dir(fullfile(root,'run_stage4a*.m'));for k=1:numel(f),p=fullfile(f(k).folder,f(k).name);rows(end+1)=struct('relative_path',f(k).name,'file_sha256',stage4a7_2_r2_sha256_file(p),'source_tree_hash',id.source_tree_hash);end %#ok<AGROW>
+    inventory=stage4a_freeze_r1_source_inventory(root);rel=inventory.relative_paths;
+    rows=repmat(struct('relative_path','','file_sha256','','source_tree_hash','','git_tracked',true,'file_exists',false,'file_size_bytes',0),numel(rel),1);
+    for k=1:numel(rel)
+        p=fullfile(root,strrep(rel{k},'/',filesep));info=dir(p);
+        rows(k)=struct('relative_path',rel{k},'file_sha256',stage4a7_2_r2_sha256_file(p), ...
+            'source_tree_hash',id.source_tree_hash,'git_tracked',true,'file_exists',exist(p,'file')==2,'file_size_bytes',info.bytes);
+    end
 end
 function rows=identity_environment_rows(id)
-    rows=struct('field',{'matlab_version','platform','computer_arch','runtime_environment_hash','git_head_at_run','git_branch_at_run','git_dirty_at_run','run_command','use_parallel','worker_count'}, ...
-        'value',{id.matlab_version,id.platform,id.computer_arch,id.runtime_environment_hash,id.git_head_at_run,id.git_branch_at_run,logical_text(id.git_dirty_at_run),id.run_command,logical_text(id.use_parallel),num2str(id.worker_count)});
+    rows=struct('field',{'matlab_version','platform','computer_arch','runtime_environment_hash','git_head_at_run','git_branch_at_run','git_dirty_at_run','canonical_eligible','source_inventory_count','source_inventory_tracked_only','run_command','use_parallel','worker_count'}, ...
+        'value',{id.matlab_version,id.platform,id.computer_arch,id.runtime_environment_hash,id.git_head_at_run,id.git_branch_at_run,logical_text(id.git_dirty_at_run),logical_text(id.canonical_eligible),num2str(id.source_inventory_count),logical_text(id.source_inventory_tracked_only),id.run_command,logical_text(id.use_parallel),num2str(id.worker_count)});
 end
 function x=logical_text(v),if v,x='true';else,x='false';end,end
 function s=utc_now(),d=datetime('now','TimeZone','UTC');d.Format='yyyy-MM-dd''T''HH:mm:ss.SSS''Z''';s=char(d);end
