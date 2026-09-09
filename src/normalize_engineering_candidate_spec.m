@@ -17,8 +17,9 @@ function spec = normalize_engineering_candidate_spec(spec)
     end
     raw_edges = normalize_edges(spec.allowed_edges);
     raw_cost = raw_edge_cost(spec,raw_edges);
-    [spec.allowed_edges,spec.edge_prior_cost,duplicate_count] = canonical_edges(raw_edges,raw_cost,spec.node_ids);
+    [spec.allowed_edges,spec.edge_prior_cost,duplicate_count,normalization_audit] = canonical_edges(raw_edges,raw_cost,spec.node_ids);
     spec.duplicate_count = duplicate_count;
+    spec.normalization_audit = normalization_audit;
     spec.required_edges = normalize_edges(get_field(spec,'required_edges',[]));
     spec.forbidden_edges = normalize_edges(get_field(spec,'forbidden_edges',[]));
     spec.required_edges = canonical_constraint_edges(spec.required_edges,spec.node_ids);
@@ -28,7 +29,8 @@ function spec = normalize_engineering_candidate_spec(spec)
         error('stage4a7_2:InvalidEdgeCost','edge_prior_cost must be finite and nonnegative.');
     end
     if ~isfield(spec,'maximum_degree') || isempty(spec.maximum_degree), spec.maximum_degree = Inf; end
-    if ~isscalar(spec.maximum_degree) || isnan(spec.maximum_degree) || spec.maximum_degree < 0
+    if ~isnumeric(spec.maximum_degree) || ~isscalar(spec.maximum_degree) || isnan(spec.maximum_degree) || spec.maximum_degree < 0 || ...
+            (~isinf(spec.maximum_degree) && spec.maximum_degree~=fix(spec.maximum_degree))
         error('stage4a7_2:InvalidMaximumDegree','maximum_degree must be nonnegative or Inf.');
     end
     if ~isfield(spec,'radial_only') || isempty(spec.radial_only), spec.radial_only = true; end
@@ -37,7 +39,8 @@ function spec = normalize_engineering_candidate_spec(spec)
         error('stage4a7_2:NonRadialUnsupported','This generator only constructs radial trees.');
     end
     if ~isfield(spec,'maximum_candidate_count') || isempty(spec.maximum_candidate_count), spec.maximum_candidate_count = 1e5; end
-    if ~isscalar(spec.maximum_candidate_count) || ~isfinite(spec.maximum_candidate_count) || spec.maximum_candidate_count < 1
+    if ~isnumeric(spec.maximum_candidate_count) || ~isscalar(spec.maximum_candidate_count) || ~isfinite(spec.maximum_candidate_count) || ...
+            spec.maximum_candidate_count < 1 || spec.maximum_candidate_count~=fix(spec.maximum_candidate_count)
         error('stage4a7_2:InvalidCandidateLimit','maximum_candidate_count must be a positive finite scalar.');
     end
     if ~isfield(spec,'prior_source') || isempty(spec.prior_source), spec.prior_source = 'synthetic_demo_prior_not_field_data'; end
@@ -61,7 +64,9 @@ function spec = normalize_engineering_candidate_spec(spec)
     spec.forbidden_edge_keys = forb;
 end
 
-function [edges,costs,duplicate_count] = canonical_edges(raw,cost,node_ids)
+function [edges,costs,duplicate_count,audit] = canonical_edges(raw,cost,node_ids)
+    audit=struct('duplicate_groups',0,'merged_identical_groups',0,'conflict_groups',0, ...
+        'status','no_duplicates');
     if isempty(raw), edges=raw; costs=zeros(0,1); duplicate_count=0; return; end
     for k=1:numel(raw)
         if strcmp(raw(k).from,raw(k).to), error('stage4a7_2:SelfLoop','Self-loops are not valid asset edges.'); end
@@ -74,9 +79,32 @@ function [edges,costs,duplicate_count] = canonical_edges(raw,cost,node_ids)
     edges=repmat(edge_template(),1,0); costs=zeros(0,1); duplicate_count=0; k=1;
     while k<=numel(raw)
         j=k; group=[]; while j<=numel(raw) && strcmp(keys{j},keys{k}), group(end+1)=j; j=j+1; end %#ok<AGROW>
+        audit.duplicate_groups=audit.duplicate_groups+double(numel(group)>1);
+        if numel(group)>1
+            for u=2:numel(group)
+                if ~same_asset_attributes(raw(group(1)),raw(group(u)))
+                    audit.conflict_groups=audit.conflict_groups+1;
+                    error('stage4a7_2:ConflictingDuplicateEdgeAttributes', ...
+                        'Duplicate edge %s has conflicting length, cable type, load or kind.',keys{k});
+                end
+            end
+            audit.merged_identical_groups=audit.merged_identical_groups+1;
+        end
         [~,q]=min(cost(group)); pick=group(q); edges(end+1)=raw(pick); costs(end+1,1)=cost(pick); %#ok<AGROW>
         duplicate_count=duplicate_count+numel(group)-1; k=j;
     end
+    if duplicate_count>0, audit.status='identical_duplicates_merged'; end
+end
+
+function tf=same_asset_attributes(a,b)
+    tf=strcmp(char(a.kind),char(b.kind)) && same_scalar(a.length_m,b.length_m) && ...
+        isequaln(a.cable_type,b.cable_type) && same_scalar(a.load,b.load);
+end
+function tf=same_scalar(a,b)
+    if isempty(a)&&isempty(b),tf=true;return;end
+    if isnumeric(a)&&isnumeric(b)&&isscalar(a)&&isscalar(b)
+        if isnan(a)&&isnan(b),tf=true;else,tf=abs(double(a)-double(b))<=1e-12*max([1 abs(double(a)) abs(double(b))]);end
+    else,tf=isequaln(a,b);end
 end
 
 function costs=raw_edge_cost(spec,edges)

@@ -11,10 +11,35 @@ function [digest, canonical_text] = stage4a2_config_hash(value)
         raw = typecast(md.digest(),'uint8');
         digest = lower(reshape(dec2hex(raw,2).',1,[]));
     catch
-        bytes = uint64(uint8(canonical_text));
-        weights = uint64(1:numel(bytes));
-        digest = sprintf('fallback_%016X',sum(bytes.*weights));
+        % R2024a -nojvm remains useful for headless recovery, but has no
+        % Java runtime.  Use the system SHA-256 implementation rather than
+        % the former non-cryptographic weighted-byte fallback.
+        digest = sha256_system(unicode2native(canonical_text,'UTF-8'));
     end
+end
+
+function digest = sha256_system(bytes)
+    tmp = [tempname '.sha256_input'];
+    cleanup = onCleanup(@()delete_if_exists(tmp)); %#ok<NASGU>
+    fid = fopen(tmp,'wb');
+    if fid < 0, error('stage4a2_config_hash:FallbackOpenFailed','Cannot create SHA-256 fallback input.'); end
+    fwrite(fid,uint8(bytes(:)),'uint8'); fclose(fid);
+    [status,out] = system(['/usr/bin/sha256sum ' shell_quote(tmp)]);
+    if status ~= 0
+        error('stage4a2_config_hash:FallbackFailed','System SHA-256 failed: %s',strtrim(out));
+    end
+    digest = regexp(strtrim(out),'^[0-9A-Fa-f]{64}','match','once');
+    if isempty(digest), error('stage4a2_config_hash:FallbackMalformed','System SHA-256 output was malformed.'); end
+    digest = lower(digest);
+end
+
+function q = shell_quote(x)
+    sq = char(39);
+    q = [sq strrep(x,sq,[sq '"' sq '"' sq]) sq];
+end
+
+function delete_if_exists(p)
+    if exist(p,'file'), delete(p); end
 end
 
 function text = canonicalize(value)

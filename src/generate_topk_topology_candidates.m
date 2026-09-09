@@ -75,7 +75,7 @@ function lb=lower_bound(s,edges,costs,target)
 end
 function s=state_template(),s=struct('pos',1,'selected',repmat(edge_template(),1,0),'parent',[],'degree',[],'cost',0,'lower_bound',0,'state_key','');end
 function [state,q]=pop_queue(q)
-    order=1:numel(q); for i=2:numel(order),x=order(i);j=i-1;while j>=1&&(q(x).lower_bound<q(order(j)).lower_bound||(q(x).lower_bound==q(order(j)).lower_bound&&strcmp(q(x).state_key,q(order(j)).state_key)<0)),order(j+1)=order(j);j=j-1;end;order(j+1)=x;end
+    order=1:numel(q); for i=2:numel(order),x=order(i);j=i-1;while j>=1&&(q(x).lower_bound<q(order(j)).lower_bound||(q(x).lower_bound==q(order(j)).lower_bound&&stage4a7_2_r2_compare_text(q(x).state_key,q(order(j)).state_key)<0)),order(j+1)=order(j);j=j-1;end;order(j+1)=x;end
     state=q(order(1)); q=q(order(2:end));
 end
 function x=queue_min_bound(q),x=min([q.lower_bound]);end
@@ -97,7 +97,7 @@ function c=pack_candidate(edges,s,spec)
     meta=struct('generation_route','optimization_topk_lazy_best_first','generation_trace',struct('state_key',s.state_key,'lower_bound',s.lower_bound), 'satisfied_constraints',{{'radial','connected','required_edges','degree_bound'}},'prior_cost',s.cost,'prior_source',spec.prior_source,'prior_config_hash',spec.prior_config_hash);
     c=canonicalize_asset_graph(spec.node_ids,edges,meta);c.edges=edges;c.graph_candidate_id='';c.source_node_id=getf(spec,'source_node_id','');c.receiver_node_id=getf(spec,'receiver_node_id','');c.generation_route='optimization_topk_lazy_best_first';c.generation_trace=meta.generation_trace;c.satisfied_constraints=meta.satisfied_constraints;c.prior_cost=s.cost;c.prior_source=spec.prior_source;c.prior_config_hash=spec.prior_config_hash;c.forward_model_compatible=NaN;c.compatibility_reason='not_checked';c.adapter_hash='';c.scored_library_included=false;
 end
-function c=make_empty_candidate(),c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}},'canonical_graph_key','','graph_candidate_id','','source_node_id','','receiver_node_id','','generation_route','','generation_trace',struct(),'satisfied_constraints',{{}},'prior_cost',NaN,'prior_source','','prior_config_hash','','forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);end
+function c=make_empty_candidate(),c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}},'canonical_graph_key','','topology_key','','asset_state_key','','graph_candidate_id','','source_node_id','','receiver_node_id','','generation_route','','generation_trace',struct(),'satisfied_constraints',{{}},'prior_cost',NaN,'prior_source','','prior_config_hash','','forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);end
 function c=candidate_order(c)
     if numel(c)<2,return;end
     order=1:numel(c);

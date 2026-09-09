@@ -1,0 +1,17 @@
+Stage 4A.7.2-R.2.1 smoke completed: engineering=204 compatible=87 scored=87 calibration=870 pilot=87 method=absolute in 1560.129 s.
+                            stage_name: 'Stage 4A.7.2-R.2.1'
+                                  mode: 'smoke'
+                                status: 'smoke_completed'
+           engineering_candidate_count: 204
+    forward_compatible_candidate_count: 87
+        profile_scored_candidate_count: 87
+                     development_count: 174
+                     calibration_count: 870
+                           pilot_count: 87
+                       selected_method: 'absolute'
+          scientifically_unique_winner: 0
+                       experiment_hash: 'e590721fa903bfa54f58ba8e45327446e68a14b23b74aca145191a37c7e491f8'
+                      source_tree_hash: '4b07b296f9ac6d6a968e74233685fcf9fe60c22f5021e9fb4065cc571c17aecb'
+                 final_reserved_status: 'manifest_only_not_materialized'
+                       stage4b_started: 0
+                             elapsed_s: 1.5600e+03

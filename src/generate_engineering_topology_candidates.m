@@ -153,20 +153,10 @@ function c=empty_candidate()
     c=struct('node_ids',{{}},'edges',repmat(edge_template(),1,0),'sorted_edge_set',{{}},'node_count',0,'edge_count',0,'source_node_id','','receiver_node_id','', ...
         'canonical_graph_key','','graph_candidate_id','','generation_route','','generation_trace',struct(), ...
         'satisfied_constraints',{{}},'prior_cost',NaN,'prior_source','','prior_config_hash','', ...
-        'forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);
+        'topology_key','','asset_state_key','','forward_model_compatible',NaN,'compatibility_reason','','adapter_hash','','scored_library_included',false);
 end
 function c=candidate_order(c)
-    if numel(c)<2, return; end
-    order=1:numel(c);
-    for i=2:numel(order)
-        x=order(i); j=i-1;
-        while j>=1 && (c(x).prior_cost<c(order(j)).prior_cost || ...
-                (c(x).prior_cost==c(order(j)).prior_cost && strcmp(c(x).canonical_graph_key,c(order(j)).canonical_graph_key)<0))
-            order(j+1)=order(j); j=j-1;
-        end
-        order(j+1)=x;
-    end
-    c=c(order);
+    c=stage4a7_2_r2_sort_candidates(c);
 end
 function e=normalize_edges(edges)
     if isempty(edges),e=repmat(edge_template(),1,0);return;end

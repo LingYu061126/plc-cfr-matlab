@@ -51,7 +51,7 @@ function out=aggregate_confusion(in)
 end
 function [p,c]=deduplicate_geometry(p,c)
     if ~isempty(p)
-        keys=cell(1,numel(p));for k=1:numel(p),a=p(k).topology_i;b=p(k).topology_j;if strcmp(a,b)>0,tmp=a;a=b;b=tmp;end;keys{k}=[p(k).measurement_kind '|' a '|' b];end
+        keys=cell(1,numel(p));for k=1:numel(p),a=p(k).topology_i;b=p(k).topology_j;if stage4a7_2_r2_compare_text(a,b)>0,tmp=a;a=b;b=tmp;end;keys{k}=[p(k).measurement_kind '|' a '|' b];end
         [~,ix]=unique(keys,'stable');p=p(sort(ix));
     end
     if ~isempty(c),[~,ix]=unique({c.measurement_kind},'stable');c=c(sort(ix));end

@@ -28,12 +28,24 @@ function graph = canonicalize_asset_graph(nodes, edges, metadata)
     [~, order] = sort(edge_keys);
     edge_rows = edge_rows(order);
     edge_keys = edge_keys(order);
+    topology_edges=cell(1,numel(edge_rows)); asset_edges=cell(1,numel(edge_rows));
+    for k=1:numel(edge_rows)
+        pair=sort({char(edge_rows(k).from),char(edge_rows(k).to)});
+        topology_edges{k}=sprintf('%s--%s',pair{1},pair{2});
+        asset_edges{k}=sprintf('%s--%s[%s]|L=%.17g|C=%s|Z=%s',pair{1},pair{2}, ...
+            get_text(edge_rows(k),'kind','line'),get_number(edge_rows(k),'length_m',NaN), ...
+            value_text(get_field(edge_rows(k),'cable_type',[])),value_text(get_field(edge_rows(k),'load',NaN)));
+    end
+    topology_key=sprintf('V=%s|E=%s',strjoin(node_ids,','),strjoin(sort(topology_edges),','));
+    asset_state_key=sprintf('V=%s|E=%s',strjoin(node_ids,','),strjoin(sort(asset_edges),','));
     key = sprintf('V=%s|E=%s',strjoin(node_ids,','),strjoin(edge_keys,','));
     graph = struct();
     graph.node_ids = node_ids;
     graph.edges = edge_rows;
     graph.sorted_edge_set = edge_keys;
     graph.canonical_graph_key = key;
+    graph.topology_key = topology_key;
+    graph.asset_state_key = asset_state_key;
     graph.graph_candidate_id = get_text(metadata,'graph_candidate_id','');
     graph.generation_route = get_text(metadata,'generation_route','');
     graph.generation_trace = get_field(metadata,'generation_trace',struct());
@@ -86,3 +98,7 @@ end
 function x=get_field(s,n,d), if isstruct(s)&&isfield(s,n)&&~isempty(s.(n)),x=s.(n);else,x=d;end,end
 function x=get_text(s,n,d),x=get_field(s,n,d);if ~ischar(x),x=char(x);end;if isempty(x),x=d;end,end
 function x=get_number(s,n,d),x=get_field(s,n,d);if ~isnumeric(x)||~isscalar(x),x=d;end,end
+function x=value_text(v)
+    if isempty(v),x='[]';return;end
+    if ischar(v),x=v;elseif isstring(v),x=char(v);elseif isnumeric(v)&&isscalar(v),x=sprintf('%.17g',v);else,x=mat2str(v);end
+end

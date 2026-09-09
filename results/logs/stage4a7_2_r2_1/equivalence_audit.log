@@ -1,0 +1,24 @@
+24.1.0.2537033 (R2024a)
+Equivalence audit: 87 candidates, 3741 pairs.
+Equivalence audit progress: candidate 10/87, elapsed 0.091 s.
+Equivalence audit progress: candidate 20/87, elapsed 0.160 s.
+Equivalence audit progress: candidate 30/87, elapsed 0.214 s.
+Equivalence audit progress: candidate 40/87, elapsed 0.258 s.
+Equivalence audit progress: candidate 50/87, elapsed 0.294 s.
+Equivalence audit progress: candidate 60/87, elapsed 0.322 s.
+Equivalence audit progress: candidate 70/87, elapsed 0.340 s.
+Equivalence audit progress: candidate 80/87, elapsed 0.351 s.
+Equivalence audit progress: candidate 86/87, elapsed 0.355 s.
+Equivalence audit completed: 3741 pairs, 0.981 s.
+                                         status: 'completed'
+                                candidate_count: 87
+                                     pair_count: 3741
+     same_theta_numerical_equivalent_pair_count: 0
+                        nearest_candidate_count: 87
+                         cross_theta_pair_count: 62
+    cross_theta_numerical_equivalent_pair_count: 0
+                            numerical_tolerance: 1.0000e-10
+                     noise_resolution_threshold: NaN
+                              cross_theta_scope: 'same_theta_nearest_pairs_only'
+                  source_formal_experiment_hash: 'cc0d037fd639c261650f040155105afc1c739b33dc5f431de41c801405e8ebd1'
+                                      runtime_s: 0.9808

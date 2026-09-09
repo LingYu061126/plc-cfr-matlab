@@ -1,0 +1,8 @@
+corruption,engineering_candidate_count,forward_compatible_candidate_count,profile_scored_candidate_count,truth_in_engineering_space,truth_forward_compatible,truth_in_profile_scored_library,reference_rank_by_prior,minimum_k_containing_truth,topk_coverage_loss,failure_reason,status
+nominal,204,87,87,1,1,1,35,35,0,,covered
+missing_edge,204,0,0,0,0,0,NaN,NaN,1,prior_exclusion_or_candidate_gap,coverage_loss
+false_edge,204,87,87,1,1,1,35,35,0,,covered
+confidence_inversion,204,87,87,1,1,1,65,65,0,,covered
+incorrect_required_edge,204,87,87,1,1,1,35,35,0,,covered
+missing_switch_state,204,87,87,1,1,1,35,35,0,,covered
+mixed_corruption,66,28,28,0,0,0,NaN,NaN,1,prior_exclusion_or_candidate_gap,coverage_loss
