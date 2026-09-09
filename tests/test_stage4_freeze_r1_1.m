@@ -14,8 +14,11 @@ function test_stage4_freeze_r1_1()
     id=struct('selected_method','profile_relative_distance','experiment_hash','eh','stage','Stage 4A Freeze-R.1.1');
     stamped=stage4a_freeze_r1_stamp_identity(row,id);assert(strcmp(stamped.selected_method,'profile_min_distance'),'Scientific selected_method was overwritten.');assert(strcmp(stamped.canonical_execution_method,'profile_relative_distance'),'Canonical execution method was not separated.');
     assert_throws(@()stage4a_freeze_r1_stamp_identity(row,struct('experiment_hash','different')),'stage4a_freeze_r1:IdentityFieldCollision');
+    dirty_probe=fullfile(root,'.stage4_freeze_r1_1_dirty_probe.tmp');fid=fopen(dirty_probe,'w');fprintf(fid,'probe');fclose(fid);dirty_cleanup=onCleanup(@()delete_if_exists(dirty_probe)); %#ok<NASGU>
     assert_throws(@()stage4a_freeze_r1_runtime_identity(root,default_config(root),'formal','now','test'),'stage4a_freeze_r1:DirtyCanonicalSource');
     smoke_id=stage4a_freeze_r1_runtime_identity(root,default_config(root),'smoke','now','test');assert(smoke_id.git_dirty_at_run&&~smoke_id.canonical_eligible,'Dirty smoke identity was not recorded.');
+    clear dirty_cleanup;delete_if_exists(dirty_probe);
+    clean_id=stage4a_freeze_r1_runtime_identity(root,default_config(root),'formal','now','test');assert(~clean_id.git_dirty_at_run&&clean_id.canonical_eligible,'Clean formal identity was not accepted.');
     manifest_path=fullfile(tmp,'source_manifest.csv');t=table(string(inv.relative_paths{1}),string(stage4a7_2_r2_sha256_file(fullfile(root,strrep(inv.relative_paths{1},'/',filesep)))),string(h1),true,true,0, ...
         'VariableNames',{'relative_path','file_sha256','source_tree_hash','git_tracked','file_exists','file_size_bytes'});writetable(t,manifest_path);a=stage4a_freeze_r1_validate_source_manifest(root,manifest_path,h1);assert(a.manifest_row_count==1&&a.hash_mismatch_count==0,'Valid source manifest was rejected.');
     t.relative_path(1)="src/this_file_does_not_exist.m";writetable(t,manifest_path);assert_throws(@()stage4a_freeze_r1_validate_source_manifest(root,manifest_path,h1),'stage4a_freeze_r1:SourceManifestMissingFile');
@@ -23,3 +26,4 @@ function test_stage4_freeze_r1_1()
 end
 function assert_throws(fun,id),ok=false;try,fun();catch e,ok=strcmp(e.identifier,id);end;assert(ok,'Expected error %s.',id);end
 function cleanup_files(paths),for k=1:numel(paths),if exist(paths{k},'file'),delete(paths{k});end,end,end
+function delete_if_exists(p),if exist(p,'file'),delete(p);end,end
