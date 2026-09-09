@@ -11,6 +11,9 @@ function sc=stage4a_freeze_r1_1_config(base,mode,freeze_root_override,source_ove
     sc=stage4a7_3_domain_validation_config(base,mode);
     sc.stage_name='Stage 4A Freeze-R.1.1';
     sc.version='stage4a_freeze_r1_1_v1';
+    % R2.1.2 archive and Stage 4A.7.3 share the frozen v3 source root;
+    % the latter resolves its formal subdirectory internally.
+    sc.source_formal_dir=fullfile(base.root_dir,'results','data','stage4a7_2_r2_1_1','final_source_v3');
     sc.freeze_root=freeze_root;
     sc.output_root=fullfile(freeze_root,'stage4a7_3');
     sc.results_logs=fullfile(base.root_dir,'results','logs','stage4a_freeze_r1_1');
