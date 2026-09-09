@@ -10,9 +10,10 @@ function test_stage4_freeze_r1_1()
     inv=stage4a_freeze_r1_source_inventory(root);assert(inv.tracked_only&&inv.file_count>0,'Tracked source inventory is empty.');
     assert(all(cellfun(@(p)exist(fullfile(root,strrep(p,'/',filesep)),'file')==2,inv.relative_paths)),'Source inventory contains a missing file.');
     h1=stage4a_freeze_r1_source_tree_hash(root);h2=stage4a_freeze_r1_source_tree_hash(root);assert(strcmp(h1,h2)&&numel(h1)==64,'Source tree hash is not deterministic.');
-    row=struct('rule_id','rule_B_strict_lexicographic_sensitivity','selected_method','profile_min_distance','threshold',0.0564853173821596,'experiment_hash','eh');
-    id=struct('selected_method','profile_relative_distance','experiment_hash','eh','stage','Stage 4A Freeze-R.1.1');
+    row=struct('rule_id','rule_B_strict_lexicographic_sensitivity','selected_method','profile_min_distance','threshold',0.0564853173821596,'experiment_hash','eh','domain_calibration_hash','method_hash');
+    id=struct('selected_method','profile_relative_distance','experiment_hash','eh','stage','Stage 4A Freeze-R.1.1','domain_calibration_hash','canonical_hash');
     stamped=stage4a_freeze_r1_stamp_identity(row,id);assert(strcmp(stamped.selected_method,'profile_min_distance'),'Scientific selected_method was overwritten.');assert(strcmp(stamped.canonical_execution_method,'profile_relative_distance'),'Canonical execution method was not separated.');
+    assert(strcmp(stamped.domain_calibration_hash,'method_hash')&&strcmp(stamped.canonical_domain_calibration_hash,'canonical_hash'),'Calibration hash field semantics were conflated.');
     assert_throws(@()stage4a_freeze_r1_stamp_identity(row,struct('experiment_hash','different')),'stage4a_freeze_r1:IdentityFieldCollision');
     dirty_probe=fullfile(root,'.stage4_freeze_r1_1_dirty_probe.tmp');fid=fopen(dirty_probe,'w');fprintf(fid,'probe');fclose(fid);dirty_cleanup=onCleanup(@()delete_if_exists(dirty_probe)); %#ok<NASGU>
     assert_throws(@()stage4a_freeze_r1_runtime_identity(root,default_config(root),'formal','now','test'),'stage4a_freeze_r1:DirtyCanonicalSource');

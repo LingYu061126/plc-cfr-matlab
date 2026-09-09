@@ -13,6 +13,12 @@ function rows=stage4a_freeze_r1_stamp_identity(rows,id)
     row_fields=fieldnames(rows);
     for j=1:numel(fields)
         f=fields{j};value=identity.(f);
+        % A method-selection table has one calibration hash per method,
+        % whereas the run identity has the hash for the canonical method.
+        % Keep both meanings instead of treating them as the same field.
+        if strcmp(f,'domain_calibration_hash') && ismember(f,row_fields)
+            f='canonical_domain_calibration_hash';
+        end
         if ismember(f,row_fields)
             for k=1:numel(rows)
                 if ~same_value(rows(k).(f),value)
