@@ -2,9 +2,9 @@
 
 ## 决定
 
-**结论：CONDITIONAL FREEZE — 允许冻结 Stage 4A 实验并转入正式报告撰写；不再以提高准确率为目标横向扩展算法。**
+**结论：PASS — Stage 4A frozen; proceed to formal report writing.**
 
-“conditional”并不表示回避负结果，而是限定报告可作出的主张：Stage 4A 已提供受约束候选生成、校准候选集合、拒绝/歧义语义、参数域失配和数值非唯一控制的可追溯证据；它没有证明真实网络中的物理唯一拓扑恢复。
+该结论限定报告可作出的主张：Stage 4A 已提供受约束候选生成、校准候选集合、拒绝/歧义语义、参数域失配和数值非唯一控制的可追溯证据；它没有证明真实网络中的物理唯一拓扑恢复。
 
 ## Gate 审计
 
@@ -12,12 +12,12 @@
 |---|---|---|
 | 工程先验 → 受约束候选库 | Stage 4A.7.2-R.2.1.1 canonical v3 及其覆盖审计 | 通过（模型内） |
 | 候选确认是校准集合而非单一最小距离 | Stage 4A.7.2-R.2.1.2 canonical manifest、cluster-bootstrap 再分析 | 通过 |
-| deterministic 方法选择与科学唯一优胜分离 | `scientifically_unique_winner=0`，统计再分析报告 | 通过（负结论保留） |
-| 近边界域内不被改标为 OOD | Stage 4A.7.2-R.2.1.2 category semantics；Stage 4A.7.3 exact-boundary 实验 | 通过 |
+| deterministic 方法选择与科学唯一优胜分离 | Freeze-R.1 canonical Rule A 与 Rule B sensitivity，`scientifically_unique_winner=0` | 通过（负结论保留） |
+| 近拒绝分数不冒充物理边界 | `borderline_domain_score` 与 `exact_lower/upper_boundary` 分离；Stage 4A.7.3 exact-boundary 实验 | 通过 |
 | 双侧 OOD 与独立参数 calibration | Stage 4A.7.3，40 calibration/候选、lower/upper near/medium/far | 通过 |
 | 非唯一样本有非零分母并数值核验 | T3/T5 matched-impedance 120-row control | 通过（仅正控制范围） |
 | 不利结果保留 | near OOD 低拒绝覆盖、参数失配下 topology-set coverage 下降、10 dB 一例 false unique | 通过 |
-| 全历史回归 | `results/logs/stage4a7_3/full_regression_postfix.log` | 通过，退出状态 0 |
+| Freeze-R.1 全历史回归 | `results/logs/stage4a_freeze_r1/full_regression.log` | 通过，退出状态 0 |
 | Stage 4B / 完整 Final | formal summary 的 `final_reserved_status=manifest_only_not_materialized`；`stage4b_started=0` | 未启动（符合边界） |
 
 ## 报告中应采用的结论
@@ -40,4 +40,4 @@
 
 ## 下一步
 
-进入 Stage 4A 正式报告撰写与证据整合；Stage 4B 不启动。
+进入 Stage 4A 正式报告撰写与证据整合；Stage 4B 不启动。Windows 原生 MATLAB 尚未在当前环境实测，记录为 external reproduction pending，不阻止科学协议冻结。

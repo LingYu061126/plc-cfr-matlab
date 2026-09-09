@@ -1,7 +1,7 @@
-function summary=exp_stage4a7_2_r2_1_2_statistics_archive(root)
+function summary=exp_stage4a7_2_r2_1_2_statistics_archive(root,output_override)
 %EXP_STAGE4A7_2_R2_1_2_STATISTICS_ARCHIVE Reanalyse v3 with cluster CI.
     if nargin<1||isempty(root),root=fileparts(fileparts(mfilename('fullpath')));end
-    addpath(fullfile(root,'src'),fullfile(root,'config'));base=default_config(root);out=fullfile(root,'results','data','stage4a7_2_r2_1_2');ensure_dir(out);t0=tic;
+    addpath(fullfile(root,'src'),fullfile(root,'config'));base=default_config(root);out=fullfile(root,'results','data','stage4a7_2_r2_1_2');if nargin>=2&&~isempty(output_override),out=output_override;end;ensure_dir(out);t0=tic;
     source_root=fullfile(root,'results','data','stage4a7_2_r2_1_1','final_source_v3');formal=fullfile(source_root,'formal');paired=fullfile(source_root,'paired');
     must={fullfile(formal,'checkpoint_development.mat'),fullfile(formal,'checkpoint_calibration.mat'),fullfile(formal,'summary.mat'),fullfile(paired,'paired_decisions.csv')};for k=1:numel(must),assert(exist(must{k},'file')==2,'stage4a7_2_r2_1_2:MissingCanonicalInput','Missing canonical input %s.',must{k});end
     d=load(fullfile(formal,'checkpoint_development.mat'));c=load(fullfile(formal,'checkpoint_calibration.mat'));s=load(fullfile(formal,'summary.mat'),'sc','ids');

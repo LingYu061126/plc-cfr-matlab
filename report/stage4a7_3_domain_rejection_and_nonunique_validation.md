@@ -7,7 +7,7 @@
 
 流程为：独立 development → 独立 calibration → 冻结参数域阈值 → 独立 Pilot。候选确认器、候选缓存和其 calibration 模型来自只读的 R2.1.1 `final_source_v3`；参数域模块只接受 profile-distance，未向候选确认、profile 距离或阈值函数传递真值拓扑、域标签或 OOD severity。
 
-[代码静态核对] `exp_stage4a7_3_domain_rejection_and_nonunique_validation.m` 以每个候选自身的 243-template CFR cache 计算 profile distance，并把 topology set 与 `parameter_domain_status` 分开保存。`stage4a7_3_calibrate_domain_model.m` 仅使用 in-domain calibration score；`stage4a7_3_apply_domain_model.m` 输出 `in_parameter_domain`、`near_parameter_boundary` 或 `out_of_parameter_domain`。
+[代码静态核对] `exp_stage4a7_3_domain_rejection_and_nonunique_validation.m` 以每个候选自身的 243-template CFR cache 计算 profile distance，并把 topology set 与 `parameter_domain_status` 分开保存。`stage4a7_3_calibrate_domain_model.m` 仅使用 in-domain calibration score；`stage4a7_3_apply_domain_model.m` 输出 `in_parameter_domain`、`borderline_domain_score`、`out_of_parameter_domain` 或 `undetermined`。`borderline_domain_score` 只表示分数接近拒绝阈值，不表示真实物理参数位于参数域边界。
 
 ## 设计与身份
 
@@ -19,14 +19,14 @@
 | 参数 calibration 场景 | 3,480（40/候选） |
 | Pilot 场景 | 783（9 个类别 × 87） |
 | Pilot 非唯一控制 | 120（40/噪声级） |
-| 噪声 | 频域复高斯等效噪声，30 dB 与 10 dB；控制另含无噪声 |
+| 噪声 | 参数域 development/calibration/Pilot 使用 20 dB 频域等效复高斯噪声；T3/T5 控制使用无噪声、30 dB 与 10 dB |
 | worker | 1；未启动并行池 |
 
 正式域阈值选择 `profile_relative_distance`；calibration quantile 为 0.95，阈值 0.110340450651554，near-boundary 阈值 0.104446064804368，参数 calibration hash 为 `0829042b4eaa7f045282fbc9fe08c209fd5c7d2b1197539791792966f906954c`。development 中两个预注册分数均通过 in-domain gate，但没有科学唯一优胜者；`profile_relative_distance` 仅作为确定性 execution fallback。
 
 ## 域内、边界与双侧 OOD
 
-严格边界点仍属于域内；near/medium/far OOD 在 lower 和 upper 两侧分别评价。下表的拒绝率是 `out_of_parameter_domain` 的比例；Wilson 区间按候选 ID cluster（87 个）计算。
+严格边界点仍属于域内；near/medium/far OOD 在 lower 和 upper 两侧分别评价。下表的拒绝率是 `out_of_parameter_domain` 的比例；区间使用 candidate-cluster percentile Bootstrap，而非 Wilson 区间。当前每个 candidate×category 只有一个 replicate，因此 candidate cluster 与单行重合。
 
 | 类别 | 参数域拒绝 | 95% CI |
 |---|---:|---:|
@@ -54,7 +54,7 @@ T3/T5 被用作正控制，但只在**源端与接收端阻抗匹配的同一参
 | 30 dB | 0/40 | 40/40 | 0/40 |
 | 10 dB | 1/40 = 2.5% [0%, 7.5%] | 39/40 | 1/40 |
 
-[本次运行] 非唯一分母为 40，而非零；被拒绝或多候选的样本没有从该分母删除。结论是：在该严格且狭窄的数值对称正控制内，校准候选集合大多保留完整等价类；它不是对 ENWL 共享候选空间所有潜在非唯一性的全局证明。
+[本次运行] 非唯一分母为 40，而非零；被拒绝或多候选的样本没有从该分母删除。非唯一控制的重采样单位是 `test_sample`，不是 candidate cluster。百分位 Bootstrap 在 0/40 时可能给出退化的 `[0,0]` 区间，这不表示真实总体概率严格为零。结论是：在该严格且狭窄的数值对称正控制内，校准候选集合大多保留完整等价类；它不是对 ENWL 共享候选空间所有潜在非唯一性的全局证明。
 
 ## 运行、测试与数据
 

@@ -1,0 +1,17 @@
+*.m       text eol=lf
+*.md      text eol=lf
+*.csv     text eol=lf
+*.json    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.txt     text eol=lf
+*.log     text eol=lf
+*.mat     binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.pdf     binary
+*.docx    binary
+*.zip     binary
+*.bat     text eol=crlf
+*.cmd     text eol=crlf

@@ -18,7 +18,7 @@ function test_stage4a7_2_r2_1_2_statistics()
     assert(~win&&contains(why,'missing_comparison'),'Missing comparisons must block scientific uniqueness.');
     model=stage4a7_3_calibrate_domain_model((1:40)', 'profile_min_distance',struct('minimum_count',20,'quantile',.95,'near_boundary_quantile',.80));
     lo=stage4a7_3_apply_domain_model(1,model);mid=stage4a7_3_apply_domain_model(model.near_boundary_threshold+.01,model);hi=stage4a7_3_apply_domain_model(model.threshold+.01,model);
-    assert(strcmp(lo.parameter_domain_status,'in_parameter_domain')&&strcmp(mid.parameter_domain_status,'near_parameter_boundary')&&strcmp(hi.parameter_domain_status,'out_of_parameter_domain'),'Domain status thresholds are not ordered.');
+    assert(strcmp(lo.parameter_domain_status,'in_parameter_domain')&&strcmp(mid.parameter_domain_status,'borderline_domain_score')&&strcmp(hi.parameter_domain_status,'out_of_parameter_domain'),'Domain score status thresholds are not ordered.');
     assert_throws(@()stage4a7_3_calibrate_domain_model(1:5,'x',struct('minimum_count',20)), 'stage4a7_3:InsufficientCalibration');
     fprintf('  PASS Stage 4A.7.2-R.2.1.2 cluster bootstrap and frozen domain threshold semantics\n');
 end

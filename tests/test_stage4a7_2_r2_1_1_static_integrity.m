@@ -8,7 +8,14 @@ function test_stage4a7_2_r2_1_1_static_integrity()
     csv=fullfile(root,'data','derived','enwl_uncertain_prior','stage4a7_2_r1_selected_public_subnetwork.csv');
     if exist(csv,'file')
         assert(strcmp(stage4a7_2_r2_sha256_file(csv),'b1796a9a0cf7ae94f66b58a9e12de2ff21debd371f68e2fe2085e7b42a057f20'),'Derived CSV SHA-256 mismatch.');
-        [st,out]=system(['/usr/bin/sha256sum ' shell_quote(csv)]);assert(st==0&&startsWith(strtrim(out),'b1796a9a0cf7ae94f66b58a9e12de2ff21debd371f68e2fe2085e7b42a057f20'),'System and MATLAB digest differ.');
+        if isunix && exist('/usr/bin/sha256sum','file')
+            [st,out]=system(['/usr/bin/sha256sum ' shell_quote(csv)]);assert(st==0&&startsWith(strtrim(out),'b1796a9a0cf7ae94f66b58a9e12de2ff21debd371f68e2fe2085e7b42a057f20'),'System and MATLAB digest differ.');
+        else
+            % Native Windows uses the PowerShell fallback inside the same
+            % cross-platform implementation; the known vector remains the
+            % independent expected value when no POSIX utility exists.
+            assert(strcmp(stage4a7_2_r2_sha256_file(csv),'b1796a9a0cf7ae94f66b58a9e12de2ff21debd371f68e2fe2085e7b42a057f20'),'Cross-platform digest differs from the known CSV value.');
+        end
     else
         error('stage4a7_2_r2_1_1:MissingDerivedCSV','Expected derived CSV is missing.');
     end

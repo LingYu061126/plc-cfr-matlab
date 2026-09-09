@@ -1,0 +1,11 @@
+field,value
+matlab_version,"24.1.0.2537033 (R2024a)"
+platform,"GLNXA64"
+computer_arch,"glnxa64"
+runtime_environment_hash,"8313f3a14914316354fa22dbe4ec3d546eb572e0092c5305b62000dfdd90c16f"
+git_head_at_run,"0a3f215400ce715684eb98cdce75ccbda7301b84"
+git_branch_at_run,"main"
+git_dirty_at_run,"true"
+run_command,"run_stage4_freeze_r1(pwd,'formal')"
+use_parallel,"false"
+worker_count,"1"

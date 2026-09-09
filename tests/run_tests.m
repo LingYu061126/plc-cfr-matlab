@@ -236,6 +236,7 @@ function run_tests()
     test_stage4a7_2_r2_1_1_static_integrity();
     test_stage4a7_2_r2_1_2_statistics();
     test_stage4a7_3_domain_nonunique();
+    test_stage4_freeze_r1();
 end
 
 function err = determinant_error(T)
