@@ -234,6 +234,8 @@ function run_tests()
     test_stage4a7_2_r2_candidate_coverage();
     test_stage4a7_2_r2_1_static_integrity();
     test_stage4a7_2_r2_1_1_static_integrity();
+    test_stage4a7_2_r2_1_2_statistics();
+    test_stage4a7_3_domain_nonunique();
 end
 
 function err = determinant_error(T)

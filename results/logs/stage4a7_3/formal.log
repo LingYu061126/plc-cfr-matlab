@@ -1,0 +1,35 @@
+Stage 4A.7.3 formal completed: candidates=87 pilot=783 nonunique=120 in 360.683 s.
+                          stage_name: 'Stage 4A.7.3'
+                                mode: 'formal'
+                              status: 'formal_completed'
+                     candidate_count: 87
+                   development_count: 783
+                   calibration_count: 3480
+                         pilot_count: 783
+                 nonunique_row_count: 120
+                        worker_count: 1
+                        use_parallel: 0
+                           runtime_s: 360.6829
+                     experiment_hash: '10087c4b0de4d7ea3af1f4801745fc7db4d164e7d94cb0c980e24206ab9ff219'
+    frozen_candidate_experiment_hash: '36ab4a9a2ffceeeb1e7241d89cf281540d0e78acce35f27e068187e3fe0832c8'
+             domain_calibration_hash: '0829042b4eaa7f045282fbc9fe08c209fd5c7d2b1197539791792966f906954c'
+               final_reserved_status: 'manifest_only_not_materialized'
+                     stage4b_started: 0
+
+Stage 4A.7.3 formal completed: candidates=87 pilot=783 nonunique=120 in 356.937 s.
+                          stage_name: 'Stage 4A.7.3'
+                                mode: 'formal'
+                              status: 'formal_completed'
+                     candidate_count: 87
+                   development_count: 783
+                   calibration_count: 3480
+                         pilot_count: 783
+                 nonunique_row_count: 120
+                        worker_count: 1
+                        use_parallel: 0
+                           runtime_s: 356.9365
+                     experiment_hash: '10087c4b0de4d7ea3af1f4801745fc7db4d164e7d94cb0c980e24206ab9ff219'
+    frozen_candidate_experiment_hash: '36ab4a9a2ffceeeb1e7241d89cf281540d0e78acce35f27e068187e3fe0832c8'
+             domain_calibration_hash: '0829042b4eaa7f045282fbc9fe08c209fd5c7d2b1197539791792966f906954c'
+               final_reserved_status: 'manifest_only_not_materialized'
+                     stage4b_started: 0

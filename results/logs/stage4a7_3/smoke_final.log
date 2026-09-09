@@ -1,0 +1,26 @@
+{Error using horzcat
+Dimensions of arrays being concatenated are not consistent.
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation (line 31)
+    write_rows(fullfile(out,'scenario_manifest.csv'),[manifest_rows(dev) manifest_rows(cal) manifest_rows(pilot)]);
+
+Error in run_stage4a7_3_domain_rejection_and_nonunique_validation (line 5)
+summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode);
+}
+Stage 4A.7.3 smoke completed: candidates=87 pilot=783 nonunique=12 in 110.162 s.
+                          stage_name: 'Stage 4A.7.3'
+                                mode: 'smoke'
+                              status: 'formal_completed'
+                     candidate_count: 87
+                   development_count: 261
+                   calibration_count: 435
+                         pilot_count: 783
+                 nonunique_row_count: 12
+                        worker_count: 1
+                        use_parallel: 0
+                           runtime_s: 110.1625
+                     experiment_hash: 'bbabe25db5d63cd8453eced26b88e902623713af1350e8e0221ed266c63e788a'
+    frozen_candidate_experiment_hash: '36ab4a9a2ffceeeb1e7241d89cf281540d0e78acce35f27e068187e3fe0832c8'
+             domain_calibration_hash: '6a33b14885b042a944b41d8f6c913e318c83d45e81fd09b184aacb348f13f5c2'
+               final_reserved_status: 'manifest_only_not_materialized'
+                     stage4b_started: 0

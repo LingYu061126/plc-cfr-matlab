@@ -1,0 +1,30 @@
+{Error using sum
+Invalid data type. First argument must be numeric or logical.
+
+Error in mean (line 122)
+            y = sum(x, dim, flag) ./ mysize(x,dim);
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation>nonunique_control (line 111)
+    levels=unique([rows.noise_snr_db],'stable');metrics=repmat(non_metric(),0,1);for q=1:numel(levels),x=rows([rows.noise_snr_db]==levels(q));r=stage4a7_3_cluster_rate([x.false_unique],{x.sample_id},struct('replicates',1000,'seed',20263200+q));m=non_metric();m.noise_snr_db=levels(q);m.false_unique_numerator=r.numerator;m.false_unique_denominator=r.denominator;m.false_unique_rate=r.rate;m.ci_low=r.ci_low;m.ci_high=r.ci_high;m.complete_equivalence_coverage=mean([x.contains_complete]);m.singleton_rate=mean([x.set_size]==1);m.empty_set_rate=mean([x.set_size]==0);m.calibration_hash=model.calibration_hash;metrics(end+1)=m;end
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation (line 27)
+    [non_rows,non_metrics,non_audit]=nonunique_control(base,sc,experiment_hash);
+
+Error in run_stage4a7_3_domain_rejection_and_nonunique_validation (line 5)
+summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode);
+}
+{Error using sum
+Invalid data type. First argument must be numeric or logical.
+
+Error in mean (line 122)
+            y = sum(x, dim, flag) ./ mysize(x,dim);
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation>nonunique_control (line 111)
+    levels=unique([rows.noise_snr_db],'stable');metrics=repmat(non_metric(),0,1);for q=1:numel(levels),x=rows([rows.noise_snr_db]==levels(q));r=stage4a7_3_cluster_rate([x.false_unique],{x.sample_id},struct('replicates',1000,'seed',20263200+q));m=non_metric();m.noise_snr_db=levels(q);m.false_unique_numerator=r.numerator;m.false_unique_denominator=r.denominator;m.false_unique_rate=r.rate;m.ci_low=r.ci_low;m.ci_high=r.ci_high;m.complete_equivalence_coverage=mean([x.contains_complete]);m.singleton_rate=mean([x.set_size]==1);m.empty_set_rate=mean([x.set_size]==0);m.calibration_hash=model.calibration_hash;metrics(end+1)=m;end
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation (line 27)
+    [non_rows,non_metrics,non_audit]=nonunique_control(base,sc,experiment_hash);
+
+Error in run_stage4a7_3_domain_rejection_and_nonunique_validation (line 5)
+summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode);
+}

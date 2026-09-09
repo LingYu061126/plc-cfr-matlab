@@ -1,0 +1,2 @@
+control_id,candidate_a,candidate_b,template_count,equivalence_type,maximum_absolute_cfr_difference,relative_cfr_difference,numerical_tolerance,equivalence_status
+T3_T5_siso_mirror,T3,T5,81,parameter_specific_matched_end_impedance,8.47340948655004e-16,1.25569040720324e-15,1e-10,parameter_specific_equivalence_verified

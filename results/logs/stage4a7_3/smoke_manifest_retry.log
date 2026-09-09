@@ -1,0 +1,9 @@
+{Error using horzcat
+Dimensions of arrays being concatenated are not consistent.
+
+Error in exp_stage4a7_3_domain_rejection_and_nonunique_validation (line 31)
+    write_rows(fullfile(out,'scenario_manifest.csv'),[manifest_rows(dev) manifest_rows(cal) manifest_rows(pilot)]);
+
+Error in run_stage4a7_3_domain_rejection_and_nonunique_validation (line 5)
+summary=exp_stage4a7_3_domain_rejection_and_nonunique_validation(root,mode);
+}

@@ -49,8 +49,18 @@ function [selected_for_execution, rows, models, manifest] = stage4a7_2_r2_calibr
         deterministic_winner=numel(tied)==1;selected_for_execution=rows(best).method_id;
     end
     tied_methods=cell(1,numel(tied));for k=1:numel(tied),tied_methods{k}=rows(tied(k)).method_id;end
-    bootstrap_comparisons=bootstrap_method_pairs(methods,evaluations,sc.method_selection);
-    statistically_distinguishable=selected_method_is_distinguishable(selected_for_execution,bootstrap_comparisons);
+    % Development rows are nested in candidate topologies.  Candidate IDs,
+    % rather than rows, are therefore the primary bootstrap unit.
+    eligible_methods={rows(pass).method_id};
+    bootstrap_comparisons=bootstrap_method_pairs(methods,evaluations,dev_truth_ids,eligible_methods,sc.method_selection);
+    for q=1:numel(bootstrap_comparisons)
+        if strcmp(bootstrap_comparisons(q).method_a,selected_for_execution)
+            bootstrap_comparisons(q).selected_directional_superiority=bootstrap_comparisons(q).a_over_b_directional_superiority;
+        elseif strcmp(bootstrap_comparisons(q).method_b,selected_for_execution)
+            bootstrap_comparisons(q).selected_directional_superiority=bootstrap_comparisons(q).b_over_a_directional_superiority;
+        end
+    end
+    [statistically_distinguishable,distinguishability_reason]=stage4a7_2_r2_1_2_assess_directional_winner(selected_for_execution,bootstrap_comparisons,eligible_methods);
     scientifically_unique_winner=deterministic_winner && statistically_distinguishable;
     for q=1:numel(rows)
         rows(q).deterministic_development_winner=deterministic_winner && strcmp(rows(q).method_id,selected_for_execution);
@@ -71,44 +81,38 @@ function [selected_for_execution, rows, models, manifest] = stage4a7_2_r2_calibr
         'statistically_distinguishable_winner',statistically_distinguishable, ...
         'scientifically_unique_winner',scientifically_unique_winner,'tied_methods',strjoin(tied_methods,','), ...
         'bootstrap_comparisons',bootstrap_comparisons,'selection_status',selected_status, ...
+        'distinguishability_reason',distinguishability_reason, ...
         'selection_rule','calibrate each method on calibration; evaluate calibrated sets on development; deterministic lexicographic ordering is only a fallback; scientific uniqueness additionally requires paired bootstrap separation', ...
         'selected_hyperparameters',struct('alpha',sc.alpha,'coverage_gate',sc.method_selection.coverage_gate,'tie_tolerance',sc.method_selection.tie_tolerance), ...
         'compatibility_hash',compatibility_hash,'frozen_method_hash',stage4a4_scientific_config_hash(struct('selected',selected_for_execution,'tied',{tied_methods},'rows',rows,'bootstrap',bootstrap_comparisons,'hash',compatibility_hash)));
 end
 
-function tf=selected_method_is_distinguishable(selected,comparisons)
-    tf=false;if isempty(comparisons)||strcmp(selected,'no_method_meets_gate'),return;end
-    for k=1:numel(comparisons)
-        if (strcmp(comparisons(k).method_a,selected)||strcmp(comparisons(k).method_b,selected)) && comparisons(k).statistically_distinguishable
-            tf=true;return;
-        end
-    end
-end
-
-function rows=bootstrap_method_pairs(methods,evaluations,opts)
-    pairs=getf(opts,'bootstrap_pair_ids',{'margin','ratio'});B=getf(opts,'bootstrap_replicates',2000);seed=getf(opts,'bootstrap_seed',20262941);
+function rows=bootstrap_method_pairs(methods,evaluations,cluster_ids,eligible_methods,opts)
+    pairs={};
+    for a=1:numel(eligible_methods)-1,for b=a+1:numel(eligible_methods),pairs(end+1,:)={eligible_methods{a},eligible_methods{b}};end,end %#ok<AGROW>
+    B=getf(opts,'bootstrap_replicates',2000);seed=getf(opts,'bootstrap_seed',20262941);
+    % A zero-width CI at exactly zero is equality, not superiority.
+    effect=getf(opts,'coverage_effect_min',0.005);risk_margin=getf(opts,'risk_noninferiority_margin',0);
     rows=repmat(bootstrap_template(),0,1);
     for p=1:size(pairs,1)
-        if iscell(pairs),a=char(pairs{p,1});b=char(pairs{p,2});else,a=char(pairs(p,1));b=char(pairs(p,2));end
+        a=char(pairs{p,1});b=char(pairs{p,2});
         ia=find(strcmp(methods,a),1);ib=find(strcmp(methods,b),1);if isempty(ia)||isempty(ib),continue;end
-        ea=evaluations{ia};eb=evaluations{ib};n=numel(ea.hit);rs=RandStream('mt19937ar','Seed',seed+p-1);
-        dc=zeros(B,1);ds=zeros(B,1);dr=NaN(B,1);
-        for q=1:B
-            ix=randi(rs,n,n,1);dc(q)=mean(ea.hit(ix))-mean(eb.hit(ix));ds(q)=mean(ea.set_size(ix))-mean(eb.set_size(ix));
-            ra=selective_risk(ea.accepted(ix),ea.hit(ix));rb=selective_risk(eb.accepted(ix),eb.hit(ix));if isfinite(ra)&&isfinite(rb),dr(q)=ra-rb;end
-        end
-        r=bootstrap_template();r.method_a=a;r.method_b=b;r.sample_count=n;r.bootstrap_replicates=B;r.bootstrap_seed=seed+p-1;
-        r.coverage_difference=mean(ea.hit)-mean(eb.hit);r.coverage_ci_low=percentile(dc,.025);r.coverage_ci_high=percentile(dc,.975);
-        r.mean_set_size_difference=mean(ea.set_size)-mean(eb.set_size);r.mean_set_size_ci_low=percentile(ds,.025);r.mean_set_size_ci_high=percentile(ds,.975);
-        r.selective_risk_difference=selective_risk(ea.accepted,ea.hit)-selective_risk(eb.accepted,eb.hit);r.selective_risk_ci_low=percentile(dr,.025);r.selective_risk_ci_high=percentile(dr,.975);
+        ea=evaluations{ia};eb=evaluations{ib};n=numel(ea.hit);
+        z=stage4a7_2_r2_1_2_cluster_bootstrap(ea,eb,cluster_ids,struct('replicates',B,'seed',seed+p-1,'alpha',getf(opts,'statistical_alpha',.05),'multiplicity_count',max(1,size(pairs,1))));
+        r=bootstrap_template();r.method_a=a;r.method_b=b;r.sample_count=n;
+        f=fieldnames(z);for q=1:numel(f),r.(f{q})=z.(f{q});end
         r.statistically_distinguishable=~(contains_zero(r.coverage_ci_low,r.coverage_ci_high)&&contains_zero(r.mean_set_size_ci_low,r.mean_set_size_ci_high)&&contains_zero(r.selective_risk_ci_low,r.selective_risk_ci_high));
-        r.definition_version='paired_bootstrap_percentile_ci_v1';rows(end+1)=r; %#ok<AGROW>
+        r.a_over_b_directional_superiority=(r.coverage_ci_low>=effect) && isfinite(r.coverage_ci_low) && ...
+            (~isfinite(r.selective_risk_ci_high) || r.selective_risk_ci_high<=risk_margin);
+        r.b_over_a_directional_superiority=(r.coverage_ci_high<=-effect) && isfinite(r.coverage_ci_high) && ...
+            (~isfinite(r.selective_risk_ci_low) || r.selective_risk_ci_low>=-risk_margin);
+        r.selected_directional_superiority=false;
+        r.definition_version='candidate_cluster_percentile_bootstrap_v2';rows(end+1)=r; %#ok<AGROW>
     end
+    % Mark direction for the method selected after the deterministic ranking.
 end
-function r=selective_risk(accepted,hit),den=nnz(accepted);if den==0,r=NaN;else,r=nnz(accepted & ~hit)/den;end,end
-function x=percentile(v,p),v=v(isfinite(v));if isempty(v),x=NaN;else,v=sort(v);x=v(max(1,min(numel(v),round(1+p*(numel(v)-1)))));end,end
 function tf=contains_zero(a,b),tf=isfinite(a)&&isfinite(b)&&a<=0&&b>=0;end
-function r=bootstrap_template(),r=struct('method_a','','method_b','','sample_count',0,'bootstrap_replicates',0,'bootstrap_seed',0,'coverage_difference',NaN,'coverage_ci_low',NaN,'coverage_ci_high',NaN,'mean_set_size_difference',NaN,'mean_set_size_ci_low',NaN,'mean_set_size_ci_high',NaN,'selective_risk_difference',NaN,'selective_risk_ci_low',NaN,'selective_risk_ci_high',NaN,'statistically_distinguishable',false,'definition_version','');end
+function r=bootstrap_template(),r=struct('method_a','','method_b','','sample_count',0,'bootstrap_replicates',0,'bootstrap_seed',0,'coverage_difference',NaN,'coverage_ci_low',NaN,'coverage_ci_high',NaN,'mean_set_size_difference',NaN,'mean_set_size_ci_low',NaN,'mean_set_size_ci_high',NaN,'selective_risk_difference',NaN,'selective_risk_ci_low',NaN,'selective_risk_ci_high',NaN,'cluster_count',0,'cluster_ids',{{}},'resampling_unit','','alpha',NaN,'alpha_adjusted',NaN,'multiplicity_count',0,'ci_method','','effective_resample_count',0,'statistically_distinguishable',false,'a_over_b_directional_superiority',false,'b_over_a_directional_superiority',false,'selected_directional_superiority',false,'definition_version','');end
 function x=getf(s,n,d),if isstruct(s)&&isfield(s,n)&&~isempty(s.(n)),x=s.(n);else,x=d;end,end
 
 function idx=truth_indices(truth_ids,candidate_ids)

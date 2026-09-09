@@ -1,0 +1,4 @@
+noise_snr_db,false_unique_numerator,false_unique_denominator,false_unique_rate,ci_low,ci_high,complete_equivalence_coverage,singleton_rate,empty_set_rate,calibration_hash
+Inf,0,4,0,0,0,1,0,0,68ff11c77bdd54de493ae1c0963f2cf5a7f965fbcf8cef4791415d7806bb2501
+30,0,4,0,0,0,1,0,0,68ff11c77bdd54de493ae1c0963f2cf5a7f965fbcf8cef4791415d7806bb2501
+10,0,4,0,0,0,1,0,0,68ff11c77bdd54de493ae1c0963f2cf5a7f965fbcf8cef4791415d7806bb2501

@@ -1,0 +1,18 @@
+  PASS Stage 4A.7.2-R.2.1.2 cluster bootstrap and frozen domain threshold semantics
+  PASS Stage 4A.7.3 two-sided OOD configuration and T3/T5 numerical-equivalence control
+Stage 4A.7.2-R.2.1.2 completed: selected=margin unique=0 in 4.870 s.
+                              stage_name: 'Stage 4A.7.2-R.2.1.2'
+                                  status: 'completed'
+                canonical_result_version: 'final_source_v3'
+                    canonical_formal_dir: 'results/data/stage4a7_2_r2_1_1/final_source_v3/formal'
+                    canonical_paired_dir: 'results/data/stage4a7_2_r2_1_1/final_source_v3/paired'
+                  selected_for_execution: 'margin'
+        deterministic_development_winner: 1
+    statistically_distinguishable_winner: 0
+            scientifically_unique_winner: 0
+                  cluster_bootstrap_unit: 'candidate_id'
+                        paired_row_count: 1044
+                               runtime_s: 4.8695
+           source_formal_experiment_hash: '36ab4a9a2ffceeeb1e7241d89cf281540d0e78acce35f27e068187e3fe0832c8'
+                        source_tree_hash: 'b9e51a09f4cc1cf8d560ee58ae23b966c32aecff139d1d48f5d306777bd58f3b'
+                         stage4b_started: 0
