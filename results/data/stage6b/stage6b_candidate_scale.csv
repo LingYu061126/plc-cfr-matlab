@@ -1,0 +1,4 @@
+scale_id,candidate_number,generation_time,scoring_time,mean_scoring_time_per_sample,decision_distribution,unique_confident_count,multiple_ambiguous_count,low_confidence_count,rejected_count,false_unique_count,sample_count
+small,3,0.0005525,0.002933,0.0002933,UNIQUE_CONFIDENT=10;MULTIPLE_AMBIGUOUS=0;LOW_CONFIDENCE=0;REJECTED=0,10,0,0,0,0,10
+medium,7,0.001224,0.003784,0.0003784,UNIQUE_CONFIDENT=10;MULTIPLE_AMBIGUOUS=0;LOW_CONFIDENCE=0;REJECTED=0,10,0,0,0,0,10
+large,23,0.004593,0.009484,0.0009484,UNIQUE_CONFIDENT=10;MULTIPLE_AMBIGUOUS=0;LOW_CONFIDENCE=0;REJECTED=0,10,0,0,0,0,10

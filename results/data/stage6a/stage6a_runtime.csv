@@ -1,0 +1,5 @@
+method,prior_case,generation_time_s,constraint_time_s,ranking_time_s,export_time_s,candidate_pipeline_time_s,cache_time_s,calibration_time_s,test_time_s,total_time_s
+existing_library,none,0.055695,0,0,0,0.055695,0.096421,0.222422,0.023395,0.397933
+stage6a_partial_prior,broad_unknown_switches,0.25164,0.032533,0.006771,0.070916,0.361925,0.00936,0.101732,0.01127,0.484287
+stage6a_partial_prior,informative_switch_prior,0.031343,0.003905,0.001067,0.005927,0.042286,0.002847,0.030106,0.007615,0.082854
+stage6a_partial_prior,stale_switch_prior,0.015762,0.002018,0.000375,0.007515,0.025687,0.004735,0.078177,0.018957,0.127556

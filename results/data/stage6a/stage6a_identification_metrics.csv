@@ -1,0 +1,5 @@
+method,sample_count,true_topology_included,unique_confident_count,multiple_ambiguous_count,rejected_count,low_confidence_count,best_truth_count,true_in_candidate_set_count,correct_unique_confident_count
+existing_library,9,1,9,0,0,0,9,9,9
+broad_unknown_switches,9,1,8,0,1,0,9,8,8
+informative_switch_prior,9,1,7,0,1,1,9,8,7
+stale_switch_prior,9,0,0,0,9,0,0,0,0

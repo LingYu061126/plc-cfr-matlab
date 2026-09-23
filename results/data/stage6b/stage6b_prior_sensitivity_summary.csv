@@ -1,0 +1,9 @@
+error_type,prior_error_rate,sample_count,applied_error_count,mean_candidate_count,coverage_rate,false_unique_count,corrupted_false_unique_count,corrupted_unique_confident_count,corrupted_rejected_count,unique_confident_count,multiple_ambiguous_count,low_confidence_count,rejected_count
+wrong_open,0,20,0,7,1,0,0,0,0,15,0,0,5
+wrong_open,5,20,1,6.85,0.95,0,0,0,1,13,0,2,5
+wrong_open,10,20,2,6.7,0.9,0,0,0,2,14,0,0,6
+wrong_open,20,20,4,6.4,0.8,0,0,0,4,14,0,0,6
+wrong_closed,0,20,0,7,1,0,0,0,0,17,0,0,3
+wrong_closed,5,20,1,6.8,0.95,0,0,0,1,13,0,0,7
+wrong_closed,10,20,2,6.6,0.9,0,0,0,2,14,0,0,6
+wrong_closed,20,20,4,6.2,0.8,0,0,0,4,11,0,1,8

@@ -239,6 +239,8 @@ function run_tests()
     test_stage4_freeze_r1();
     test_stage4_freeze_r1_1();
     test_stage5b1_decision_metrics();
+    test_stage6a_candidate_generation();
+    test_stage6b_robustness();
 end
 
 function err = determinant_error(T)

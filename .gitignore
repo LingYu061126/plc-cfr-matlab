@@ -40,3 +40,9 @@ results/data/stage2_3_formal_fixed_trials.csv
 /results/data/stage5b1/formal/enhanced_decision_summary.csv
 /results/data/stage5b1/formal/stage5b1_results.mat
 /results/logs/stage5b1_*.log
+
+# Stage 6 smoke outputs are local protocol checks. Keep the compact formal
+# CSV/MAT summaries and Stage 6B review figures under version control.
+/results/data/stage6a/smoke/
+/results/data/stage6b/smoke/
+/results/figures/stage6b/smoke/

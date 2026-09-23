@@ -1,0 +1,2 @@
+mode,prior_sensitivity_time_s,candidate_scale_time_s,parameter_uncertainty_time_s,identifiability_time_s,total_time_s,use_parallel,worker_count
+formal,7.298749,1.98556,0.983966,0.800532,11.068872,0,1

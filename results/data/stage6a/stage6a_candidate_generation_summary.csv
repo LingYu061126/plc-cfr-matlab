@@ -1,0 +1,5 @@
+sample,method,prior_case,candidate_count,generation_time,constraint_time_s,ranking_time_s,export_time_s,coverage,true_topology_included,reference_library_coverage
+existing_library:none,existing_library,none,7,0.055695,0,0,0,1,1,1
+stage6a_partial_prior:broad_unknown_switches,stage6a_partial_prior,broad_unknown_switches,7,0.25164,0.032533,0.006771,0.070916,1,1,1
+stage6a_partial_prior:informative_switch_prior,stage6a_partial_prior,informative_switch_prior,2,0.031343,0.003905,0.001067,0.005927,1,1,0.285714285714286
+stage6a_partial_prior:stale_switch_prior,stage6a_partial_prior,stale_switch_prior,4,0.015762,0.002018,0.000375,0.007515,0,0,0.571428571428571
