@@ -1,0 +1,15 @@
+dataset,category,sample_count,baseline_unique_count,baseline_ambiguous_count,baseline_rejected_count,enhanced_unique_confident_count,enhanced_multiple_ambiguous_count,enhanced_low_confidence_count,enhanced_rejected_count,baseline_false_unique_count,enhanced_false_unique_count,false_unique_reduction,baseline_ambiguity_detection_count,enhanced_ambiguity_detection_count,ambiguity_detection_gain
+pilot,ALL,783,176,323,284,161,305,33,284,76,68,8,323,338,15
+pilot,in_domain,87,24,56,7,21,52,7,7,0,0,0,56,59,3
+pilot,exact_lower_boundary,87,21,60,6,19,55,7,6,0,0,0,60,62,2
+pilot,exact_upper_boundary,87,25,56,6,24,55,2,6,1,0,1,56,57,1
+pilot,near_lower_ood,87,27,49,11,22,47,7,11,9,6,3,49,54,5
+pilot,near_upper_ood,87,19,49,19,17,48,3,19,6,4,2,49,51,2
+pilot,medium_lower_ood,87,18,24,45,18,20,4,45,18,18,0,24,24,0
+pilot,medium_upper_ood,87,19,25,43,17,25,2,43,19,17,2,25,27,2
+pilot,far_lower_ood,87,16,3,68,16,2,1,68,16,16,0,3,3,0
+pilot,far_upper_ood,87,7,1,79,7,1,0,79,7,7,0,1,1,0
+T3_T5,ALL,120,1,119,0,0,119,1,0,1,0,1,119,120,1
+T3_T5,snr_Inf_db,40,0,40,0,0,40,0,0,0,0,0,40,40,0
+T3_T5,snr_30_db,40,0,40,0,0,40,0,0,0,0,0,40,40,0
+T3_T5,snr_10_db,40,1,39,0,0,39,1,0,1,0,1,39,40,1

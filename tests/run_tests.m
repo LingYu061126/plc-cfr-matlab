@@ -238,6 +238,7 @@ function run_tests()
     test_stage4a7_3_domain_nonunique();
     test_stage4_freeze_r1();
     test_stage4_freeze_r1_1();
+    test_stage5b1_decision_metrics();
 end
 
 function err = determinant_error(T)

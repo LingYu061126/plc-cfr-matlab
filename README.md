@@ -23,6 +23,15 @@ run_all
 
 `run_all` 会加入 `src/`、`config/`、`experiments/` 和 `tests/`，先执行测试，再生成实验图和数据。所有路径由入口脚本计算，项目移动后不依赖绝对路径。
 
+Stage 5B.1 在冻结 Stage 4A 候选集合与 Rule A residual gate 之后增加 Top-1/Top-2 margin、normalized confidence score、entropy 和四状态决策，不修改任何 Stage 4A 阈值或结果。运行：
+
+```matlab
+run_stage5b1_objective_confirmation_upgrade(pwd,'smoke')
+run_stage5b1_objective_confirmation_upgrade(pwd,'formal')
+```
+
+formal 结果位于 `results/data/stage5b1/formal/`，方法、阈值来源和 baseline/enhanced 对比见 `docs/stage5b1_objective_confirmation_upgrade.md`。normalized confidence score 是辅助相对权重，不是 posterior probability。
+
 只运行阶段 2.2 回归测试和正式实验：
 
 ```matlab

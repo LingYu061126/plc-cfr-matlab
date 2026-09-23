@@ -20,3 +20,23 @@ results/data/stage2_3_smoke_*
 results/data/stage2_3_formal_fixed_trials.csv
 /results/data/stage4a_freeze_r1_1/
 /results/logs/stage4a_freeze_r1_1/
+
+# Local Stage 4A development outputs. The canonical freeze artifacts that are
+# already tracked remain tracked; repeated runs, caches, figures, and logs do
+# not belong in normal source commits.
+/results/data/stage4a5*
+/results/data/stage4a6*
+/results/data/stage4a7_1*
+/results/data/stage4a7_2*
+/results/logs/stage4a*
+/results/figures/stage4a*
+/tmp/
+
+# Stage 5B.1 detailed outputs are reproducible but can grow quickly. Keep only
+# the compact formal summary tables under version control.
+/results/data/stage5b1/smoke/
+/results/data/stage5b1/formal/candidate_confidence.csv
+/results/data/stage5b1/formal/candidate_margin.csv
+/results/data/stage5b1/formal/enhanced_decision_summary.csv
+/results/data/stage5b1/formal/stage5b1_results.mat
+/results/logs/stage5b1_*.log
