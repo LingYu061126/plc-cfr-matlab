@@ -1,4 +1,46 @@
-# PLC CFR MATLAB 仿真：阶段 1.5–2.3
+# 基于 PLC/OFDM CFR 的低压配网拓扑候选生成与证据感知确认
+
+本仓库以传输线、ABCD 级联和节点导纳模型计算电力线通信（power line communication, PLC）信道频率响应（channel frequency response, CFR），在 OFDM 导频等效观测上进行候选/profile 评分、经验校准的候选集合判决和 Stage 5B.1 证据感知确认。Stage 6A 增加部分工程先验下的候选拓扑生成；Stage 6B 评估错误先验、候选规模、参数失配和指定不可辨识正控制。
+
+## Current project status
+
+Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stage 6 复现闭环](docs/stage6_reproducibility_closure.md)。当前进入 Stage 7 正式报告／论文综合撰写。Stage 4B 尚未启动；Multi-view CFR 是可选研究增强，尚未在本阶段实现。
+
+当前成果主要来自受控 MATLAB 模型内仿真，不是现场低压台区验证，也不是真实 PLC 收发机验证。NFFT、采样率、频率网格和导频配置仍含仿真假设。候选库覆盖真实拓扑不等于观测可辨识；`UNIQUE_CONFIDENT` 只表示给定模型、候选库和校准条件下的证据状态，不证明全局物理唯一。
+
+## Current research pipeline
+
+```text
+partial engineering prior
+  → candidate generation
+  → forward-model compatibility
+  → CFR profile scoring
+  → calibrated candidate set
+  → evidence-aware decision
+  → robustness / identifiability audit
+```
+
+## Stage 6 quick start
+
+在 MATLAB 中将当前目录设为仓库根目录。Stage 6B 的 identifiability 正控制依赖 `results/data/stage5b1/formal/stage5b1_results.mat`；该派生 MAT 未纳入 Git。干净克隆首次运行 Stage 6B 前，先执行 Stage 5B.1 formal 生成它。
+
+```matlab
+run_stage5b1_objective_confirmation_upgrade(pwd,'formal')
+run_stage6a_candidate_generation(pwd,'smoke')
+run_stage6a_candidate_generation(pwd,'formal')
+run_stage6b_robustness(pwd,'smoke')
+run_stage6b_robustness(pwd,'formal')
+```
+
+`smoke` 只用于流程检查；正式结果在各阶段的根输出目录。上述 formal 入口会写结果，审查已归档数值时请在独立 worktree 中运行。Stage 6B 的拒绝状态不会自动指出错误台账记录；14/14 错误先验拒绝、23 候选规模、±5% 长度误差全拒绝以及 T3/T5／三拓扑近等价结论均限于报告记录的受控设置。
+
+## Main Stage 6 outputs
+
+- [Stage 6A 数据](results/data/stage6a/) 与 [技术报告](docs/stage6a_technical_review_report.md)
+- [Stage 6B 数据](results/data/stage6b/)、[图表](results/figures/stage6b/) 与 [技术报告](docs/stage6b_technical_review_report.md)
+- [归档清单与复现比较](results/data/stage6_closure/) 及 [验证日志](results/logs/stage6_closure/)
+
+## Historical stages / 历史阶段
 
 本目录包含低压电力线载波（PLC）信道频率响应（CFR）的稳定正向模型，以及阶段 2/2.1/2.2 的 OFDM 等效导频信道估计和可解释拓扑识别基线。阶段 2.2 在不改动阶段 1.5 稳定传输线模型的前提下，新增完整树网络节点导纳求解、物理标注的多视图观测和离散拓扑/参数联合匹配。项目仍不包含完整 PLC 收发机、波形优化、机器学习或接地故障定位。
 

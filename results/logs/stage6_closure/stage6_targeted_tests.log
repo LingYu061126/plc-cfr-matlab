@@ -1,0 +1,8 @@
+POST_COMMIT_REPRODUCTION_ARCHIVE_CLOSURE_VERIFICATION
+SOURCE_COMMIT=bea0aee10b216ba42813329772f05a24dbdca07c
+MATLAB_VERSION=24.1.0.2537033 (R2024a)
+ARCH=glnxa64
+  PASS Stage 6A partial-prior constraints, legacy equivalence, export and decision interfaces
+  PASS Stage 6B prior perturbation, candidate scale, evaluation and identifiability interfaces
+TARGETED_TESTS_STATUS=PASS
+EXIT_STATUS=0

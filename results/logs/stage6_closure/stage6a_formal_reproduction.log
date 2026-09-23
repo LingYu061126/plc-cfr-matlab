@@ -1,0 +1,10 @@
+POST_COMMIT_REPRODUCTION_ARCHIVE_CLOSURE_VERIFICATION
+SOURCE_COMMIT=bea0aee10b216ba42813329772f05a24dbdca07c
+GIT_DIRTY_AT_START=0
+Stage 6A downstream existing_library: candidates=7 samples=9
+Stage 6A downstream broad_unknown_switches: candidates=7 samples=9
+Stage 6A downstream informative_switch_prior: candidates=2 samples=9
+Stage 6A downstream stale_switch_prior: candidates=4 samples=9
+Stage 6A formal completed in 0.980 s.
+STAGE6A_FORMAL_REPRODUCTION_STATUS=PASS
+EXIT_STATUS=0

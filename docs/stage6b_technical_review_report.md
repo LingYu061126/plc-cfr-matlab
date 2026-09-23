@@ -201,3 +201,7 @@ T3/T5 pairwise CFR RMS distance为 \(9.34\times10^{-17}\)。第三个退化拓�
 | length/load uncertainty metrics | `stage6b_parameter_uncertainty.csv`、`stage6b_parameter_uncertainty_summary.csv` |
 | two/three topology identifiability | `stage6b_identifiability.csv`、`stage6b_identifiability_distance_matrix.csv` |
 | experiment wall-clock | `stage6b_runtime.csv` |
+
+## Reproducibility identity
+
+本报告的正式数值仍对应 Stage 6B 原归档结果。`bea0aee10b216ba42813329772f05a24dbdca07c` 源码提交上的 post-commit archive-closure 复现身份、Stage 5B.1 派生 evidence model 前置步骤、字段容差及运行环境见 [Stage 6 Reproducibility Closure](stage6_reproducibility_closure.md)。原始字节清单和逐字段对照位于 [`results/data/stage6_closure/`](../results/data/stage6_closure/)，MATLAB 验证日志位于 [`results/logs/stage6_closure/`](../results/logs/stage6_closure/)。复现运行时间不替代本报告原有正式运行时间。

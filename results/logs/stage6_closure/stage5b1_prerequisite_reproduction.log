@@ -1,0 +1,13 @@
+POST_COMMIT_REPRODUCTION_ARCHIVE_CLOSURE_PREREQUISITE
+Stage 5B.1 Pilot replay: 10/87 candidates
+Stage 5B.1 Pilot replay: 20/87 candidates
+Stage 5B.1 Pilot replay: 30/87 candidates
+Stage 5B.1 Pilot replay: 40/87 candidates
+Stage 5B.1 Pilot replay: 50/87 candidates
+Stage 5B.1 Pilot replay: 60/87 candidates
+Stage 5B.1 Pilot replay: 70/87 candidates
+Stage 5B.1 Pilot replay: 80/87 candidates
+Stage 5B.1 Pilot replay: 87/87 candidates
+Stage 5B.1 formal completed: pilot=783 T3/T5=120 in 42.638 s.
+STAGE5B1_BOOTSTRAP_STATUS=PASS
+EXIT_STATUS=0

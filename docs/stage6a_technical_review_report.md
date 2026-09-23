@@ -238,3 +238,7 @@ Stage 6A 在接口层降低了对“预先给出完整候选拓扑列表”的�
 5. 将 Stage 4A、Stage 5B.1 和 Stage 6A 的事实、边界及 CSV 映射整合进阶段/论文报告。
 
 以上仅为建议，本阶段未自动开始 Stage 6B。[not yet verified]
+
+## Reproducibility identity
+
+本报告的正式数值仍对应 Stage 6A 原归档结果。`bea0aee10b216ba42813329772f05a24dbdca07c` 源码提交上的 post-commit archive-closure 复现身份、字段容差及运行环境见 [Stage 6 Reproducibility Closure](stage6_reproducibility_closure.md)。原始字节清单和逐字段对照位于 [`results/data/stage6_closure/`](../results/data/stage6_closure/)，MATLAB 验证日志位于 [`results/logs/stage6_closure/`](../results/logs/stage6_closure/)。复现运行时间不替代本报告原有正式运行时间。

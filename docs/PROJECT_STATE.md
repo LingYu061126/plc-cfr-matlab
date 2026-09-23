@@ -4,7 +4,7 @@
 
 ## Current stage
 
-Stage 6B — robustness and identifiability evaluation 已完成。Stage 6A 与 Stage 6B 的代码、正式结果、测试和报告统一归档于本阶段提交。
+Stage 6 Archive Closure completed；Stage 7 — formal report / thesis synthesis ready。Stage 6A/6B 的算法和正式结果保持原归档身份，本次只补齐复现证据、机器可读清单和项目入口。Stage 4B 未启动；Multi-view CFR 尚未实现，是可选增强，不是 Stage 7 主线的阻塞条件。
 
 ## Completed
 
@@ -20,7 +20,14 @@ Stage 6B — robustness and identifiability evaluation 已完成。Stage 6A 与 
 - `54868370cc6c426f417681146caace79de78291` — Stage 4A canonical calibration identity source。
 - `9611b284da57bd10cd64ee7e48c7ba9f3ec46a92` — Stage 4A clean-source freeze closure。
 - `50267e30da9f3d42789d12c6b3fdfead85ac0c86` — Stage 5B.1 objective confirmation。
-- Stage 6A / Stage 6B：本阶段统一归档提交，包含候选拓扑生成框架、鲁棒性与可辨识性评估、正式结果、测试及技术报告。
+- `bea0aee10b216ba42813329772f05a24dbdca07c` — Stage 6A / Stage 6B 统一归档及本次复现验证基线。
+
+## Stage 6 reproducibility identity
+
+- 独立临时工作树中的 MATLAB R2024a 定向测试、完整回归和 Stage 6A/6B formal 复现均通过；11 份正式科学 CSV 的 4,426 个非运行时间字段按记录容差一致。新增归档完整性测试已纳入完整回归。
+- 环境、命令、前置派生文件、容差与非致命 warning 见 [`stage6_reproducibility_closure.md`](stage6_reproducibility_closure.md)。
+- 原始字节 SHA-256 清单及逐字段对照见 [`results/data/stage6_closure/`](../results/data/stage6_closure/)；post-commit archive-closure 验证日志见 [`results/logs/stage6_closure/`](../results/logs/stage6_closure/)。这些日志不是最初生成正式结果时的原始日志。
+- 本次没有改变 Stage 4A/5B.1 冻结源码或结果，也没有覆盖 Stage 6A/6B canonical CSV、MAT、PNG。
 
 ## Main results
 
@@ -65,4 +72,4 @@ Stage 6B — robustness and identifiability evaluation 已完成。Stage 6A 与 
 
 ## Next recommended step
 
-优先将 Stage 4A/5B.1/6A/6B 整理为论文实验章节，明确受控仿真与尚未现场验证的边界。若继续技术研究，建议 multi-view CFR：通过双向/多节点观测检验 T3/T5 和 near-invisible branch ambiguity 能否被额外视角打破。
+进入 Stage 7，优先将 Stage 4A/5B.1/6A/6B 整理为正式报告／论文实验章节，区分模型内受控结果、不可辨识正控制和尚未开展的现场／真实 PLC 收发机验证。Multi-view CFR 可作为后续独立增强研究，但本阶段未启动。

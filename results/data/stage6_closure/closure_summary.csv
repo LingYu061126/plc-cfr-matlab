@@ -1,0 +1,2 @@
+stage,status,verified_source_commit,git_dirty_during_verification,matlab_version,platform,computer_arch,use_parallel,worker_count,targeted_tests_passed,full_regression_passed,stage6a_reproduced,stage6b_reproduced,scientific_metrics_match,canonical_results_modified,stage4_or_stage5_frozen_files_modified,verification_time_utc
+stage6,PASS,bea0aee10b216ba42813329772f05a24dbdca07c,0,24.1.0.2537033 (R2024a),Linux,glnxa64,0,0,1,1,1,1,1,0,0,2026-09-23T13:42:43Z
