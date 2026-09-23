@@ -1,0 +1,15 @@
+STAGE7A_SMOKE_SOURCE_COMMIT=81b95a63c5ce7e4ba6985de52cd5177768f68a59
+{Not enough input arguments.
+
+Error in exp_stage7a_profile_search>append_pair (line 209)
+    rows(end+1)=make_row(scenario,sample,'stage6b',b,old,truth,outside,nonunique,len,load); %#ok<AGROW>
+
+Error in exp_stage7a_profile_search>independent_parameters (line 97)
+        rows=append_pair(rows,scenario,sample,b,old,z,new,truth,group==1, ...
+
+Error in exp_stage7a_profile_search (line 20)
+    rows=independent_parameters(rows,base,sc,old,new,truth,'in_domain');
+
+Error in run_stage7a_profile_search (line 6)
+    result=exp_stage7a_profile_search(root,mode);
+}

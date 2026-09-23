@@ -1,0 +1,6 @@
+  PASS Stage 5B.1 clear, near-tie, rejected and T3/T5 cases
+  PASS Stage 6A partial-prior constraints, legacy equivalence, export and decision interfaces
+  PASS Stage 6B prior perturbation, candidate scale, evaluation and identifiability interfaces
+  PASS Stage 6 archive CSV counts, states and source/artifact SHA-256 identities
+  PASS Stage 7A prior-derived bounds, cached coarse-to-fine profile and truth-free scoring
+STAGE7A_RELATED_REGRESSION_EXIT_STATUS=0

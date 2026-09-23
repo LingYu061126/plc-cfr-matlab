@@ -1,0 +1,9 @@
+{Error using vertcat
+Dimensions of arrays being concatenated are not consistent.
+
+Error in exp_stage7a_profile_search (line 24)
+    resources=[resources;prior_resources]; %#ok<AGROW>
+
+Error in run_stage7a_profile_search (line 6)
+    result=exp_stage7a_profile_search(root,mode);
+}

@@ -4,7 +4,7 @@
 
 ## Current project status
 
-Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stage 6 复现闭环](docs/stage6_reproducibility_closure.md)。当前进入 Stage 7 正式报告／论文综合撰写。Stage 4B 尚未启动；Multi-view CFR 是可选研究增强，尚未在本阶段实现。
+Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stage 6 复现闭环](docs/stage6_reproducibility_closure.md)。Stage 7A 已进行独立参数剖面搜索算法对照，但尚未替代 Stage 6B baseline；改进、退化和安全边界见 [Stage 7A 技术记录](docs/stage7a_technical_record.md)。本轮未撰写正式论文报告。Stage 4B 尚未启动；Multi-view CFR 是可选研究增强，尚未实现。
 
 当前成果主要来自受控 MATLAB 模型内仿真，不是现场低压台区验证，也不是真实 PLC 收发机验证。NFFT、采样率、频率网格和导频配置仍含仿真假设。候选库覆盖真实拓扑不等于观测可辨识；`UNIQUE_CONFIDENT` 只表示给定模型、候选库和校准条件下的证据状态，不证明全局物理唯一。
 
@@ -39,6 +39,8 @@ run_stage6b_robustness(pwd,'formal')
 - [Stage 6A 数据](results/data/stage6a/) 与 [技术报告](docs/stage6a_technical_review_report.md)
 - [Stage 6B 数据](results/data/stage6b/)、[图表](results/figures/stage6b/) 与 [技术报告](docs/stage6b_technical_review_report.md)
 - [归档清单与复现比较](results/data/stage6_closure/) 及 [验证日志](results/logs/stage6_closure/)
+
+Stage 7A 的独立 smoke/formal 入口为 `run_stage7a_profile_search(pwd,'smoke')` 和 `run_stage7a_profile_search(pwd,'formal')`；结果位于 `results/data/stage7a/`。Stage 6B 正式结果只读，Stage 7A 尚未通过全部性能对照，不应作为新的默认 baseline。
 
 ## Historical stages / 历史阶段
 

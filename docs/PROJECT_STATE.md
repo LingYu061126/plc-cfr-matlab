@@ -4,7 +4,7 @@
 
 ## Current stage
 
-Stage 6 Archive Closure completed；Stage 7 — formal report / thesis synthesis ready。Stage 6A/6B 的算法和正式结果保持原归档身份，本次只补齐复现证据、机器可读清单和项目入口。Stage 4B 未启动；Multi-view CFR 尚未实现，是可选增强，不是 Stage 7 主线的阻塞条件。
+Stage 6 Archive Closure completed。Stage 7A 参数剖面搜索已完成受控算法对照，但尚未替代 Stage 6B baseline：参数域内确认提升，3/7/23 候选规模确认率退化；详见 [`stage7a_technical_record.md`](stage7a_technical_record.md)。本轮不撰写正式论文报告。Stage 4B 与 Multi-view CFR 均未启动。
 
 ## Completed
 
@@ -14,6 +14,7 @@ Stage 6 Archive Closure completed；Stage 7 — formal report / thesis synthesis
 - Stage 6A 正式受控实验、测试、CSV/MAT 归档和技术报告。
 - Stage 6B：wrong-open/wrong-closed prior sensitivity、3/7/23 candidate scale、长度/负载 parameter uncertainty、T3/T5 与三拓扑 CFR-close identifiability positive controls。
 - Stage 6B 正式 CSV/MAT、4 张 PNG 图表、定向测试和技术报告。
+- Stage 7A：独立的有界粗到细参数剖面搜索、局部校准、六类成对对照及安全审计；安全检查通过，但候选规模下的确认率退化尚未解决。
 
 ## Key commits
 
@@ -72,4 +73,4 @@ Stage 6 Archive Closure completed；Stage 7 — formal report / thesis synthesis
 
 ## Next recommended step
 
-进入 Stage 7，优先将 Stage 4A/5B.1/6A/6B 整理为正式报告／论文实验章节，区分模型内受控结果、不可辨识正控制和尚未开展的现场／真实 PLC 收发机验证。Multi-view CFR 可作为后续独立增强研究，但本阶段未启动。
+先在独立开发集上诊断 Stage 7A 候选规模下的集合覆盖与校准分辨率退化，形成预先固定的新协议后再决定是否进入下一轮算法开发。Stage 6B 仍是独立 baseline；正式报告／论文综合撰写尚未在本轮启动。Multi-view CFR 是可选后续增强，不是当前主线的阻塞条件。

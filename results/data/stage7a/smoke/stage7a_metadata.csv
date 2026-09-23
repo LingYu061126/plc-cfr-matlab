@@ -1,0 +1,14 @@
+key,value
+development_base_commit,81b95a63c5ce7e4ba6985de52cd5177768f68a59
+baseline_source_commit,bea0aee10b216ba42813329772f05a24dbdca07c
+stage7a_config_hash,060f8d50f4ac2b43e4baeb1abc4225b8c1250b90000d40215f18ba2d67f76a0a
+search_domain_hash,6d48f578297dacc6b1250d338e16af63f169c1aac452f0867e187400a95ff608
+calibration_seed,20267001
+test_seed,20267002
+calibration_per_candidate,4
+main_scale_bounds,[0.9 1.1]
+branch_load_scale_bounds,[0.8 1.2]
+frequency_points,61
+use_parallel,0
+worker_count,0
+validation_scope,controlled_synthetic_model_internal
