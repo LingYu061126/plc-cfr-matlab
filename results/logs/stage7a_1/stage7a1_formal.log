@@ -1,0 +1,14 @@
+  scale_small: 3 candidate models, 100 independent test observations.
+  scale_medium: 7 candidate models, 100 independent test observations.
+  scale_large: 23 candidate models, 100 independent test observations.
+Stage 7A.1 formal: 3076 samples, 33708 candidate rows, 30 replay matches, 50.434 s.
+                        stage: 'Stage 7A.1'
+                         mode: 'formal'
+                       status: 'completed'
+                  sample_rows: 3076
+               candidate_rows: 33708
+                  search_rows: 330
+                 replay_count: 30
+    replay_max_distance_error: 4.5797e-16
+                  test_set_id: '85cc835fb91a784bd02315c736115fddb5337d82e73c9ca80648e85238e4e3cf'
+                    elapsed_s: 50.4344

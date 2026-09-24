@@ -1,0 +1,2 @@
+PASS sample, candidate p-value, rank, four-state, summary and exhaustive-row consistency
+sample_rows=3076 candidate_rows=33708 search_rows=330 search_candidate_rows=3630

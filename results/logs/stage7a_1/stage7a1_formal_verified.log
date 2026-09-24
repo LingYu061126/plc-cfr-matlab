@@ -1,0 +1,4 @@
+  scale_small: 3 candidate models, 100 independent test observations.
+  scale_medium: 7 candidate models, 100 independent test observations.
+  scale_large: 23 candidate models, 100 independent test observations.
+Stage 7A.1 formal: 3076 samples, 33708 candidate rows, 30 replay matches, 59.446 s.

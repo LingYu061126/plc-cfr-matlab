@@ -1,0 +1,18 @@
+key,value
+source_commit,38fcced7eac5aa310b7604afebd1807619a05169
+stage7a_algorithm_commit,64c2ec2258b14d4eb02d15b88cdbb6672e992548
+mode,smoke
+matlab_version,24.1.0.2537033 (R2024a)
+computer_arch,glnxa64
+protocol_hash,5c4525934fddf494089e5526c5b5ba4722086c6803846b0ddd367ef00e4ef596
+test_set_id,57c18a23f50fddf7105ba9e37b2888edd4014a8bc249971413c53a3e2625de2b
+test_seed_base,402671100
+set_seed_base,202671100
+evidence_seed_base,302671100
+test_replicates_per_library,2
+canonical_replay_samples,0
+canonical_replay_max_distance_error,0
+use_parallel,0
+worker_count,0
+runtime_s,5.4669309999999998
+verification_time_utc,2026-09-24 01:24:21

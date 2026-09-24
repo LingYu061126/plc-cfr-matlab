@@ -1,0 +1,14 @@
+  scale_small: 3 candidate models, 2 independent test observations.
+  scale_medium: 7 candidate models, 2 independent test observations.
+  scale_large: 23 candidate models, 2 independent test observations.
+Stage 7A.1 smoke: 60 samples, 660 candidate rows, 0 replay matches, 5.699 s.
+                        stage: 'Stage 7A.1'
+                         mode: 'smoke'
+                       status: 'completed'
+                  sample_rows: 60
+               candidate_rows: 660
+                  search_rows: 6
+                 replay_count: 0
+    replay_max_distance_error: 0
+                  test_set_id: '57c18a23f50fddf7105ba9e37b2888edd4014a8bc249971413c53a3e2625de2b'
+                    elapsed_s: 5.6990

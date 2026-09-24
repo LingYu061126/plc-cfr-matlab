@@ -1,0 +1,4 @@
+  scale_small: 3 candidate models, 2 independent test observations.
+  scale_medium: 7 candidate models, 2 independent test observations.
+  scale_large: 23 candidate models, 2 independent test observations.
+Stage 7A.1 smoke: 60 samples, 660 candidate rows, 0 replay matches, 5.583 s.
