@@ -1,0 +1,7 @@
+library,method,risk_seed_base,risk_count,unique_selected,wrong_unique,selective_risk_upper_95,risk_target,certified,evidence_status
+scale_small,M2_class_conditional,540000000,90,76,0,0.0386507667257257,0.05,1,calibrated
+scale_small,M3_pooled_empirical,540000000,90,55,0,0.053011054951254,0.05,0,calibrated
+scale_medium,M2_class_conditional,540000000,210,59,0,0.0495076098882266,0.05,1,calibrated
+scale_medium,M3_pooled_empirical,540000000,210,49,0,0.0593060141896974,0.05,0,calibrated
+scale_large,M2_class_conditional,540000000,690,76,1,0.0609027142284787,0.05,0,calibrated
+scale_large,M3_pooled_empirical,540000000,690,40,0,0.0721575245055145,0.05,0,calibrated

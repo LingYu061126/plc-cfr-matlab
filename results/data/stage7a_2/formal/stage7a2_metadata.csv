@@ -1,0 +1,11 @@
+key,value
+source_commit,5217ee8edf9b8a814d26690b873e28fd2d82e218
+mode,formal
+matlab_version,24.1.0.2537033 (R2024a)
+computer_arch,glnxa64
+use_parallel,0
+worker_count,0
+protocol_hash,3dc526aeef9abbf0432d6ff4f0a5890ef4027e923a425bdc5f07e72ceadfbbbc
+sample_rows,15300
+runtime_s,22.783049999999999
+verification_time_utc,2026-09-24 03:13:38

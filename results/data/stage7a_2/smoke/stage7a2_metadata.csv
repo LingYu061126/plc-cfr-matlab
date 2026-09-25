@@ -1,0 +1,11 @@
+key,value
+source_commit,5217ee8edf9b8a814d26690b873e28fd2d82e218
+mode,smoke
+matlab_version,24.1.0.2537033 (R2024a)
+computer_arch,glnxa64
+use_parallel,0
+worker_count,0
+protocol_hash,0f823019925401f56c003d631ae9b886ac5451fd96b977d83758a60436112547
+sample_rows,612
+runtime_s,10.380701999999999
+verification_time_utc,2026-09-24 03:03:43

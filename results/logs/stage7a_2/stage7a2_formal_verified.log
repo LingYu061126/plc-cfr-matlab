@@ -1,0 +1,4 @@
+Stage 7A.2 scale_small: 3 candidates; cache 0.138 s, new calibration 0.516 s, old 0.068 s, split 0.403 s.
+Stage 7A.2 scale_medium: 7 candidates; cache 0.132 s, new calibration 0.830 s, old 0.105 s, split 0.952 s.
+Stage 7A.2 scale_large: 23 candidates; cache 0.500 s, new calibration 4.162 s, old 0.550 s, split 5.326 s.
+Stage 7A.2 formal: 15300 sample-method rows, 39250 candidate-distance rows, 27.356 s.
