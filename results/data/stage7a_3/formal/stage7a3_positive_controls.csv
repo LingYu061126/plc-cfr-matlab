@@ -1,0 +1,3 @@
+scenario,candidate_count,maximum_pairwise_distance,band_residual,gate_threshold,gate_accepted,baseline_state,post_gate_state,candidate_set_size_preserved,gate_promoted_to_unique,calibration_scope_note
+two_topology_T3_T5,2,9.34024024938993e-17,0,0.687345870741637,1,MULTIPLE_AMBIGUOUS,MULTIPLE_AMBIGUOUS,1,0,"Gate cutoff is transferred only for a one-way logic check, not a new control-library guarantee."
+three_topology_close,3,6.95745272671196e-08,0,0.687345870741637,1,MULTIPLE_AMBIGUOUS,MULTIPLE_AMBIGUOUS,1,0,"Gate cutoff is transferred only for a one-way logic check, not a new control-library guarantee."

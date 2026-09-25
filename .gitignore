@@ -46,3 +46,15 @@ results/data/stage2_3_formal_fixed_trials.csv
 /results/data/stage6a/smoke/
 /results/data/stage6b/smoke/
 /results/figures/stage6b/smoke/
+
+# Stage 7A.3: archive compact formal evidence; regenerate large sample tables.
+/results/data/stage7a_3/*.csv
+/results/data/stage7a_3/*.mat
+/results/data/stage7a_3/smoke/
+/results/data/stage7a_3/formal/stage7a3_candidate_distances.csv
+/results/data/stage7a_3/formal/stage7a3_sample_diagnostics.csv
+/results/data/stage7a_3/formal/stage7a3_residual_spectra.csv
+/results/logs/stage7a_3/*.log
+!/results/logs/stage7a_3/stage7a3_formal_separated_final.log
+!/results/logs/stage7a_3/stage7a3_smoke_separated_final.log
+!/results/logs/stage7a_3/stage7a3_historical_regression.log

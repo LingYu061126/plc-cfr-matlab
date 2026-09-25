@@ -1,0 +1,4 @@
+Stage 7A.3 scale_small: candidates=3, F n=30, gate=0.750896, replay verified.
+Stage 7A.3 scale_medium: candidates=7, F n=70, gate=0.700215, replay verified.
+Stage 7A.3 scale_large: candidates=23, F n=230, gate=0.718545, replay verified.
+Stage 7A.3 smoke completed: 3300 rows, 17270 candidate rows, 12.061 s.

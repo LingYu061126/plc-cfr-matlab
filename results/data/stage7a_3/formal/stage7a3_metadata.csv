@@ -1,0 +1,14 @@
+key,value
+source_commit,f1e1ed13f296b5e21267bf6aceda4199c8ee86f0
+mode,formal
+matlab_version,24.1.0.2537033 (R2024a)
+computer_arch,glnxa64
+platform,GLNXA64
+use_parallel,0
+worker_count,0
+protocol_hash,1ca933a11c32bdb410bfa61ff662219b4dae1999e8ded67e2a20dfe9e9528829
+sample_rows,59010
+candidate_distance_rows,341990
+topology_family_count,8
+runtime_s,62.069248999999999
+verification_time_utc,2026-09-25 16:46:52

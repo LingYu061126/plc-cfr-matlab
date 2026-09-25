@@ -1,0 +1,4 @@
+Stage 7A.3 scale_small: candidates=3, F n=600, gate=0.687346, replay verified.
+Stage 7A.3 scale_medium: candidates=7, F n=1400, gate=0.693902, replay verified.
+Stage 7A.3 scale_large: candidates=23, F n=4600, gate=0.712794, replay verified.
+Stage 7A.3 formal completed: 59010 rows, 341990 candidate rows, 62.109 s.
