@@ -1,0 +1,6 @@
+  PASS Stage 6B prior perturbation, candidate scale, evaluation and identifiability interfaces
+  PASS Stage 7A prior-derived bounds, cached coarse-to-fine profile and truth-free scoring
+PASS test_stage7a2_set_coverage
+PASS test_stage7a4_forward_state: endpoint CFR, Zin and loaded node ports
+PASS test_stage7a4_joint_profile: mirror, same-theta templates, decision identity
+PASS test_stage7a4_result_integrity(formal): 48000 decisions, 20 schemes

@@ -1,0 +1,9 @@
+state_index,state_name,source_node,source_ohm,endpoint_receiver_node,endpoint_termination_ohm,internal_node,internal_receiver_input_ohm,port_reference_ohm,normalization
+1,termination_12.5_ohm,M0_TX,50,M4_RX,12.5,none,NaN,50,H_port=2*Vreceiver/Vsource_at_Zs50
+2,termination_25_ohm,M0_TX,50,M4_RX,25,none,NaN,50,H_port=2*Vreceiver/Vsource_at_Zs50
+3,termination_50_ohm,M0_TX,50,M4_RX,50,none,NaN,50,H_port=2*Vreceiver/Vsource_at_Zs50
+4,termination_100_ohm,M0_TX,50,M4_RX,100,none,NaN,50,H_port=2*Vreceiver/Vsource_at_Zs50
+5,termination_200_ohm,M0_TX,50,M4_RX,200,none,NaN,50,H_port=2*Vreceiver/Vsource_at_Zs50
+6,node_M1_highZ,M0_TX,50,M4_RX,50,M1,1000000,50,H_port=2*Vreceiver/Vsource_at_Zs50
+7,node_M2_highZ,M0_TX,50,M4_RX,50,M2,1000000,50,H_port=2*Vreceiver/Vsource_at_Zs50
+8,node_M3_highZ,M0_TX,50,M4_RX,50,M3,1000000,50,H_port=2*Vreceiver/Vsource_at_Zs50

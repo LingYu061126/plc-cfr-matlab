@@ -1,0 +1,24 @@
+Stage 7A.4 exploration smoke: B=200 ohm, C=M2, fine=NaN ohm, cache=2993632 bytes, 1.003 s.
+Stage 7A.4 smoke: A/F generated 0.105/0.090 s; 20 schemes calibrated.
+Stage 7A.4 smoke: asymmetric search rebuilt/calibrated 1.820 s, cache 8966752 bytes.
+Stage 7A.4 smoke: six independent T scenario batches generated 0.356 s.
+Stage 7A.4 smoke: scored T20 (32 physical observations).
+Stage 7A.4 smoke: scored T10 (32 physical observations).
+Stage 7A.4 smoke: scored T_first_segment_asymmetry (16 physical observations).
+Stage 7A.4 smoke: scored T_termination_error (16 physical observations).
+Stage 7A.4 smoke: scored T_load_drift (16 physical observations).
+Stage 7A.4 smoke: scored T_node_port_error (16 physical observations).
+Stage 7A.4 smoke completed: 3840 decisions, 5.300 s evaluation wall-clock.
+PASS test_stage7a4_result_integrity(smoke): 3840 decisions, 20 schemes
+Stage 7A.4 exploration formal: B=200 ohm, C=M2, fine=NaN ohm, cache=2993632 bytes, 1.702 s.
+Stage 7A.4 formal: A/F generated 1.131/1.064 s; 20 schemes calibrated.
+Stage 7A.4 formal: asymmetric search rebuilt/calibrated 7.531 s, cache 8966752 bytes.
+Stage 7A.4 formal: six independent T scenario batches generated 4.197 s.
+Stage 7A.4 formal: scored T20 (400 physical observations).
+Stage 7A.4 formal: scored T10 (400 physical observations).
+Stage 7A.4 formal: scored T_first_segment_asymmetry (200 physical observations).
+Stage 7A.4 formal: scored T_termination_error (200 physical observations).
+Stage 7A.4 formal: scored T_load_drift (200 physical observations).
+Stage 7A.4 formal: scored T_node_port_error (200 physical observations).
+Stage 7A.4 formal completed: 48000 decisions, 43.183 s evaluation wall-clock.
+PASS test_stage7a4_result_integrity(formal): 48000 decisions, 20 schemes

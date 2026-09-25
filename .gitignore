@@ -58,3 +58,13 @@ results/data/stage2_3_formal_fixed_trials.csv
 !/results/logs/stage7a_3/stage7a3_formal_separated_final.log
 !/results/logs/stage7a_3/stage7a3_smoke_separated_final.log
 !/results/logs/stage7a_3/stage7a3_historical_regression.log
+
+# Stage 7A.4: keep compact formal evidence and verification logs in Git;
+# regenerate large per-sample and smoke tables with the independent entrypoint.
+/results/data/stage7a_4/smoke/
+/results/data/stage7a_4/formal/stage7a4_samples.csv
+/results/logs/stage7a_4/*.log
+!/results/logs/stage7a_4/stage7a4_final_reproduction.log
+!/results/logs/stage7a_4/stage7a4_related_regression.log
+!/results/logs/stage7a_4/stage7a4_full_regression.log
+!/results/logs/stage7a_4/stage7a4_clean_baseline_full_regression_final.log
