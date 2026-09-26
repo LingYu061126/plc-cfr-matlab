@@ -1,0 +1,7 @@
+scheme,budget,ood_generated_k,ood_n,generator_recall,inlib_correct_C_k,inlib_correct_B_k,inlib_n,delta_correct_unique,ood_false_unique_C_k,ood_false_unique_B_k,eligible
+H50,7,6,6,1,0,0,9,0,0,0,1
+H50,10,6,6,1,0,0,9,0,0,0,1
+Zin50,7,6,6,1,0,0,9,0,0,0,1
+Zin50,10,6,6,1,0,0,9,0,0,0,1
+H50_Zin50,7,6,6,1,0,0,9,0,0,0,1
+H50_Zin50,10,6,6,1,0,0,9,0,0,0,1

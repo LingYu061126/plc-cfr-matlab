@@ -1,0 +1,13 @@
+Stage 7A.5 smoke: MATLAB 24.1.0.2537033 (R2024a) glnxa64; candidates=10, cached forwards=450, cache=880480 bytes
+E/A/F done: E=9, A=12, F=12; sigma=[0.032454 0.99045]
+Method-selection budgets by scheme: [7 7 7]
+T scored: H50
+T scored: Zin50
+T scored: H50_Zin50
+Stage 7A.5 smoke complete: 243 rows, 90.71 s
+            summary: [1x81 struct]
+          runtime_s: 90.7080
+         output_dir: 'results/data/stage7a_5/smoke_v5'  (public log: absolute workspace prefix redacted)
+    selected_budget: [7 7 7]
+
+PASS test_stage7a5_result_integrity (smoke): 243 sample rows, 1053 candidate rows

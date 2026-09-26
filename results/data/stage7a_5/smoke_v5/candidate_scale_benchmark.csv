@@ -1,0 +1,4 @@
+candidate_count,profile_time_s,optimizer_evaluations,cache_bytes
+3,0.042725,138,264144
+7,0.107761,316,616336
+10,0.17149,480,880480

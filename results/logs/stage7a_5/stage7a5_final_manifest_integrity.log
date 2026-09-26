@@ -1,0 +1,2 @@
+PASS test_stage7a5_result_integrity (formal): 2430 sample rows, 12546 candidate rows
+PASS test_stage7a5_result_integrity (smoke): 243 sample rows, 1053 candidate rows

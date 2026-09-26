@@ -1,0 +1,2 @@
+baseline_commit,matlab_version,computer_arch,bank_identity,search_identity,runtime_s,template_forward_calls,template_cache_bytes,budget_H50,budget_Zin50,budget_joint,use_parallel,worker_count,verification_time_utc,h50_nonunique_control_pass
+7412aade6c129f982f1ebb766299166ccbae2515,24.1.0.2537033 (R2024a),glnxa64,eb5d57537f45f1f7d11c82a05f427e94cc681a14982d0571180ac301d89b2a3d,3402611123d6de65745e1838f77df00e7394b633ed5f8c9415990113e43f2f97,1194.662642,450,880480,10,10,10,0,0,2026-09-26 05:56:51,1

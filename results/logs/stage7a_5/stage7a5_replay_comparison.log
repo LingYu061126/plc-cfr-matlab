@@ -1,0 +1,4 @@
+sample decisions and all non-false_unique fields identical: 1
+rows=2430 old false labels=265 corrected false labels=32 relabelled=233
+candidate audit byte-equivalent values: 1
+nonunique-control decisions identical: 1

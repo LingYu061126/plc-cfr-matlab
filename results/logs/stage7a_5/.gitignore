@@ -1,0 +1,18 @@
+# Keep local development attempts without publishing superseded results.
+/stage7a5_analysis.log
+/stage7a5_analysis_attempt1_missing_path.log
+/stage7a5_control_diagnostic.log
+/stage7a5_formal.log
+/stage7a5_formal_attempt1_control_failure.log
+/stage7a5_integrity_smoke_v4.log
+/stage7a5_interval_summary_attempt1_missing_path.log
+/stage7a5_postformal_integrity.log
+/stage7a5_preformal_validation.log
+/stage7a5_result_integrity_smoke.log
+/stage7a5_smoke.log
+/stage7a5_smoke_v2.log
+/stage7a5_smoke_v3.log
+/stage7a5_smoke_v4.log
+/stage7a5_targeted_postfix.log
+/stage7a5_targeted_tests.log
+/stage7a5_targeted_tests_final.log

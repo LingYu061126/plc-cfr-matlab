@@ -1,0 +1,43 @@
+function samples=stage7a5_generate_split(topologies,indices,base,cfg,seed_base,n,split,domain_out)
+%STAGE7A5_GENERATE_SPLIT Generate independent labelled synthetic scenarios.
+%   Truth and true nuisance values remain in this experiment-layer record.
+    if nargin<8,domain_out=false;end
+    proto=struct('split','','scenario','','domain_out',false, ...
+        'truth_index',0,'truth_id','','truth_signature','', ...
+        'replicate',0,'parameter_seed',0,'noise_seed',0,'theta_true',struct(), ...
+        'clean',{cell(1,2)},'observed',{cell(1,2)});
+    samples=repmat(proto,numel(indices)*n,1);cursor=0;
+    for a=1:numel(indices)
+        j=indices(a);
+        for r=1:n
+            cursor=cursor+1;seed=seed_base+100000*j+r;
+            rs=RandStream('mt19937ar','Seed',seed);
+            if domain_out
+                main=1.15;
+            else
+                main=cfg.true_main_bounds(1)+diff(cfg.true_main_bounds)*rand(rs);
+            end
+            load=cfg.true_load_bounds(1)+diff(cfg.true_load_bounds)*rand(rs);
+            theta=struct('main_length_scale',main,'branch_length_scale',1, ...
+                'branch_load_scale',load,'first_segment_scale',1, ...
+                'source_impedance_ohm',50,'receiver_impedance_ohm',50);
+            noise_seed=seed+100000000;rn=RandStream('mt19937ar','Seed',noise_seed);
+            z=stage7a4_forward_state(topologies(j).network,theta,base, ...
+                cfg.frequency_hz,cfg.state_50);
+            clean={z.H_endpoint,z.Zin};
+            sigma_h=sqrt(mean(abs(clean{1}).^2))/10^(cfg.snr_db/20);
+            observed={clean{1}+sigma_h/sqrt(2)*(randn(rn,size(clean{1}))+ ...
+                1i*randn(rn,size(clean{1}))), ...
+                clean{2}+cfg.zin_error_rms_ohm/sqrt(2)*(randn(rn,size(clean{2}))+ ...
+                1i*randn(rn,size(clean{2})))};
+            sig=stage6b_network_signature(topologies(j).network);
+            scenario=topologies(j).topology_id;
+            if domain_out,scenario=[scenario '_domain_out'];end
+            samples(cursor)=struct('split',split,'scenario',scenario, ...
+                'domain_out',domain_out,'truth_index',j, ...
+                'truth_id',topologies(j).topology_id,'truth_signature',sig, ...
+                'replicate',r,'parameter_seed',seed,'noise_seed',noise_seed, ...
+                'theta_true',theta,'clean',{clean},'observed',{observed});
+        end
+    end
+end

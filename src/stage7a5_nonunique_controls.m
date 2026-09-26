@@ -1,0 +1,126 @@
+function [rows,candidate_rows,meta]=stage7a5_nonunique_controls(base,cfg)
+%STAGE7A5_NONUNIQUE_CONTROLS Independent T3/T4/T5 confirmation safety check.
+%   This control uses its own three-graph library; flow C here isolates the
+%   same confirmation logic without claiming the Stage 7A.5 grammar contains
+%   these different cable-model structures.
+    legacy=topology_candidates(base);names={'T3','T4_NEAR_T3','T5'};
+    source_names={'T3','T4','T5'};
+    control=repmat(struct('topology_id','','network',struct()),1,3);
+    for k=1:3
+        j=find(strcmp({legacy.id},source_names{k}),1);
+        control(k).topology_id=names{k};control(k).network=legacy(j).network;
+    end
+    % Preserve the archived Stage 7A.4 close-control construction exactly:
+    % T4 contains M1 and M3 branches; make the M1 branch near-invisible so its
+    % endpoint CFR approaches T3 instead of accidentally testing ordinary T4.
+    control(2).network.branches(1).length=1e-6;
+    control(2).network.branches(1).load=1e12;
+    indices=1:3;bank=stage7a5_template_bank(control,base,cfg);
+    E=stage7a5_generate_split(control,indices,base,cfg,cfg.seed_control_E, ...
+        cfg.n_E_per_class,'control_E',false);
+    sigma=estimate_sigma(E);
+    A=stage7a5_generate_split(control,indices,base,cfg,cfg.seed_control_A, ...
+        cfg.n_A_per_class,'control_A',false);
+    F=stage7a5_generate_split(control,indices,base,cfg,cfg.seed_control_F, ...
+        cfg.n_F_per_class,'control_F',false);
+    T=stage7a5_generate_split(control,indices,base,cfg,cfg.seed_control_T, ...
+        cfg.n_control_per_topology,'control_T',false);
+    rows=empty_rows();candidate_rows=empty_candidate_rows();
+    for v=1:3
+        views=cfg.observation_views{v};
+        a=score_batch(A,'A',views,sigma,control,bank,base,cfg,indices);
+        f=score_batch(F,'A',views,sigma,control,bank,base,cfg,indices);
+        modelA=stage7a5_calibrate_legacy(distance_matrix(a,indices), ...
+            [A.truth_index].',distance_matrix(f,indices),bank,indices, ...
+            views,sigma,cfg);
+        a=score_batch(A,'B',views,sigma,control,bank,base,cfg,indices);
+        f=score_batch(F,'B',views,sigma,control,bank,base,cfg,indices);
+        delta=nonconformity(a,A);
+        modelB=stage7a5_calibrate_split(delta,[f.fit_statistic].',bank,cfg, ...
+            indices,views,sigma,'B_control',0);
+        for i=1:numel(T)
+            for flow={'A','B','C_control'}
+                name=flow{1};model=modelA;scoring_flow='A';
+                if ~strcmp(name,'A'),model=modelB;scoring_flow='B';end
+                sc=stage7a5_score_observation(T(i).observed,control,bank, ...
+                    base,cfg,indices,views,sigma,scoring_flow,0,model);
+                dec=stage7a5_decide(sc,model,bank);
+                q=struct('scheme',cfg.observation_schemes{v},'flow',name, ...
+                    'truth_id',T(i).truth_id,'best_candidate',dec.best_candidate, ...
+                    'candidate_set',strjoin(dec.candidate_set,';'), ...
+                    'set_size',dec.candidate_set_size,'state',dec.decision_state, ...
+                    'reason',dec.decision_reason,'noise_seed',T(i).noise_seed, ...
+                    'correct_unique',strcmp(dec.decision_state,'UNIQUE_CONFIDENT')&& ...
+                    strcmp(dec.best_candidate,T(i).truth_id), ...
+                    'false_unique',strcmp(dec.decision_state,'UNIQUE_CONFIDENT')&& ...
+                    ~strcmp(dec.best_candidate,T(i).truth_id), ...
+                    'distance_1',dec.distance_1,'distance_2',dec.distance_2, ...
+                    'margin',dec.margin,'fit_statistic',dec.fit_statistic, ...
+                    'fit_threshold',dec.fit_threshold);
+                rows(end+1)=q; %#ok<AGROW>
+                for j=1:numel(sc.candidate_ids)
+                    c=struct('scheme',q.scheme,'flow',name,'truth_id',T(i).truth_id, ...
+                        'candidate_id',sc.candidate_ids{j},'rank', ...
+                        sum(sc.distances<sc.distances(j))+1,'distance',sc.distances(j), ...
+                        'in_candidate_set',any(strcmp(dec.candidate_set,sc.candidate_ids{j})), ...
+                        'state',dec.decision_state);
+                    candidate_rows(end+1)=c; %#ok<AGROW>
+                end
+            end
+        end
+    end
+    h=strcmp({rows.scheme},'H50');
+    mirror=ismember({rows.truth_id},{'T3','T5'});
+    close=ismember({rows.truth_id},{'T3','T4_NEAR_T3'});
+    forced=strcmp({rows.state},'UNIQUE_CONFIDENT') & h & (mirror|close);
+    meta=struct('bank_identity',bank.identity,'search_identity',bank.search_identity, ...
+        'template_forward_calls',bank.forward_calls, ...
+        'template_cache_bytes',bank.logical_cache_bytes,'sigma',sigma, ...
+        'E_n',numel(E),'A_n',numel(A),'F_n',numel(F),'T_n',numel(T), ...
+        'candidate_scope','T3;T4_NEAR_T3;T5', ...
+        'h50_nonunique_control_pass',~any(forced), ...
+        'h50_forced_unique_rows',rows(forced));
+end
+
+function result=score_batch(samples,flow,views,sigma,pool,bank,base,cfg,indices)
+    result=repmat(struct('candidate_indices',[],'candidate_ids',{{}}, ...
+        'distances',[],'params',[],'grid_distances',[],'optimizer_evaluations',0, ...
+        'fit_statistic',NaN,'holdout_statistic',NaN,'search_truncated',false, ...
+        'generated_ids',{{}},'profile_candidate_count',0,'views',[], ...
+        'forward_model_calls_search',0,'forward_model_calls_holdout',0),numel(samples),1);
+    for i=1:numel(samples)
+        result(i)=stage7a5_score_observation(samples(i).observed,pool,bank,base, ...
+            cfg,indices,views,sigma,flow,0,[]);
+    end
+end
+function d=distance_matrix(results,indices)
+    d=zeros(numel(results),numel(indices));
+    for i=1:numel(results),d(i,:)=results(i).distances;end
+end
+function x=nonconformity(results,samples)
+    x=zeros(numel(results),1);
+    for i=1:numel(results)
+        j=find(strcmp(results(i).candidate_ids,samples(i).truth_id),1);
+        assert(~isempty(j),'stage7a5:ControlCalibrationTruth');
+        x(i)=results(i).distances(j)-min(results(i).distances);
+    end
+end
+function sigma=estimate_sigma(samples)
+    e=zeros(1,2);
+    for i=1:numel(samples),for v=1:2
+        e(v)=e(v)+mean(abs(samples(i).observed{v}-samples(i).clean{v}).^2);
+    end,end
+    sigma=sqrt(e/numel(samples));
+end
+function rows=empty_rows()
+    q=struct('scheme','','flow','','truth_id','','best_candidate','', ...
+        'candidate_set','','set_size',0,'state','','reason','','noise_seed',0, ...
+        'correct_unique',false,'false_unique',false,'distance_1',NaN, ...
+        'distance_2',NaN,'margin',NaN,'fit_statistic',NaN,'fit_threshold',NaN);
+    rows=repmat(q,0,1);
+end
+function rows=empty_candidate_rows()
+    q=struct('scheme','','flow','','truth_id','','candidate_id','','rank',0, ...
+        'distance',NaN,'in_candidate_set',false,'state','');
+    rows=repmat(q,0,1);
+end

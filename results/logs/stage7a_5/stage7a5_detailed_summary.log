@@ -1,0 +1,18 @@
+OOD C H50 n=120 meanCandidates=10.00 medianCandidates=10.0 truncated=0 forward_calls=42235 optimizer_evals=42115 set_truth_hits=120 generated=120
+OOD C Zin50 n=120 meanCandidates=9.25 medianCandidates=9.0 truncated=0 forward_calls=51393 optimizer_evals=51273 set_truth_hits=120 generated=120
+OOD C H50_Zin50 n=120 meanCandidates=9.25 medianCandidates=9.0 truncated=0 forward_calls=51360 optimizer_evals=51240 set_truth_hits=120 generated=120
+CTRL H50 A n=90 unique=0 ambiguous=83 low=0 rejected=7 correct_unique=0 false_unique=0
+CTRL H50 B n=90 unique=0 ambiguous=76 low=4 rejected=10 correct_unique=0 false_unique=0
+CTRL H50 C_control n=90 unique=0 ambiguous=76 low=4 rejected=10 correct_unique=0 false_unique=0
+CTRL Zin50 A n=90 unique=30 ambiguous=58 low=2 rejected=0 correct_unique=30 false_unique=0
+CTRL Zin50 B n=90 unique=28 ambiguous=49 low=9 rejected=4 correct_unique=28 false_unique=0
+CTRL Zin50 C_control n=90 unique=28 ambiguous=49 low=9 rejected=4 correct_unique=28 false_unique=0
+CTRL H50_Zin50 A n=90 unique=28 ambiguous=54 low=1 rejected=7 correct_unique=28 false_unique=0
+CTRL H50_Zin50 B n=90 unique=28 ambiguous=48 low=8 rejected=6 correct_unique=28 false_unique=0
+CTRL H50_Zin50 C_control n=90 unique=28 ambiguous=48 low=8 rejected=6 correct_unique=28 false_unique=0
+    candidate_count    profile_time_s    optimizer_evaluations    cache_bytes
+    _______________    ______________    _____________________    ___________
+
+           3              0.045536                138             2.6414e+05
+           7               0.12018                316             6.1634e+05
+          10               0.19982                480             8.8048e+05
