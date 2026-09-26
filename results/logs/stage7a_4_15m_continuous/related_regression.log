@@ -1,0 +1,7 @@
+PASS test_stage7a4_15m_continuous: 15m identity and bounded shared-parameter fits
+PASS test_stage7a4_15m_result_integrity(formal): 31680 rows and SHA-256 identities
+PASS test_stage7a4_forward_state: endpoint CFR, Zin and loaded node ports
+PASS test_stage7a4_joint_profile: mirror, same-theta templates, decision identity
+PASS test_stage7a4_result_integrity(formal): 48000 decisions, 20 schemes
+PASS test_stage7a4_continuous_fit(formal): 9600 sample-method rows
+PASS test_stage7a4_impedance_resolution(formal): 33600 sample-method rows

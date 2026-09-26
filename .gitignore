@@ -75,3 +75,8 @@ results/data/stage2_3_formal_fixed_trials.csv
 /results/data/stage7a_4_resolution/formal/resolution_samples.csv
 /results/data/stage7a_4_continuous/smoke/
 /results/data/stage7a_4_continuous/formal/continuous_samples.csv
+
+# Stage 7A.4 original 15 m continuous audit: archive compact formal tables;
+# regenerate per-sample and smoke outputs with the independent entrypoint.
+/results/data/stage7a_4_15m_continuous/smoke/
+/results/data/stage7a_4_15m_continuous/formal/samples.csv

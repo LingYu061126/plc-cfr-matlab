@@ -1,0 +1,12 @@
+Post-run interval verification transcript (terminal backspace styling removed; failed attempts retained).
+Warning: Column headers from the file were modified to make them valid MATLAB
+identifiers before creating variable names for the table. The original column
+headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as
+table variable names.
+Array indices must be positive integers or logical values.
+Error in tabular/dotParenReference (line 109)
+    b = b(rowIndices);
+Error using . (line 229)
+Unrecognized table variable name 'source_sha256'.
+PASS interval integrity: 7392 rows, all Wilson bounds and SHA-256 identities

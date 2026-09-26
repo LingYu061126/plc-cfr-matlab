@@ -1,0 +1,11 @@
+post-commit reproduction / Stage 7A.4 original 15m continuous audit
+MATLAB 24.1.0.2537033 (R2024a) glnxa64; bank=f8e5b8a7a5e55a7411208b230d5991eead4b0ddb9fb1c69f4d48a03d0f6dcf0c, cache=2993632 bytes, C trigger pair/original=1/0
+on_on 20 dB: E/A/F/T 40/80/80/120; elapsed 113.44 s
+on_on 10 dB: E/A/F/T 40/80/80/120; elapsed 230.26 s
+off_on 20 dB: E/A/F/T 40/80/80/120; elapsed 344.60 s
+off_on 10 dB: E/A/F/T 40/80/80/120; elapsed 460.65 s
+on_off 20 dB: E/A/F/T 40/80/80/120; elapsed 579.41 s
+on_off 10 dB: E/A/F/T 40/80/80/120; elapsed 687.72 s
+off_off 20 dB: E/A/F/T 40/80/80/120; elapsed 905.65 s
+off_off 10 dB: E/A/F/T 40/80/80/120; elapsed 1021.75 s
+Stage 7A.4 15m formal complete: 31680 rows, 1036.54 s
