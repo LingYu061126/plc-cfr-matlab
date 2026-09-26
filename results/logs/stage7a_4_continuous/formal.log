@@ -1,0 +1,15 @@
+R.2 on_grid L=0.0001 m R=1: 200 paired T samples, 16.68 s elapsed.
+R.2 on_grid L=0.0001 m R=256: 200 paired T samples, 31.21 s elapsed.
+R.2 off_grid L=0.0001 m R=1: 200 paired T samples, 46.26 s elapsed.
+R.2 off_grid L=0.0001 m R=256: 200 paired T samples, 60.62 s elapsed.
+R.2 on_grid L=0.002 m R=1: 200 paired T samples, 76.26 s elapsed.
+R.2 on_grid L=0.002 m R=256: 200 paired T samples, 90.74 s elapsed.
+R.2 off_grid L=0.002 m R=1: 200 paired T samples, 106.00 s elapsed.
+R.2 off_grid L=0.002 m R=256: 200 paired T samples, 120.36 s elapsed.
+R.2 on_grid L=0.01 m R=1: 200 paired T samples, 135.91 s elapsed.
+R.2 on_grid L=0.01 m R=256: 200 paired T samples, 150.83 s elapsed.
+R.2 off_grid L=0.01 m R=1: 200 paired T samples, 166.35 s elapsed.
+R.2 off_grid L=0.01 m R=256: 200 paired T samples, 181.10 s elapsed.
+Stage 7A.4-R.2 formal completed: 9600 sample-method rows, 182.197 s.
+PASS test_stage7a4_continuous_fit(formal): 9600 sample-method rows
+  182.1971

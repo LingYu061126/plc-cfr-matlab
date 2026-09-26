@@ -1,0 +1,2 @@
+verification_baseline_commit,mode,matlab_version,computer_arch,worker_count,samples_per_truth_per_split,single_read_error_rms_ohm,frequency_points,runtime_s
+b69d109c9b2773dbd46858778ca532b3d4f7e13e,formal,24.1.0.2537033 (R2024a),glnxa64,0,100,1,61,15.401975

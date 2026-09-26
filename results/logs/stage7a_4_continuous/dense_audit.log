@@ -1,0 +1,31 @@
+Dense D seed 892101001: 1.25 s elapsed.
+Dense D seed 892102001: 2.17 s elapsed.
+Dense D seed 892201001: 3.22 s elapsed.
+Dense D seed 892202001: 4.24 s elapsed.
+Dense D seed 893101001: 5.19 s elapsed.
+Dense D seed 893102001: 6.08 s elapsed.
+Dense D seed 893201001: 7.10 s elapsed.
+Dense D seed 893202001: 8.19 s elapsed.
+Dense D seed 894101001: 9.15 s elapsed.
+Dense D seed 894102001: 10.12 s elapsed.
+Dense D seed 894201001: 11.12 s elapsed.
+Dense D seed 894202001: 12.11 s elapsed.
+Dense audit complete: 24 candidate fits, maximum missed improvement 0 ohm, 12.22 s.
+
+ans =
+
+  1x24 struct array with fields:
+
+    domain
+    branch_length_m
+    diagnostic_seed
+    truth_id
+    candidate_id
+    local_fit_rms_ohm
+    dense_multistart_rms_ohm
+    missed_improvement_ohm
+    number_of_local_basins
+    dense_load_values
+    dense_main_points
+    dense_best_main_scale
+    dense_best_load_scale

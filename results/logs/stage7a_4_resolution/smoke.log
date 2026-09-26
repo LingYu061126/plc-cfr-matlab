@@ -1,0 +1,21 @@
+R.1 on_grid L=0.0001 m R=1: 40 test samples, 0.43 s elapsed.
+R.1 on_grid L=0.0001 m R=16: 40 test samples, 0.45 s elapsed.
+R.1 on_grid L=0.0001 m R=1024: 40 test samples, 0.47 s elapsed.
+R.1 off_grid L=0.0001 m R=1: 40 test samples, 0.56 s elapsed.
+R.1 off_grid L=0.0001 m R=16: 40 test samples, 0.59 s elapsed.
+R.1 off_grid L=0.0001 m R=1024: 40 test samples, 0.60 s elapsed.
+R.1 on_grid L=0.001 m R=1: 40 test samples, 0.73 s elapsed.
+R.1 on_grid L=0.001 m R=16: 40 test samples, 0.75 s elapsed.
+R.1 on_grid L=0.001 m R=1024: 40 test samples, 0.77 s elapsed.
+R.1 off_grid L=0.001 m R=1: 40 test samples, 0.84 s elapsed.
+R.1 off_grid L=0.001 m R=16: 40 test samples, 0.86 s elapsed.
+R.1 off_grid L=0.001 m R=1024: 40 test samples, 0.87 s elapsed.
+R.1 on_grid L=0.005 m R=1: 40 test samples, 0.99 s elapsed.
+R.1 on_grid L=0.005 m R=16: 40 test samples, 1.01 s elapsed.
+R.1 on_grid L=0.005 m R=1024: 40 test samples, 1.02 s elapsed.
+R.1 off_grid L=0.005 m R=1: 40 test samples, 1.14 s elapsed.
+R.1 off_grid L=0.005 m R=16: 40 test samples, 1.15 s elapsed.
+R.1 off_grid L=0.005 m R=1024: 40 test samples, 1.17 s elapsed.
+Stage 7A.4-R.1 smoke completed: 1440 sample-method rows, 1.763 s.
+PASS test_stage7a4_impedance_resolution(smoke): 1440 sample-method rows
+    1.7631

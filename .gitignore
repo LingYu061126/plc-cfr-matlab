@@ -68,3 +68,10 @@ results/data/stage2_3_formal_fixed_trials.csv
 !/results/logs/stage7a_4/stage7a4_related_regression.log
 !/results/logs/stage7a_4/stage7a4_full_regression.log
 !/results/logs/stage7a_4/stage7a4_clean_baseline_full_regression_final.log
+
+# Stage 7A.4-R.1/R.2: archive compact formal evidence and verification logs.
+# Full per-sample and smoke outputs are locally reproducible, not Git inputs.
+/results/data/stage7a_4_resolution/smoke/
+/results/data/stage7a_4_resolution/formal/resolution_samples.csv
+/results/data/stage7a_4_continuous/smoke/
+/results/data/stage7a_4_continuous/formal/continuous_samples.csv

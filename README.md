@@ -42,6 +42,8 @@ run_stage6b_robustness(pwd,'formal')
 
 Stage 7A 的独立 smoke/formal 入口为 `run_stage7a_profile_search(pwd,'smoke')` 和 `run_stage7a_profile_search(pwd,'formal')`；结果位于 `results/data/stage7a/`。Stage 6B 正式结果只读，Stage 7A 尚未通过全部性能对照，不应作为新的默认 baseline。
 
+Stage 7A.4-R.1/R.2 另有输入阻抗分辨率及连续参数剖面诊断，汇总见 [技术归档](docs/stage7a4_resolution_closure.md)。它们只针对指定的已知二拓扑、极短高阻支路受控合成模型；0.0166 Ω 是特定条件下的经验最小已测通过点，不是现场仪器或一般拓扑的分辨率。独立入口为 `run_stage7a4_impedance_resolution(pwd,'formal')` 与 `run_stage7a4_continuous_fit(pwd,'formal')`。正式逐样本 CSV 较大，未纳入 Git，可由入口重建；仓库保留紧凑汇总、诊断、配置和运行日志。
+
 ## Historical stages / 历史阶段
 
 本目录包含低压电力线载波（PLC）信道频率响应（CFR）的稳定正向模型，以及阶段 2/2.1/2.2 的 OFDM 等效导频信道估计和可解释拓扑识别基线。阶段 2.2 在不改动阶段 1.5 稳定传输线模型的前提下，新增完整树网络节点导纳求解、物理标注的多视图观测和离散拓扑/参数联合匹配。项目仍不包含完整 PLC 收发机、波形优化、机器学习或接地故障定位。

@@ -1,0 +1,17 @@
+domain,repeat_count,method,passing_grid_count,smallest_tested_difference_ohm,branch_length_m
+on_grid,1,grid_four_state,0,NaN,NaN
+on_grid,1,continuous_four_state,0,NaN,NaN
+on_grid,1,grid_pair_gap,1,1.65957440309405,0.01
+on_grid,1,continuous_pair_gap,1,1.65957440309405,0.01
+on_grid,256,grid_four_state,1,1.65957440309405,0.01
+on_grid,256,continuous_four_state,1,1.65957440309405,0.01
+on_grid,256,grid_pair_gap,2,0.331879075992818,0.002
+on_grid,256,continuous_pair_gap,2,0.331879075992818,0.002
+off_grid,1,grid_four_state,0,NaN,NaN
+off_grid,1,continuous_four_state,0,NaN,NaN
+off_grid,1,grid_pair_gap,0,NaN,NaN
+off_grid,1,continuous_pair_gap,2,0.331879075992818,0.002
+off_grid,256,grid_four_state,0,NaN,NaN
+off_grid,256,continuous_four_state,1,1.65957440309405,0.01
+off_grid,256,grid_pair_gap,0,NaN,NaN
+off_grid,256,continuous_pair_gap,3,0.0165960714530399,0.0001

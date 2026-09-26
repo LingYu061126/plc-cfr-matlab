@@ -1,10 +1,10 @@
 # Project State
 
-更新时间：2026-09-23
+更新时间：2026-09-26
 
 ## Current stage
 
-Stage 6 Archive Closure completed。Stage 7A 参数剖面搜索已完成受控算法对照，但尚未替代 Stage 6B baseline：参数域内确认提升，3/7/23 候选规模确认率退化；详见 [`stage7a_technical_record.md`](stage7a_technical_record.md)。本轮不撰写正式论文报告。Stage 4B 与 Multi-view CFR 均未启动。
+Stage 6 Archive Closure completed。Stage 7A 至 Stage 7A.4 的受控算法及观测对照已归档；最新的 R.1/R.2 仅检验指定已知二拓扑的输入阻抗差分辨率和有界连续参数剖面，见 [阶段汇总](stage7a4_resolution_closure.md)。它们尚未替代 Stage 6B baseline，也未完成正式论文报告。Stage 4B 与 Multi-view CFR 均未启动。
 
 ## Completed
 
@@ -15,6 +15,7 @@ Stage 6 Archive Closure completed。Stage 7A 参数剖面搜索已完成受控�
 - Stage 6B：wrong-open/wrong-closed prior sensitivity、3/7/23 candidate scale、长度/负载 parameter uncertainty、T3/T5 与三拓扑 CFR-close identifiability positive controls。
 - Stage 6B 正式 CSV/MAT、4 张 PNG 图表、定向测试和技术报告。
 - Stage 7A：独立的有界粗到细参数剖面搜索、局部校准、六类成对对照及安全审计；安全检查通过，但候选规模下的确认率退化尚未解决。
+- Stage 7A.4-R.1/R.2：在每次复输入阻抗观测误差仍为 1 Ω RMS 的二拓扑合成控制中，分别审计固定参数下的阻抗差分辨率与有界连续参数拟合；独立测试、紧凑汇总、配置和日志见 [汇总报告](stage7a4_resolution_closure.md)。
 
 ## Key commits
 
@@ -73,4 +74,4 @@ Stage 6 Archive Closure completed。Stage 7A 参数剖面搜索已完成受控�
 
 ## Next recommended step
 
-先在独立开发集上诊断 Stage 7A 候选规模下的集合覆盖与校准分辨率退化，形成预先固定的新协议后再决定是否进入下一轮算法开发。Stage 6B 仍是独立 baseline；正式报告／论文综合撰写尚未在本轮启动。Multi-view CFR 是可选后续增强，不是当前主线的阻塞条件。
+若考虑把连续参数拟合用于主线，先在实际候选规模、候选库外拓扑、参数域外和非唯一正控制上独立校准并检查错误唯一、库外误接受及运行成本；当前二拓扑灵敏度结果不足以批准替换完整判定。Stage 6B 仍是独立 baseline；正式报告／论文综合撰写尚未在本轮启动。Multi-view CFR 是可选后续增强，不是当前主线的阻塞条件。

@@ -1,0 +1,7 @@
+R.2 on_grid L=0.01 m R=1: 10 paired T samples, 2.08 s elapsed.
+R.2 on_grid L=0.01 m R=256: 10 paired T samples, 3.32 s elapsed.
+R.2 off_grid L=0.01 m R=1: 10 paired T samples, 4.70 s elapsed.
+R.2 off_grid L=0.01 m R=256: 10 paired T samples, 5.97 s elapsed.
+Stage 7A.4-R.2 smoke completed: 160 sample-method rows, 6.527 s.
+PASS test_stage7a4_continuous_fit(smoke): 160 sample-method rows
+    6.5271
