@@ -1,0 +1,49 @@
+function stage7a6_write_inventory(root,outdir,baseline_commit)
+%STAGE7A6_WRITE_INVENTORY Byte-level source and result identity records.
+%   All paths are repository-relative; the manifest never hashes itself.
+    sources={'docs/stage7a6_protocol.md','config/stage7a6_config.m', ...
+        'src/stage7a6_candidate_space.m', ...
+        'src/stage7a6_expand_candidates.m', ...
+        'src/stage7a6_score_observation.m', ...
+        'src/stage7a6_write_inventory.m', ...
+        'experiments/exp_stage7a6_budget_audit.m','run_stage7a6.m', ...
+        'tests/test_stage7a6_candidate_space.m', ...
+        'tests/test_stage7a6_result_integrity.m'};
+    src=repmat(struct('relative_path','','sha256','','size_bytes',0, ...
+        'verification_baseline_commit',''),numel(sources),1);
+    for k=1:numel(sources)
+        path=fullfile(root,sources{k});
+        assert(exist(path,'file')==2,'stage7a6:MissingSource');
+        info=dir(path);
+        src(k)=struct('relative_path',sources{k}, ...
+            'sha256',file_hash(path),'size_bytes',info.bytes, ...
+            'verification_baseline_commit',baseline_commit);
+    end
+    writetable(struct2table(src),fullfile(outdir,'source_inventory.csv'));
+    listing=dir(fullfile(outdir,'*'));
+    listing=listing(~[listing.isdir]);
+    names={listing.name};
+    names(strcmp(names,'artifact_manifest.csv'))=[];
+    artifact=repmat(struct('relative_path','','sha256','', ...
+        'size_bytes',0,'artifact_type',''),numel(names),1);
+    [~,budget_dir]=fileparts(outdir);
+    [parent,mode_dir]=fileparts(fileparts(outdir)); %#ok<ASGLU>
+    for k=1:numel(names)
+        path=fullfile(outdir,names{k});
+        info=dir(path);[~,~,ext]=fileparts(path);
+        rel=fullfile('results','data','stage7a_6',mode_dir, ...
+            budget_dir,names{k});
+        artifact(k)=struct('relative_path',strrep(rel,'\','/'), ...
+            'sha256',file_hash(path),'size_bytes',info.bytes, ...
+            'artifact_type',lower(ext(2:end)));
+    end
+    writetable(struct2table(artifact), ...
+        fullfile(outdir,'artifact_manifest.csv'));
+end
+
+function hash=file_hash(path)
+    [status,out]=system(sprintf('sha256sum "%s"',path));
+    assert(status==0,'stage7a6:HashCommand');
+    hash=regexp(strtrim(out),'^[0-9a-f]{64}','match','once');
+    assert(~isempty(hash),'stage7a6:HashParse');
+end

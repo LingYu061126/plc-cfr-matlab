@@ -1,0 +1,6 @@
+{Error using assert
+Mismatched calibration budget was not rejected.
+
+Error in test_stage7a6_candidate_space (line 53)
+    assert(caught,'Mismatched calibration budget was not rejected.');
+}

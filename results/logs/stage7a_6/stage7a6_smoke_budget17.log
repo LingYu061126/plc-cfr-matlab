@@ -1,0 +1,12 @@
+Stage 7A.6 smoke budget 17: H50, 16 paired observations scored
+Stage 7A.6 smoke budget 17: Zin50, 16 paired observations scored
+Stage 7A.6 smoke budget 17: H50_Zin50, 16 paired observations scored
+Stage 7A.6 smoke budget 17 complete: 96 decisions, 52.55 s, peak RSS 1504648 kB
+{Error using () (line 132)
+Subscripting into a table using one subscript (as in t(i)) is not supported.
+Specify a row subscript and a variable subscript, as in t(rows,vars). To select
+variables, use t(:,i) or for one variable t.(i). To select rows, use t(i,:).
+
+Error in test_stage7a6_result_integrity (line 44)
+        x=s(ix);
+}

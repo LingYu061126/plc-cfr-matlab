@@ -1,0 +1,5 @@
+Stage 7A.6 formal budget 10: H50, 160 paired observations scored
+Stage 7A.6 formal budget 10: Zin50, 160 paired observations scored
+Stage 7A.6 formal budget 10: H50_Zin50, 160 paired observations scored
+Stage 7A.6 formal budget 10 complete: 960 decisions, 483.15 s, peak RSS 1635668 kB
+PASS test_stage7a6_result_integrity (formal budget 10): 960 decisions

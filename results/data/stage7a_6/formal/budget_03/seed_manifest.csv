@@ -1,0 +1,9 @@
+split,seed_base,replicates_per_topology
+E,101000000,20
+A,102000000,50
+F,103000000,50
+T_inlib,211000000,20
+T_old_out,221000000,10
+T_reachable,231000000,10
+T_grammar_out,241000000,10
+T_domain,251000000,10

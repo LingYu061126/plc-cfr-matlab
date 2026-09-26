@@ -1,0 +1,3 @@
+C_state,C_reason,lost_count,denominator
+LOW_CONFIDENCE,insufficient_unique_margin,21,35
+MULTIPLE_AMBIGUOUS,multiple_candidates,14,35

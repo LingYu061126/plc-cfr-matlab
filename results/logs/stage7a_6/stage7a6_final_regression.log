@@ -1,0 +1,10 @@
+PASS test_stage7a5_candidate_extension
+PASS test_stage7a5_result_integrity (formal): 2430 sample rows, 12546 candidate rows
+PASS test_stage7a6_candidate_space
+PASS test_stage7a6_result_integrity (formal budget 3): 960 decisions
+PASS test_stage7a6_result_integrity (formal budget 5): 960 decisions
+PASS test_stage7a6_result_integrity (formal budget 7): 960 decisions
+PASS test_stage7a6_result_integrity (formal budget 10): 960 decisions
+PASS test_stage7a6_result_integrity (formal budget 17): 960 decisions
+PASS test_stage7a4_result_integrity(formal): 48000 decisions, 20 schemes
+PASS test_stage7a4_15m_result_integrity(formal): 31680 rows and SHA-256 identities
