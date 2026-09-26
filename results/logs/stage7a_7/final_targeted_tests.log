@@ -1,0 +1,8 @@
+PASS test_stage7a6_candidate_space
+PASS test_stage7a7_candidate_space
+PASS test_stage7a7_search_and_identity
+PASS test_stage7a7_result_integrity formal nominal
+PASS test_stage7a7_result_integrity formal zin3
+PASS test_stage7a7_result_integrity formal zin6
+PASS test_stage7a7_result_integrity formal missing_half
+PASS test_stage7a7_result_integrity formal parameter_shift

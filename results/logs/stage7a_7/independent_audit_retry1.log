@@ -1,0 +1,7 @@
+PASS nominal: 990 decisions, 13791 candidate rows, 75 summary groups, 165 topology groups
+PASS zin3: 396 decisions, 7920 candidate rows, 30 summary groups, 66 topology groups
+PASS zin6: 396 decisions, 7920 candidate rows, 30 summary groups, 66 topology groups
+PASS missing_half: 396 decisions, 7920 candidate rows, 30 summary groups, 66 topology groups
+PASS parameter_shift: 396 decisions, 7920 candidate rows, 30 summary groups, 66 topology groups
+PASS paired H-only invariance: 132 rows each across 1/3/6 ohm Zin conditions
+PASS independent aggregate: 429 topology/flow/view rows

@@ -1,0 +1,7 @@
+Stage 7A.7 formal parameter_shift H50 B: 66 test observations
+Stage 7A.7 formal parameter_shift H50 C37: 66 test observations
+Stage 7A.7 formal parameter_shift Zin50 B: 66 test observations
+Stage 7A.7 formal parameter_shift Zin50 C37: 66 test observations
+Stage 7A.7 formal parameter_shift H50_Zin50 B: 66 test observations
+Stage 7A.7 formal parameter_shift H50_Zin50 C37: 66 test observations
+Stage 7A.7 formal parameter_shift complete: 396 decisions, 447.00 s, 1621344 kB peak RSS
