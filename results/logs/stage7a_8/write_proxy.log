@@ -1,0 +1,8 @@
+READ_ALL_S=1.558513000
+WRITE_PROXY samples median_s=0.010668000 rows=132
+WRITE_PROXY candidate_audit median_s=0.029951000 rows=4884
+WRITE_PROXY paired_comparison median_s=0.002276000 rows=66
+WRITE_PROXY summary median_s=0.002694000 rows=10
+WRITE_PROXY calibration median_s=0.002059000 rows=1
+WRITE_PROXY metadata median_s=0.007401000 rows=1
+WRITE_PROXY_TOTAL_MEDIAN_S=0.054243000

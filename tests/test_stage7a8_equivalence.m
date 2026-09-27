@@ -14,6 +14,19 @@ function test_stage7a8_equivalence(root)
         1:budget,views,sigma,'C',budget);
     model.condition_identity=stage7a7_condition_identity( ...
         cfg,bank,views,sigma,'C37',budget);
+    theta=struct('main_length_scale',1.03,'branch_length_scale',1, ...
+        'branch_load_scale',1.07,'first_segment_scale',1, ...
+        'source_impedance_ohm',50,'receiver_impedance_ohm',50);
+    for k=[1 numel(pool)]
+        full=stage7a4_forward_state(pool(k).network,theta,base, ...
+            cfg.frequency_hz,cfg.state_50);
+        for ix={cfg.frequency_train_indices,cfg.frequency_holdout_indices}
+            keep=ix{1};sliced=stage7a4_forward_state( ...
+                pool(k).network,theta,base,cfg.frequency_hz(keep),cfg.state_50);
+            assert(max(abs(full.H_endpoint(keep)-sliced.H_endpoint))<=1e-12);
+            assert(max(abs(full.Zin(keep)-sliced.Zin))<=1e-10);
+        end
+    end
     sets={groups.inlib(1),groups.old_out(1),groups.reachable(1)};
     for i=1:numel(sets)
         s=stage7a5_generate_split(catalog,sets{i},base,cfg, ...
@@ -41,5 +54,5 @@ function test_stage7a8_equivalence(root)
         caught=strcmp(ME.identifier,'stage7a8:CalibrationIdentityMismatch');
     end
     assert(caught,'Mismatched calibrated model was accepted.');
-    fprintf('PASS test_stage7a8_equivalence (3 paired observations)\n');
+    fprintf('PASS test_stage7a8_equivalence (3 pairs, complex H/Z slices)\n');
 end
