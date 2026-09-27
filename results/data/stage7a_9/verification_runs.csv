@@ -1,0 +1,4 @@
+run_id,command,exit_status,status,log_relative_path,source_identity
+targeted_and_end_to_end,"test_stage7a9_equivalence; smoke/formal integrity; exp_stage7a9_end_to_end A and B",0,PASS,results/logs/stage7a_9/final_targeted_and_end_to_end.log,1801416699fe858a53be03a976633fed71da9b19 plus independent Stage7A9 implementation
+final_paired,"exp_stage7a9_study formal final_code; final_code integrity; stage7a9_archive_sources",0,PASS,results/logs/stage7a_9/final_paired.log,source_inventory.csv and source_snapshot
+clean_full_regression,"run_tests; Stage7A9 equivalence and smoke/formal integrity; Stage7A8 equivalence and formal integrity",0,PASS,results/logs/stage7a_9/full_regression.log,ba9c9da68a02e8b5d8289fcf128c7ab04ca10906 isolated clean test snapshot

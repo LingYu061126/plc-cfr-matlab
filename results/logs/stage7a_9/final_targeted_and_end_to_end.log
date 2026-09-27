@@ -1,0 +1,5 @@
+PASS test_stage7a9_equivalence: H 0, Zin 0 ohm, 12/60 spectra, 3 C37 pairs
+PASS test_stage7a9_result_integrity smoke: 11 pairs, 814 candidate rows
+PASS test_stage7a9_result_integrity formal: 66 pairs, 4884 candidate rows
+PASS end-to-end A: 66 archived matches, total 670.180220 s, scoring 240.337821 s
+PASS end-to-end B: 66 archived matches, total 633.198749 s, scoring 235.846970 s

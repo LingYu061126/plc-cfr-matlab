@@ -1,0 +1,2 @@
+method,generation_s,template_s,simulation_s,calibration_s,scoring_s,write_s,total_s,process_peak_rss_kb,matlab_version
+A,0.300098,4.124206,0.533063,424.526157,240.337821,0.358513,670.18022,1648212,24.1.0.2537033 (R2024a)

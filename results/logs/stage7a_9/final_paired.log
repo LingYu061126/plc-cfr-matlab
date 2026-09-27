@@ -1,0 +1,10 @@
+Stage 7A.9 formal paired 10/66, elapsed 66.205 s
+Stage 7A.9 formal paired 20/66, elapsed 133.784 s
+Stage 7A.9 formal paired 30/66, elapsed 200.059 s
+Stage 7A.9 formal paired 40/66, elapsed 268.044 s
+Stage 7A.9 formal paired 50/66, elapsed 341.516 s
+Stage 7A.9 formal paired 60/66, elapsed 412.140 s
+Stage 7A.9 formal paired 66/66, elapsed 462.370 s
+Stage 7A.9 formal PASS: 66 pairs, total 1323.278 s, peak 1650760 kB
+PASS test_stage7a9_result_integrity formal: 66 pairs, 4884 candidate rows
+PASS Stage7A9 source snapshots: 12 files
