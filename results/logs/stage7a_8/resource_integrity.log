@@ -1,0 +1,2 @@
+PASS test_stage7a8_resource_audit smoke (22 scored rows)
+PASS test_stage7a8_resource_audit formal (132 scored rows)

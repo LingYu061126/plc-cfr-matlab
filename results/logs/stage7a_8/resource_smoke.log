@@ -1,0 +1,9 @@
+{Error using stage7a7_score_observation (line 14)
+Pool, view, condition, mask, sigma or budget mismatch.
+
+Error in exp_stage7a8_resource_audit (line 42)
+                score=stage7a7_score_observation(s.observed,pool,bank, ...
+
+Error in run_stage7a8_resource_audit (line 9)
+    out=exp_stage7a8_resource_audit(root,mode);
+}

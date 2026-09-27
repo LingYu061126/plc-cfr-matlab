@@ -8,6 +8,8 @@
 
 MATLAB Profiler 对名义联合视图的一个 G002 样本记录了 37 候选、1,773 次连续目标函数评估。Profiler 插桩下评分为 4.018 s；其中 `stage7a5_profile` 嵌套总时间 3.916 s、`stage7a4_forward_state` 3.317 s、网络图解析 0.924 s、图编辑邻居仅 0.018 s。这些嵌套时间不能相加，也不能和非插桩正式计时直接比较。证据见 `results/logs/stage7a_8/baseline_profiler.log`。
 
+Stage 7A.7 归档的名义 C37 单视图结果提供观测贡献对照：H50 对初始库内正确唯一 6/18，对旧库外而现库内、新连接点分别为 0/12、0/12；Zin50 对三组分别为 17/18、12/12、12/12；联合视图为 18/18、12/12、12/12。三种视图的语法外 12/12 与参数域外 12/12 均被拒。这些数字来自 `results/data/stage7a_7/formal/nominal/summary.csv`，不是本轮额外调参或重跑的单视图实验；它们说明指定图族上 Zin50 提供了有效补充信息，不证明一般网络中的物理唯一性。
+
 B 对粗网格模板复用不变；连续拟合的正向模型仅在原定训练索引求解；对最佳图的质量门仅在原定留出索引求解。电路方程未更改，亦没有减少候选数或放宽阈值。B 仍逐一计算 37 图，不以 Top-K 截断结果冒充全池确认。
 
 ## 提前停止的安全边界
@@ -19,6 +21,8 @@ B 对粗网格模板复用不变；连续拟合的正向模型仅在原定训练
 环境为 MATLAB R2024a (`24.1.0.2537033`)、Linux `glnxa64`、串行、0 worker。Stage 5B.1 完整回归依赖的忽略 MAT 文件已在提交 `31082ad` 的独立干净检出中，由 `run_stage5b1_objective_confirmation_upgrade(pwd,'formal')` 从已跟踪 Stage 4A 输入重新生成，退出码 0、耗时 134.842 s。该隔离检出仅有 `stage5b1_runtime.csv` 因 wall-clock 重跑而变化；其他科学 CSV 未变化。再将生成的 MAT 作为忽略夹具放入第二份干净检出，`run_tests()` 退出码 0；第二份检出 `git status --short` 为空。生成 MAT SHA-256 为 `f2775c13cb1a7d555a07f158e16f57d5f97f85befa22f235dd49fd5c37ce2881`，原主工作区被忽略 MAT 的原始字节哈希不同；本阶段只声称所需夹具**可从跟踪输入重生并使完整测试通过**，不声称不同日期 MAT 文件逐字节一致。日志分别见 `fixture_generation.log` 与 `clean_full_regression.log`。历史回归出现既有 `lsqnonlin` 方程数少于变量数时切换 Levenberg–Marquardt 的警告，无测试失败。
 
 新代码的定向等价测试、smoke 及结果完整性测试单独运行，不纳入历史 `run_tests.m`，以免改变旧回归身份。Smoke 中 11 个配对观测全部等价；A/B 使用的因小校准集产生的候选集合与正式 60＋60 校准不同，不能以 smoke 的确认率代替正式结论。首次完整性测试因 MATLAB 将签名中的分号误判成 CSV 分隔符而失败；显式指定逗号后通过，原始 CSV 与科学计算未改动。失败日志与重测日志均保留。
+
+提交 `7c1de33de578955563b727d173a25610725d82da` 的新干净检出还单独运行了 `run_tests()`、Stage 7A.8 等价测试与 smoke/formal 结果完整性测试，全部退出码 0，日志为 `results/logs/stage7a_8/current_head_clean_regression.log`。忽略 MAT 夹具来自上述隔离生成，干净检出的 Git 跟踪文件未改变。这比只在 Stage 7A.7 基线检出上运行历史回归覆盖更完整。
 
 ## 正式配对结果
 
@@ -38,7 +42,17 @@ B 对粗网格模板复用不变；连续拟合的正向模型仅在原定训练
 
 A/B 的 66 次测试评分累计分别为 **182.804 s** 和 **167.543 s**，B 节省 **15.261 s（8.35%）**，总评分时间比为 **1.091×**；66 次中 B 有 59 次更快，7 次更慢。实验总 wall-clock 为 **691.799 s**，其中一次性候选模板建造 3.945 s／1,665 次正向调用、E/A/F/T 观测生成 0.703 s、原版 A/F 校准 331.880 s、A/B 配对 T 评分 350.637 s。本轮只优化 T 评分路径，**没有实测 B 用于校准时的端到端加速**，也不能把 8.35% 直接当作总流程加速。模板逻辑缓存为 3,257,776 B，MATLAB 进程峰值 RSS 为 1,645,864 kB；未使用并行池。相比旧 Stage 7A.7 跨日日志，本轮 A/B 是同进程交替测量，更适合估计这一局部改动的收益，但仍可能受 JIT 与系统负载影响。
 
+总耗时扣除上述单列阶段后约剩 4.143 s，含结果表构造、CSV/MAT 写入和其他未细分开销；不能把它全部记作文件写入时间。实验在测试阶段预分配 132 个样本行和 4,884 个逐候选行，避免在循环中反复拼接大表。跨样本的连续拟合目标依赖不同观测，未发现可直接复用拟合结果且保持原定义的依据；本次仍逐观测、逐候选评分。
+
 综上，B 在本批数据上**守住科学输出等价并带来温和的评分耗时下降**，但并未改变库外识别能力，也没有证据支持安全的 Top-K 提前唯一。下一轮若继续追求算力收益，应优先研究正向模型中不随连续参数变化的图结构解析与线路参数复用，并先以逐频复数 H/Z、完整排序及判定等价测试守门；不得通过减少候选池或放宽质量门制造“提速”。
+
+## 逐样本资源补充审计
+
+`results/data/stage7a_8/resource_audit/` 是正式结果生成**之后**的独立只读重放，不覆盖原 formal CSV。它读取保存的校准模型，按原种子重建 66 个 T 观测；每次 A/B 评分均与原样本行及 37 条逐候选距离、拟合参数核对。资源审计 132/132 次匹配，MATLAB R2024a 串行运行 107.845 s。此处的重放时间不是预注册的性能对照计时，不替换上文 182.804/167.543 s 的结论。资源审计 smoke 首次因早期 smoke 快照的版本身份不同而被模型拒绝；读取其原快照版本标记后重跑通过，未改科学配置，失败与修复日志均保留。
+
+`per_sample_resources.csv` 对每次评分列出优化评估次数、搜索正向调用数、1 次留出正向调用、输出结构体字节数、调用前后 RSS、进程累计 VmHWM 与共享模板缓存字节数。搜索代码中每次目标函数评估恰有一次正向模型调用，因此每次评分的总正向调用数为 `optimizer_evaluations + 1`；未把一次性模板建造的 1,665 次分摊为某个样本的调用。正式 66 次 A 和 66 次 B 各自合计 **127,239 次**，每次评分为 **1,680–2,315 次**，A/B 逐样本相同。A/B 已保留评分输出结构体分别为 13,347/9,307 B；这只是返回值的 MATLAB 逻辑字节数，**不是求解器峰值内存**，差异也不能解释为整进程内存同比下降。共享模板逻辑缓存为 3,257,776 B；本次重放进程 VmHWM 为 1,681,264 kB。前后 RSS 是采样时刻值，VmHWM 是整进程累计高水位；二者都不能反推出每个样本内部的独立瞬时峰值。该指标仍是明确的测量局限，而非补造的结果。
+
+资源审计元数据中的 `source_head=7c1de33` 指重放时已跟踪的科学基线；新增资源审计代码在运行时尚未提交，其精确原始字节由 `resource_audit/source_manifest.csv` 的 SHA-256 另行绑定。新定向测试 `test_stage7a8_resource_audit` 对 smoke 的 22 行和正式的 132 行、调用数、共享缓存与内存字段做了独立只读核对，退出码 0。
 
 ## 实际运行与测试
 
@@ -48,6 +62,8 @@ A/B 的 66 次测试评分累计分别为 **182.804 s** 和 **167.543 s**，B �
 - 干净检出历史回归：`run_tests()`，退出码 0，见 `clean_full_regression.log`；它不包含新增 Stage 7A.8 测试。
 - 正式配对：`run_stage7a8_study(pwd,'formal')`，66/66 配对等价，退出码 0，见 `formal_paired.log`。
 - 最终定向与结果完整性：`test_stage7a8_equivalence(pwd); test_stage7a8_result_integrity(pwd,'smoke'); test_stage7a8_result_integrity(pwd,'formal'); test_stage7a7_result_integrity(pwd)`，退出码 0，见 `final_targeted_and_integrity.log`；源码 SHA-256 核验退出码 0，见 `source_manifest_check.log`。
+- 提交 `7c1de33` 的干净检出：`run_tests(); test_stage7a8_equivalence(pwd); test_stage7a8_result_integrity(pwd,'smoke'); test_stage7a8_result_integrity(pwd,'formal')`，退出码 0，见 `current_head_clean_regression.log`。
+- 资源补充：`run_stage7a8_resource_audit(pwd,'smoke')` 与 `run_stage7a8_resource_audit(pwd,'formal')`，修复后的退出码均为 0，见 `resource_smoke_retry.log` 与 `resource_formal.log`；`test_stage7a8_resource_audit` 的 smoke/formal 两项退出码 0，见 `resource_integrity.log`。
 
 ## 解释边界
 
