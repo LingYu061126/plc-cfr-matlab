@@ -1,0 +1,4 @@
+PASS test_stage7a8_equivalence (3 paired observations)
+PASS test_stage7a8_result_integrity smoke (11 pairs)
+PASS test_stage7a8_result_integrity formal (66 pairs)
+PASS test_stage7a7_result_integrity smoke nominal

@@ -1,0 +1,12 @@
+sample_id,split,scenario,candidate_ids_match,rank_match,set_match,state_match,best_match,reason_match,distance_match,parameter_match,fit_match,optimizer_evaluations_match,max_distance_error,max_parameter_error,fit_error,a_seconds,b_seconds,speedup,equivalent
+T_inlib_G001_001,T_inlib,G001,1,1,1,1,1,1,1,1,1,1,0,0,0,4.031186,3.645615,1.10576295083271,1
+T_inlib_G002_001,T_inlib,G002,1,1,1,1,1,1,1,1,1,1,0,0,0,2.526911,2.662285,0.949151199063962,1
+T_inlib_G003_001,T_inlib,G003,1,1,1,1,1,1,1,1,1,1,0,0,0,3.123357,2.613887,1.19490896125196,1
+T_old_out_MIRROR_M3_001,T_old_out,MIRROR_M3,1,1,1,1,1,1,1,1,1,1,0,0,0,2.57864,2.436506,1.05833517339994,1
+T_old_out_EXT_111_001,T_old_out,EXT_111,1,1,1,1,1,1,1,1,1,1,0,0,0,2.467003,2.021581,1.2203334914604,1
+T_reachable_J30_000_001,T_reachable,J30_000,1,1,1,1,1,1,1,1,1,1,0,0,0,2.537666,2.145899,1.18256544226918,1
+T_reachable_J50_000_001,T_reachable,J50_000,1,1,1,1,1,1,1,1,1,1,0,0,0,2.292996,1.891164,1.21247866393396,1
+T_grammar_out_OUT10_001,T_grammar_out,OUT10,1,1,1,1,1,1,1,1,1,1,0,0,0,2.694081,2.319762,1.16136094995952,1
+T_grammar_out_OUT70_001,T_grammar_out,OUT70,1,1,1,1,1,1,1,1,1,1,0,0,0,2.43482,2.338818,1.04104722984003,1
+T_domain_G002_001,T_domain,G002_domain_out,1,1,1,1,1,1,1,1,1,1,0,0,0,2.645699,2.820186,0.93812925814113,1
+T_domain_G003_001,T_domain,G003_domain_out,1,1,1,1,1,1,1,1,1,1,0,0,0,2.991687,2.961851,1.01007343043252,1

@@ -1,0 +1,3 @@
+PASS test_stage7a7_candidate_space
+PASS test_stage7a7_search_and_identity
+PASS test_stage7a7_result_integrity smoke nominal

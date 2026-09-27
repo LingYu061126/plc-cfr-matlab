@@ -1,0 +1,11 @@
+[Warning: Column headers from the file were modified to make them valid MATLAB
+identifiers before creating variable names for the table. The original column
+headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as
+table variable names.]
+{Error using assert
+Assertion failed.
+
+Error in test_stage7a8_result_integrity (line 17)
+    assert(height(s)==2*n&&height(c)==2*n*37&&height(p)==n);
+}
