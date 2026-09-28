@@ -1,0 +1,21 @@
+Stage 7A.11 fixed_graph_new_noise: 3/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 6/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 9/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 12/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 15/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 18/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 21/24 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 24/24 observations scored.
+Stage 7A.11 new_structure_diagnostic: 3/12 observations scored.
+Stage 7A.11 new_structure_diagnostic: 6/12 observations scored.
+Stage 7A.11 new_structure_diagnostic: 9/12 observations scored.
+Stage 7A.11 new_structure_diagnostic: 12/12 observations scored.
+{Error using vertcat
+Dimensions of arrays being concatenated are not consistent.
+
+Error in exp_stage7a11_study (line 36)
+    rows=[rows;a];candidate_rows=[candidate_rows;b]; %#ok<AGROW>
+
+Error in run_stage7a11_study (line 9)
+    result=exp_stage7a11_study(root,mode,run_id);
+}

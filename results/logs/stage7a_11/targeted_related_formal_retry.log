@@ -1,0 +1,11 @@
+PASS test_stage7a11_selector: rows, order, sets, symmetry, identity
+PASS test_stage7a11_result_integrity formal formal1: 4920 samples, 187 groups
+PASS test_stage7a10_adaptive: selection, ambiguity, rejection, identity
+PASS test_stage7a10_result_integrity: 12960 samples, 810 summary rows
+PASS test_stage7a10r1_statistics: denominators, n/a and physical perturbation
+PASS test_stage7a10_result_integrity: 12960 samples, 810 summary rows
+PASS test_stage7a10r1_integrity: 12960 samples, 8640 pairs
+PASS test_stage7a4_forward_state: endpoint CFR, Zin and loaded node ports
+PASS test_stage7a4_joint_profile: mirror, same-theta templates, decision identity
+PASS test_stage7a6_candidate_space
+PASS test_stage7a9_equivalence: H 0, Zin 0 ohm, 12/60 spectra, 3 C37 pairs

@@ -1,0 +1,21 @@
+Stage 7A.11 fixed_graph_new_noise: 30/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 60/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 90/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 120/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 150/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 180/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 210/240 observations scored.
+Stage 7A.11 fixed_graph_new_noise: 240/240 observations scored.
+Stage 7A.11 new_structure_diagnostic: 30/120 observations scored.
+Stage 7A.11 new_structure_diagnostic: 60/120 observations scored.
+Stage 7A.11 new_structure_diagnostic: 90/120 observations scored.
+Stage 7A.11 new_structure_diagnostic: 120/120 observations scored.
+PASS Stage 7A.11 formal formal1: 4920 scored rows, 34.419 s
+
+ans =
+
+  struct with fields:
+
+    output_dir: '<REPOSITORY_ROOT>/results/data/stage7a_11/formal/formal1'
+      metadata: [1x1 struct]
+       summary: [187x19 table]

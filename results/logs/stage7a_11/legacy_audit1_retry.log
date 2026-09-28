@@ -1,0 +1,10 @@
+{Error using exp_stage7a11_diagnose_legacy>audit_one (line 107)
+stage7a10_confirm1 T20 diagnostic_pair seed 1900100001: archived
+REJECTED/G003/Inf; rebuilt REJECTED/G003/Inf
+
+Error in exp_stage7a11_diagnose_legacy (line 31)
+            [part,~]=audit_one(ss(i).observed,ss(i),truths,bank,old,names, ...
+
+Error in run_stage7a11_legacy_diagnostic (line 7)
+    result=exp_stage7a11_diagnose_legacy(root,run_id);
+}

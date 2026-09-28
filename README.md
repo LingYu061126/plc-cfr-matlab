@@ -4,7 +4,7 @@
 
 ## Current project status
 
-Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stage 6 复现闭环](docs/stage6_reproducibility_closure.md)。Stage 7A 已进行独立参数剖面搜索算法对照，但尚未替代 Stage 6B baseline；改进、退化和安全边界见 [Stage 7A 技术记录](docs/stage7a_technical_record.md)。本轮未撰写正式论文报告。Stage 4B 尚未启动；Multi-view CFR 是可选研究增强，尚未实现。
+Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stage 6 复现闭环](docs/stage6_reproducibility_closure.md)。Stage 7A 已进行独立参数剖面搜索算法对照，但尚未替代 Stage 6B baseline；改进、退化和安全边界见 [Stage 7A 技术记录](docs/stage7a_technical_record.md)。Stage 7A.10 已在受控合成模型内比较 H50、双端接 CFR、内部节点 CFR 与独立 Zin 观测，并完成 [R.1 统计及观测压力审计](docs/stage7a10_r1_report.md)；Stage 7A.11 进一步研究候选竞争与额外视角选择，见 [协议](docs/stage7a11_protocol.md) 和 [结果报告](docs/stage7a11_report.md)。这些研究未形成真实硬件或现场验证，也未自动替代 Stage 6B baseline。Stage 4B 尚未启动，正式论文报告尚未撰写。
 
 当前成果主要来自受控 MATLAB 模型内仿真，不是现场低压台区验证，也不是真实 PLC 收发机验证。NFFT、采样率、频率网格和导频配置仍含仿真假设。候选库覆盖真实拓扑不等于观测可辨识；`UNIQUE_CONFIDENT` 只表示给定模型、候选库和校准条件下的证据状态，不证明全局物理唯一。
 

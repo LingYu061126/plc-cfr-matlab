@@ -1,0 +1,13 @@
+{Error using assert
+If you specify a message identifier argument, you must specify the message text
+argument.
+
+Error in exp_stage7a11_diagnose_legacy>audit_one (line 101)
+        assert(hit.decision_state==string(z.decision_state) && ...
+
+Error in exp_stage7a11_diagnose_legacy (line 31)
+            [part,~]=audit_one(ss(i).observed,ss(i),truths,bank,old,names, ...
+
+Error in run_stage7a11_legacy_diagnostic (line 7)
+    result=exp_stage7a11_diagnose_legacy(root,run_id);
+}

@@ -1,0 +1,8 @@
+PASS Stage 7A.11 legacy audit: 3240 D rows match frozen records.
+
+ans =
+
+  struct with fields:
+
+    output_dir: '<REPOSITORY_ROOT>/results/data/stage7a_11/diagnostic/audit1'
+          rows: 3240

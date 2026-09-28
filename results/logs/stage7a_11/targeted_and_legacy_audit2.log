@@ -1,0 +1,10 @@
+PASS test_stage7a11_selector: rows, order, sets, symmetry, identity
+PASS test_stage7a11_result_integrity smoke smoke1: 492 samples, 187 groups
+PASS Stage 7A.11 legacy audit: 4320 D rows match frozen records.
+
+ans =
+
+  struct with fields:
+
+    output_dir: '<REPOSITORY_ROOT>/results/data/stage7a_11/diagnostic/audit2'
+          rows: 4320
