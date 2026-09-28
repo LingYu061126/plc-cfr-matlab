@@ -1,0 +1,16 @@
+condition,library,n,selected_terminal_n,selected_node_n,no_extra_n,node_bias_effective_n,termination_bias_effective_n,old_load_drift_effective_n
+T10,diagnostic_pair,120,0,18,102,0,0,0
+T10,expanded_six,120,0,57,63,0,0,0
+T10,original_three,120,0,37,83,0,0,0
+T20,diagnostic_pair,240,0,62,178,0,0,0
+T20,expanded_six,240,0,193,47,0,0,0
+T20,original_three,240,0,117,123,0,0,0
+T_load_drift,diagnostic_pair,120,0,31,89,0,0,0
+T_load_drift,expanded_six,120,0,96,24,0,0,0
+T_load_drift,original_three,120,0,58,62,0,0,0
+T_node_port_error,diagnostic_pair,120,0,28,92,28,0,0
+T_node_port_error,expanded_six,120,0,97,23,97,0,0
+T_node_port_error,original_three,120,0,55,65,55,0,0
+T_termination_error,diagnostic_pair,120,0,30,90,0,0,0
+T_termination_error,expanded_six,120,0,100,20,0,0,0
+T_termination_error,original_three,120,0,59,61,0,0,0

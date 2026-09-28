@@ -1,0 +1,2 @@
+stage,mode,run_id,audit_baseline_commit,bank_identity,matlab_version,architecture,parallel_workers,T_seed,repetitions_per_graph,physical_graphs,physical_observations,template_forward_calls,observation_forward_calls,template_logical_bytes,wall_s
+Stage 7A.10-R.1,formal,formal1,b76972dceb17e46710afcd8b10b8e3f19b9f0a31,b5710ae278642b0cd467a2a4c2b4a12457921079489c9a7b92a269fc2ae2e934,24.1.0.2537033 (R2024a),glnxa64,0,950000000,30,8,240,2160,5760,4490448,47.531901

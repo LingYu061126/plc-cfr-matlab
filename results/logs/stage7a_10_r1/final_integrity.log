@@ -1,0 +1,3 @@
+PASS test_stage7a10r1_statistics: denominators, n/a and physical perturbation
+PASS test_stage7a10_result_integrity: 12960 samples, 810 summary rows
+PASS test_stage7a10r1_integrity: 12960 samples, 8640 pairs
