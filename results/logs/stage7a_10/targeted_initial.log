@@ -1,0 +1,6 @@
+{Error using assert
+Unexpected identity-check error.
+
+Error in test_stage7a10_adaptive (line 37)
+        assert(strcmp(err.identifier,'stage7a10:BankIdentity'), ...
+} 

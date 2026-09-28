@@ -1,0 +1,6 @@
+Stage 7A.10 formal T20: 240 observations scored.
+Stage 7A.10 formal T10: 120 observations scored.
+Stage 7A.10 formal T_node_port_error: 120 observations scored.
+Stage 7A.10 formal T_termination_error: 120 observations scored.
+Stage 7A.10 formal T_load_drift: 120 observations scored.
+PASS stage7a10 formal retry1

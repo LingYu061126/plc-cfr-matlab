@@ -1,0 +1,15 @@
+{Error using nchoosek (line 65)
+K must be an integer between 0 and N.
+
+Error in stage7a10_adaptive_profile (line 20)
+        pair=zeros(1,nchoosek(numel(global_ix),2));cursor=0;
+
+Error in exp_stage7a10_study>adaptive_matrix (line 219)
+        p=stage7a10_adaptive_profile(samples(i).observed,bank,ix,sigma,selector,first);
+
+Error in exp_stage7a10_study (line 39)
+                ad=adaptive_matrix(aa,bank,ix,sigma,selector,firsts{q});
+
+Error in run_stage7a10_study (line 9)
+    out=exp_stage7a10_study(root,mode,run_id);
+} 

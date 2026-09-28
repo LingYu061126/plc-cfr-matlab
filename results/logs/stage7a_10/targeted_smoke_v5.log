@@ -1,0 +1,7 @@
+PASS test_stage7a10_adaptive: selection, ambiguity, rejection, identity
+Stage 7A.10 smoke T20: 24 observations scored.
+Stage 7A.10 smoke T10: 16 observations scored.
+Stage 7A.10 smoke T_node_port_error: 16 observations scored.
+Stage 7A.10 smoke T_termination_error: 16 observations scored.
+Stage 7A.10 smoke T_load_drift: 16 observations scored.
+PASS stage7a10 targeted+smoke v5
