@@ -1,0 +1,8 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+PASS test_stage7a12_confirm: identity, empty, competing graphs
+{Error using assert
+Candidate budget or set subset failed.
+
+Error in test_stage7a12_result_integrity (line 17)
+    assert(all(s.candidate_count<=3) && all(s.candidate_set_size<= ...
+}

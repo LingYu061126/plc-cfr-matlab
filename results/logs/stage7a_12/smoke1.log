@@ -1,0 +1,17 @@
+Stage 7A.12: 3/24 paired test observations.
+Stage 7A.12: 6/24 paired test observations.
+Stage 7A.12: 9/24 paired test observations.
+Stage 7A.12: 12/24 paired test observations.
+Stage 7A.12: 15/24 paired test observations.
+Stage 7A.12: 18/24 paired test observations.
+Stage 7A.12: 21/24 paired test observations.
+Stage 7A.12: 24/24 paired test observations.
+PASS Stage 7A.12 smoke smoke1: 432 rows, 9.488 s
+
+ans =
+
+  struct with fields:
+
+    output_dir: '[redacted workspace root]/results/data/stage7a_12/smoke/smoke1'
+       summary: [144x18 table]
+      metadata: [1x1 struct]

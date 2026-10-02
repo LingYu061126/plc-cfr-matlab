@@ -1,0 +1,10 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+PASS test_stage7a12_confirm: identity, empty, competing graphs
+{Array indices must be positive integers or logical values.
+
+Error in tabular/dotParenReference (line 109)
+    b = b(rowIndices);
+
+Error in test_stage7a12_result_integrity (line 29)
+        all(s.min_wrong_branch_edges(s.truth_generated)==0), ...
+}

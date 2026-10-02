@@ -1,0 +1,9 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+PASS test_stage7a12_confirm: identity, empty, competing graphs
+{Error using assert
+If you specify a message identifier argument, you must specify the message text
+argument.
+
+Error in test_stage7a12_result_integrity (line 16)
+    assert(all(s.candidate_count<=3) && all(s.candidate_set_size<= ...
+}

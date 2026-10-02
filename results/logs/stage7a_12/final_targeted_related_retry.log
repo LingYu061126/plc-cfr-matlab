@@ -1,0 +1,8 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+PASS test_stage7a12_confirm: identity, empty, competing graphs
+PASS test_stage7a12_result_integrity: 5400 samples, 180 groups
+PASS test_stage7a11_selector: rows, order, sets, symmetry, identity
+PASS test_stage7a10_adaptive: selection, ambiguity, rejection, identity
+PASS test_stage7a6_candidate_space
+PASS test_stage7a4_forward_state: endpoint CFR, Zin and loaded node ports
+PASS test_stage7a4_joint_profile: mirror, same-theta templates, decision identity

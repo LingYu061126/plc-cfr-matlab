@@ -1,0 +1,4 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+PASS test_stage7a12_confirm: identity, empty, competing graphs
+PASS test_stage7a12_result_integrity: 540 samples, 180 groups
+PASS test_stage7a11_selector: rows, order, sets, symmetry, identity

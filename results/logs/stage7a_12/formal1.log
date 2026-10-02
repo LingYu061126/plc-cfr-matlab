@@ -1,0 +1,10 @@
+Stage 7A.12: 30/240 paired test observations.
+Stage 7A.12: 60/240 paired test observations.
+Stage 7A.12: 90/240 paired test observations.
+Stage 7A.12: 120/240 paired test observations.
+Stage 7A.12: 150/240 paired test observations.
+Stage 7A.12: 180/240 paired test observations.
+Stage 7A.12: 210/240 paired test observations.
+Stage 7A.12: 240/240 paired test observations.
+PASS Stage 7A.12 formal formal1: 4320 rows, 23.070 s
+OUTPUT [redacted workspace root]/results/data/stage7a_12/formal/formal1

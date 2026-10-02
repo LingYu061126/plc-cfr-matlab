@@ -1,0 +1,7 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+{Error using assert
+Assertion failed.
+
+Error in test_stage7a12_confirm (line 34)
+        assert(strcmp(err.identifier,'stage7a12:BankIdentity'));
+}

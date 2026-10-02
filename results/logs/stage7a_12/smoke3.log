@@ -1,0 +1,13 @@
+PASS test_stage7a12_ci: common path, symmetry, generator, invisible branch
+Stage 7A.12: 3/30 paired test observations.
+Stage 7A.12: 6/30 paired test observations.
+Stage 7A.12: 9/30 paired test observations.
+Stage 7A.12: 12/30 paired test observations.
+Stage 7A.12: 15/30 paired test observations.
+Stage 7A.12: 18/30 paired test observations.
+Stage 7A.12: 21/30 paired test observations.
+Stage 7A.12: 24/30 paired test observations.
+Stage 7A.12: 27/30 paired test observations.
+Stage 7A.12: 30/30 paired test observations.
+PASS Stage 7A.12 smoke smoke3: 540 rows, 5.149 s
+PASS test_stage7a12_result_integrity: 540 samples, 180 groups
