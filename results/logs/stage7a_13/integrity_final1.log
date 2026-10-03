@@ -1,0 +1,2 @@
+PASS test_stage7a13_result_integrity smoke/smoke2: 972 samples, 324 groups.
+PASS test_stage7a13_result_integrity formal/formal1: 9720 samples, 324 groups.

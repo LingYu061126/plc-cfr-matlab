@@ -1,10 +1,12 @@
 # Project State
 
-更新时间：2026-09-28
+更新时间：2026-10-03
 
 ## Current stage
 
 Stage 6 Archive Closure completed。Stage 7A 至 Stage 7A.10-R.1 的受控算法、候选空间、CFR/Zin 多视角观测及有效压力审计已归档。Stage 7A.11 的候选竞争与联合额外视角选择对照见 [报告](stage7a11_report.md)：新规则未改善同批校准的旧 D，且新结构批暴露库外错误唯一，不提升为默认确认器。Stage 6B 仍是独立 baseline；Stage 4B 未启动，正式论文报告尚未完成。多视角 CFR **已在模型内实验**，但没有真实端口、PLC 收发机或现场验证。
+
+Stage 7A.12 的独立低频 CI 辅助候选生成见 [报告](stage7a12_report.md)。Stage 7A.13 已完成诊断重建、同批校准的桥接对照和正式模型内实验，见 [协议](stage7a13_protocol.md)与[报告](stage7a13_report.md)。表计数分层门槛未提高初始库内正确唯一率，且明显低于旧冻结 A3，因此不替换默认流程。当前脏工作树中的完整 `run_tests()` 被 Stage 4A formal clean-Git 身份保护拦截；Stage 7A.13 定向测试、结果完整性测试和 Stage 7A.12 相关回归已通过。
 
 ## Completed
 
@@ -18,6 +20,7 @@ Stage 6 Archive Closure completed。Stage 7A 至 Stage 7A.10-R.1 的受控算法
 - Stage 7A.4-R.1/R.2：在每次复输入阻抗观测误差仍为 1 Ω RMS 的二拓扑合成控制中，分别审计固定参数下的阻抗差分辨率与有界连续参数拟合；独立测试、紧凑汇总、配置和日志见 [汇总报告](stage7a4_resolution_closure.md)。
 - Stage 7A.10/R.1：H50、端接/节点 CFR 和独立 Zin50 的模型内对照及统计、物理状态成本和有效节点压力审计；见 [原报告](stage7a10_report.md) 与 [补充审计](stage7a10_r1_report.md)。
 - Stage 7A.11：候选竞争原因分解、独立校准的 H50 条件化联合视角选择负结果与新结构库外风险；见 [协议](stage7a11_protocol.md) 与 [报告](stage7a11_report.md)。
+- Stage 7A.13：重建 Stage 7A.12 `confirm3` 的 4320 条判决且差异为 0；以独立结构校准对照 fixed/ideal/estimated/count-matched CI，正式批次产生 9720 条方法结果，见 [报告](stage7a13_report.md)。新增方案是研究性负结果，并非默认流程升级。
 
 ## Key commits
 
@@ -76,4 +79,4 @@ Stage 6 Archive Closure completed。Stage 7A 至 Stage 7A.10-R.1 的受控算法
 
 ## Next recommended step
 
-下一轮应优先核实独立 Zin 或其他可获得观测的测量误差与端口可达性，并扩大候选生成及库外结构家族；开放集质量门和库内候选集合须分别校准。Stage 7A.11 的 J 选择器未通过新结构安全性检查，不替换现有 D 或 Stage 6B baseline。正式报告／论文综合撰写与真实硬件验证尚未完成。
+下一轮应优先核实 H50 确认距离的跨结构尺度、零支路独立校准结构，以及新增观测的测量误差与端口可达性；若没有新的独立证据，不应继续在同一正式测试批次上调门槛。Stage 7A.11 的 J 选择器和 Stage 7A.13 分层确认器均不替换现有 D 或 Stage 6B baseline。正式报告／论文综合撰写与真实硬件验证尚未完成。

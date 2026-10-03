@@ -1,0 +1,8 @@
+{Array indices must be positive integers or logical values.
+
+Error in tabular/dotParenReference (line 109)
+    b = b(rowIndices);
+
+Error in test_stage7a13_result_integrity (line 19)
+    assert(isempty(intersect(graphs.signature(graphs.calibration), ...
+}

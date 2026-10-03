@@ -1,0 +1,6 @@
+{Error using assert
+388 Stage 7A.12 rows differ after reconstruction.
+
+Error in exp_stage7a13_diagnose_confirm3 (line 144)
+    assert(mismatch==0,'stage7a13:ArchiveMismatch', ...
+}

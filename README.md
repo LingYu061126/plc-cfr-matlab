@@ -8,6 +8,8 @@ Stage 6 归档与复现证据见 [项目状态](docs/PROJECT_STATE.md) 和 [Stag
 
 Stage 7A.12 增加独立低频耦合阻抗合成量测，研究其辅助物理图候选生成后再由 CFR 确认的得失；[协议](docs/stage7a12_protocol.md)和[报告](docs/stage7a12_report.md)记录了初始库外真图生成覆盖提高、但库内确认明显退化的完整对照。它不是当前默认识别流程。MATLAB 从仓库根目录运行 `run_stage7a12_study(pwd,'smoke','local_smoke')` 或 `run_stage7a12_study(pwd,'formal','local_formal')`；使用未占用的 run ID，输出到 `results/data/stage7a_12/<mode>/<run_id>/`，不会覆盖已归档运行。
 
+Stage 7A.13 对候选生成后的确认失败逐样本分解，并比较独立校准的 pooled/表计数分层 H50 门槛。[协议](docs/stage7a13_protocol.md)与[报告](docs/stage7a13_report.md)给出完整分母和负结果：分层方案未提高库内正确唯一率，不替换默认流程。MATLAB 从根目录运行 `run_stage7a13_study(pwd,'smoke','new_smoke_id')` 或 `run_stage7a13_study(pwd,'formal','new_formal_id')`；仅使用未占用的 run ID，输出到 `results/data/stage7a_13/<mode>/<run_id>/`。低频 CI 是独立合成量测，不是 PLC CFR 或真实表计的已验证能力。
+
 当前成果主要来自受控 MATLAB 模型内仿真，不是现场低压台区验证，也不是真实 PLC 收发机验证。NFFT、采样率、频率网格和导频配置仍含仿真假设。候选库覆盖真实拓扑不等于观测可辨识；`UNIQUE_CONFIDENT` 只表示给定模型、候选库和校准条件下的证据状态，不证明全局物理唯一。
 
 ## Current research pipeline

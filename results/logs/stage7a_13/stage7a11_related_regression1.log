@@ -1,0 +1,2 @@
+PASS test_stage7a11_selector: rows, order, sets, symmetry, identity
+PASS test_stage7a11_result_integrity smoke smoke1: 492 samples, 187 groups

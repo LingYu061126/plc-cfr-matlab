@@ -1,0 +1,3 @@
+PASS test_stage7a13_confirm: identity, pooled bridge, margin safety
+PASS test_stage7a13_structure_audit: four graph meanings
+PASS test_stage7a13_split: independent identities and fallback

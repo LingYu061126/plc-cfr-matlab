@@ -1,0 +1,6 @@
+{Error using assert
+Assertion failed.
+
+Error in test_stage7a13_confirm (line 67)
+        assert(strcmp(err.identifier,'stage7a13:BankIdentity'));
+}
